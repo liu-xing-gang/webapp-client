@@ -1,7 +1,5 @@
 @charset "utf-8";
-html,body{
-    background-color: #f2f2f2;
-}
+
 .index .species:after{
     display: block;
     clear: both;
@@ -111,64 +109,6 @@ html,body{
 .index .species, .index .plate{
     padding: 0 .3rem;
 }
-
-.index .news{
-    position: relative; overflow: hidden;
-    height: .76rem; margin-bottom: .12rem; padding: .2rem .3rem .2rem .76rem;
-    font-size: .28rem;
-    color: #808080;
-    background-color: #fff;
-}
-
-.index .news a{
-    vertical-align: middle;
-}
-
-.index .news i{
-    font-style: normal;
-    color: #333;
-}
-
-.index .news::before{
-    content: '';
-    position: absolute;
-    left: .3rem;
-    top: 50%;
-    width: .36rem;
-    height: .36rem;
-    transform: translateY(-50%);
-    -webkit-transform: translateY(-50%);
-    -moz-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    -o-transform: translateY(-50%);
-    background: url(../../images/icon-horn.png) no-repeat center;
-    background-size: contain;
-}
-
-.index .news .swiper-container {
-    width: 100%;
-    height: 100%;
-}
-.index .news .swiper-slide {
-    /* display: -webkit-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    -webkit-justify-content: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    -webkit-align-items: center;
-    align-items: center; */
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    line-height: .36rem;
-} 
 
 .index .match{
     margin-bottom: .12rem;

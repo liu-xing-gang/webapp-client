@@ -1,0 +1,235 @@
+@charset "utf-8";
+.marb20{
+    margin-bottom: .2rem;
+}
+
+.font30{
+    font-size: .3rem;
+    color: #303030;
+}
+
+.font24{
+    font-size: .24rem;
+    color: #808080;
+}
+
+.awards span{
+    vertical-align: middle;
+}
+
+.awards i{
+    font-style: normal;
+}
+
+.awards .award-cell{
+    padding: 0 .3rem;
+    border-bottom: 1px solid #f2f2f2;
+    background-color: #fff;
+}
+
+@keyframes opacity{
+    0%{
+        opacity: 0;
+        filter: alpha(opacity=0);
+        -webkit-filter: alpha(opacity=0);
+        transform: scale(2);
+        -webkit-transform: scale(2);
+        -moz-transform: scale(2);
+        -ms-transform: scale(2);
+        -o-transform: scale(2);
+}
+    100%{
+        opacity: 1;
+        filter: alpha(opacity=100);
+        -webkit-filter: alpha(opacity=100);
+        transform: scale(1);
+        -webkit-transform: scale(1);
+        -moz-transform: scale(1);
+        -ms-transform: scale(1);
+        -o-transform: scale(1);
+}
+}
+
+@keyframes rotate360{
+    0%{
+        opacity: 0;
+        width: 0;
+        height: 0;
+        left: 50%;
+        top:50%;
+        filter: alpha(opacity=0);
+        -webkit-filter: alpha(opacity=0);
+        transform: rotate(0deg) scale(2);
+        -webkit-transform: rotate(0deg) scale(2);
+        -moz-transform: rotate(0deg) scale(2);
+        -ms-transform: rotate(0deg) scale(2);
+        -o-transform: rotate(0deg) scale(2);
+    }
+    20%{
+        opacity: .2;
+        filter: alpha(opacity=20);
+        -webkit-filter: alpha(opacity=20);
+        transform: rotate(60deg);
+        -webkit-transform: rotate(60deg);
+        -moz-transform: rotate(60deg);
+        -ms-transform: rotate(60deg);
+        -o-transform: rotate(60deg);
+    }
+    40%{
+        opacity: .4;
+        filter: alpha(opacity=40);
+        -webkit-filter: alpha(opacity=40);
+        transform: rotate(120deg);
+        -webkit-transform: rotate(120deg);
+        -moz-transform: rotate(120deg);
+        -ms-transform: rotate(120deg);
+        -o-transform: rotate(120deg);
+    }
+    60%{
+        opacity: .6;
+        filter: alpha(opacity=60);
+        -webkit-filter: alpha(opacity=60);
+        transform: rotate(180deg);
+        -webkit-transform: rotate(180deg);
+        -moz-transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+        -o-transform: rotate(180deg);
+    }
+    80%{
+        opacity: .8;
+        filter: alpha(opacity=80);
+        -webkit-filter: alpha(opacity=80);
+        transform: rotate(240deg);
+        -webkit-transform: rotate(240deg);
+        -moz-transform: rotate(240deg);
+        -ms-transform: rotate(240deg);
+        -o-transform: rotate(240deg);
+    }
+    100%{
+        opacity: 1;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        filter: alpha(opacity=100);
+        -webkit-filter: alpha(opacity=100);
+        transform: rotate(360deg) scale(1);
+        -webkit-transform: rotate(360deg) scale(1);
+        -moz-transform: rotate(360deg) scale(1);
+        -ms-transform: rotate(360deg) scale(1);
+        -o-transform: rotate(360deg) scale(1);
+    }
+}
+
+.awards .a-name{
+    margin-right: .3rem;
+}
+
+.awards .a-header{
+    padding: .3rem 0 .32rem;
+}
+
+.awards .a-num{
+    float: left;
+    position: relative;
+    display: block;
+    width: .64rem;
+    height: .64rem;
+    margin-right: .12rem;
+    font-size: .28rem;
+    text-align: center;
+    line-height: .64rem;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    color: #fff;
+    background-color: #de4846;
+    animation: opacity .5s ease;
+    -webkit-animation: opacity .5s ease;
+}
+
+.awards .a-num-blue{
+    background-color: #5fa0e4;
+}
+
+.awards .a-main{
+    padding-bottom: .42rem;
+}
+
+.awards .a-num i{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: block;
+    animation: rotate360 .5s ease;
+    -webkit-animation: rotate360 .5s ease;
+}
+
+.awards .a-num:nth-child(2) i{
+    animation-delay: .2s;
+}
+
+.awards .a-num:nth-child(3) i{
+    animation-delay: .24s;
+}
+
+.awards .a-num:nth-child(4) i{
+    animation-delay: .28s;
+}
+
+.awards .a-num:nth-child(5) i{
+    animation-delay: .32s;
+}
+
+.awards .a-num:nth-child(6) i{
+    animation-delay: .36s;
+}
+
+.awards .a-num:nth-child(7) i{
+    animation-delay: .4s;
+}
+
+.awards .a-num:nth-child(2){
+    animation-delay: .2s;
+}
+
+.awards .a-num:nth-child(3){
+    animation-delay: .24s;
+}
+
+.awards .a-num:nth-child(4){
+    animation-delay: .28s;
+}
+
+.awards .a-num:nth-child(5){
+    animation-delay: .32s;
+}
+
+.awards .a-num:nth-child(6){
+    animation-delay: .36s;
+}
+
+.awards .a-num:nth-child(7){
+    animation-delay: .4s;
+}
+
+.awards .versus{
+    height: .64rem;
+    border-radius: .32rem;
+    font-size: .28rem;
+    color: #fff;
+    background-color: #8bc442;
+    -webkit-border-radius: .32rem;
+    -moz-border-radius: .32rem;
+    -ms-border-radius: .32rem;
+    -o-border-radius: .32rem;
+}
+
+.awards .versus span{
+    display: inline-block; *display: inline; *zoom: 1;
+    vertical-align: middle;
+}
+
+

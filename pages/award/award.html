@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>开奖</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../../mui/css/mui.min.css">
+    <link rel="stylesheet" href="../../libs/swiper.min.css">
+    <link rel="stylesheet" href="../../app.css" />
+    <link rel="stylesheet" href="award.css">
+    <script src="../../app.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <header class="title">
+            <span>开奖信息</span>
+            <a href="" class="btn-basic btn-ar"><img src="../../images/btn-setting.png" alt="" class="img-responsive"></a>
+        </header>
+        <main class="container">
+            <div class="news">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <a href="">1羡慕<i>60000.00元</i>足球奖金已被**63收入囊中</a>
+                        </div>
+                        <div class="swiper-slide">
+                            <a href="">2羡慕<i>60000.00元</i>足球奖金已被**63收入囊中</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <section class="awards">
+                <div class="award-cell arrow-r2">
+                    <h1 class="a-header">
+                        <span class="font30 a-name">双色球</span>
+                        <span class="font24">第2018030期 </span>
+                        <span class="font24">2018-06-17（星期日）</span>
+                    </h1>
+                    <div class="a-main">
+                        <span class="a-num"><i>06</i></span>
+                        <span class="a-num"><i>13</i></span>
+                        <span class="a-num"><i>17</i></span>
+                        <span class="a-num"><i>19</i></span>
+                        <span class="a-num"><i>23</i></span>
+                        <span class="a-num"><i>31</i></span>
+                        <span class="a-num a-num-blue"><i>12</i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="award-cell arrow-r2">
+                    <h1 class="a-header">
+                        <span class="font30 a-name">竞彩足球</span>
+                        <span class="font24">主队vs客队 </span>
+                        <span class="font24">2018-06-18</span>
+                    </h1>
+                    <div class="a-main">
+                        <div class="versus">
+                            <span><img src="" alt=""></span>
+                            <span>-1 休斯顿</span>
+                            <span>1:0</span>
+                            <span>明尼苏达</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <nav class="navbar">
+            <div class="table">
+                <div class="table-cell">
+                    <a href="../../index.html" class="nav-item">
+                        <div class="nav-box nav-home"></div>
+                        <div class="nav-txt">首页</div>
+                    </a>
+                </div>
+                <div class="table-cell">
+                    <a href="#" class="nav-item active">
+                        <div class="nav-box nav-award"></div>
+                        <div class="nav-txt">开奖</div>
+                    </a>
+                </div>
+                <div class="table-cell">
+                    <a href="" class="nav-item">
+                        <div class="nav-box nav-discover"></div>
+                        <div class="nav-txt">发现</div>
+                    </a>
+                </div>
+                <div class="table-cell">
+                    <a href="" class="nav-item">
+                        <div class="nav-box nav-mine"></div>
+                        <div class="nav-txt">我的</div>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <script src="../../libs/vue.min.js"></script>
+    <script src="../../libs/swiper.min.js"></script>
+    <script src="../../mui/js/mui.min.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                arrSpecies: []
+            },
+            mounted: function() {},
+            methods: {}
+        })
+
+        var swiperNews = new Swiper('.news .swiper-container', {
+            allowTouchMove: false,
+            direction: 'vertical',
+            autoplay: true,
+            loop: true,
+            speed: 1000,
+        });
+    </script>
+
+</body>
+
+</html>
