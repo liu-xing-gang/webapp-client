@@ -261,6 +261,35 @@ a:active {
     background-size: .28rem .28rem;
 }
 
+.arrow-r3{
+    background: url(images/arrow-r-black.png) no-repeat 7rem center;
+    background-size: .28rem .28rem;
+}
+
+.arrow-r4{
+    padding-right: .4rem;
+    background: url(images/arrow-r-gray.png) no-repeat right center;
+    background-size: .28rem .28rem;
+}
+
+.arrow-down{
+    background: url(images/arrow-down.png) no-repeat right center;
+    background-size: .28rem .28rem;
+}
+
+.active .arrow-down{
+    background: url(images/arrow-down-active.png) no-repeat center;
+    background-size: .28rem .28rem;
+}
+
+.active .arrow-down.show{
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+}
+
 .nav-home {
     background: url(images/nav-home.png) no-repeat center;
     background-size: .48rem .48rem;
@@ -304,7 +333,7 @@ a:active {
 /* title */
 
 .title {
-    position: fixed; z-index: 4;
+    position: fixed; z-index: 8;
     left: auto; right: auto; top: 0;
     width: 100%;
     max-width: 750px;
@@ -317,10 +346,28 @@ a:active {
 }
 
 .btn-basic {
-    display: block;
+    /* display: block;
     width: .44rem;
     height: .44rem;
-    overflow: hidden;
+    overflow: hidden; */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.btn-basic .btn-basic-txt{
+    padding-left: .1rem;
+    color: #fff;
+}
+
+.btn-basic img{
+    width: .44rem;
+    height: .44rem;
 }
 
 .btn-ar {
@@ -394,5 +441,137 @@ a:active {
 }
 
 .container {
-    margin: .88rem 0 .1rem;
+    padding: .88rem 0 1rem;
+}
+
+.bg1{
+    background-color: #e8a445!important;
+}
+
+.font22{
+    font-size: .22rem;
+    color: #a2a2a2;
+}
+
+.font24{
+    font-size: .24rem;
+    color: #303030;
+}
+
+.font28{
+    font-size: .28rem;
+    color: #303030;
+}
+
+.font32{
+    font-size: .32rem;
+    color: #303030;
+}
+
+.font36{
+    font-size: .36rem;
+    color: #303030;
+}
+
+.txt-center{
+    text-align: center;
+}
+
+.txt-jusify{
+    text-align: justify;
+}
+
+#back{
+    position: absolute;
+    left: .2rem;
+    top: 50%;
+    width: .44rem; height: .44rem;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    color: #fff;
+    background: url(images/arrow-l.png) no-repeat center;
+    background-size: .44rem .44rem;
+}
+
+#back::before{
+    content: '';
+}
+
+.btn-drop-down{
+    position: relative;
+    width: 2.7rem; margin: 0 auto;
+    text-align: right;
+}
+
+.btn-drop-down .i{
+    display: block;
+    width: .2rem;
+    font-style: normal;
+    font-size: .2rem;
+    line-height: 1.2;
+
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    color: #fff;
+}
+
+.btn-drop-down .txt{
+    position: relative;
+    display: inline-block;
+    line-height: 1;
+    padding: .08rem .48rem .08rem .2rem;
+    border: 1px solid #fff;
+    border-radius: .1rem;
+    -webkit-border-radius: .1rem;
+    -moz-border-radius: .1rem;
+    -ms-border-radius: .1rem;
+    -o-border-radius: .1rem;
+}
+
+.btn-drop-down .txt::after{
+    content: '';
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: .48rem;
+    height: .48rem;
+    margin: -.24rem 0 0 0;
+    background: url(images/icon-trangle-down.png) no-repeat center;
+    background-size: contain;
+    transition: .3s ease;
+    -webkit-transition: .3s ease;
+    -moz-transition: .3s ease;
+    -ms-transition: .3s ease;
+    -o-transition: .3s ease;
+}
+
+.btn-drop-down.active .txt::after{
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+}
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity .5s;
+}
+
+.fade-enter,
+.fade-leave-to
+/* .fade-leave-active below version 2.1.8 */
+
+    {
+    opacity: 0;
 }

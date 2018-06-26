@@ -128,8 +128,12 @@ CcpClient.Common = (function () {
                 slider.appendChild(slider_group);
                 document.body.appendChild(slider);
                 var _slider = mui(slider).slider();
-
             }
+
+            /**
+             * 6红和1蓝球随机数
+             */
+
         }
 
         return {

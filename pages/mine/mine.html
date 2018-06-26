@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../../mui/css/mui.min.css">
+    <link rel="stylesheet" href="../../libs/swiper.min.css">
+    <link rel="stylesheet" href="../../app.css" />
+    <link rel="stylesheet" href="mine.css">
+    <script src="../../app.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <main class="main user">
+            <section class="panel">
+                <div class="panel-head">
+                    <a href="">客服</a>
+                    <a href="" class="btn-setting">
+                        <img src="../../images/btn-setting-2.png" alt="" class="img-responsive">
+                    </a>
+                </div>
+                <div class="panel-body">
+                    <div class="avatar">
+                        <img src="../../images/member_icon.png" alt="" class="img-responsive">
+                    </div>
+                    <h1 class="nickname">Tom</h1>
+                    <p class="balance"><a href="" class="btn-balance">余额 <b>0.00</b> 元</a></p>
+                    <div class="member-red-env" onclick="toRedEnv()">
+                        <img src="../../images/member_red_env.png">
+                        <span>红包0个</span>
+                    </div>
+                </div>
+                <div class="panel-foot">
+                    <div class="table">
+                        <div class="table-cell">
+                            <a href="" class="btn-recharge">充值</a>
+                        </div>
+                        <div class="table-cell">
+                            <a href="" class="btn-cash">提现</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="query">
+                <div class="query-head">
+                    <div class="tab table">
+                        <div class="table-cell active" @click="show = !show">
+                            <span class="">全部订单
+                            <i :class="show == true ? 'icon-toggle arrow-down show' : 'icon-toggle arrow-down'"></i>
+                        </span>
+                        </div>
+                        <div class="table-cell">
+                            <span>中奖订单</span>
+                        </div>
+                        <div class="table-cell">
+                            <span>待开奖订单</span>
+                        </div>
+                    </div>
+                    <transition name="fade">
+                        <div class="query-type" v-if="show">
+                            <a href="" class="btn-type active">全部订单</a>
+                            <a href="" class="btn-type">追号订单</a>
+                        </div>
+                    </transition>
+                </div>
+                <div class="swiper-container">
+                    <div class="swiper-scrollbar"></div>
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <section class="list">
+                                <div class="list-item">
+                                    <div class="list-item-time">
+                                        <h1 class="font24">6月</h1>
+                                        <h2 class="font36">18</h2>
+                                    </div>
+                                    <div class="list-item-cont">
+                                        <a href="" class="an-order">
+                                            <div class="font32">竞彩足球混合过关</div>
+                                            <div class="font22"><span>10.00元</span><span>普通订单</span></div>
+                                            <div class="list-item-status arrow-r4">未中奖</div>
+                                        </a>
+                                        <a href="" class="an-order">
+                                            <div class="font32">竞彩足球混合过关</div>
+                                            <div class="font22"><span>10.00元</span><span>普通订单</span></div>
+                                            <div class="list-item-status arrow-r4">未中奖</div>
+                                        </a>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="list-item">
+                                    <div class="list-item-time">
+                                        <h1 class="font24">6月</h1>
+                                        <h2 class="font36">17</h2>
+                                    </div>
+                                    <div class="list-item-cont">
+                                        <a href="" class="an-order">
+                                            <div class="font32">竞彩足球混合过关</div>
+                                            <div class="font22"><span>10.00元</span><span>普通订单</span></div>
+                                            <div class="list-item-status arrow-r4">未中奖</div>
+                                        </a>
+                                        <a href="" class="an-order">
+                                            <div class="font32">竞彩足球混合过关</div>
+                                            <div class="font22"><span>10.00元</span><span>普通订单</span></div>
+                                            <div class="list-item-status arrow-r4">未中奖</div>
+                                        </a>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="not-available txt-center">
+                                暂无数据~
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="not-available txt-center">
+                                暂无数据~
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <nav class="navbar">
+            <div class="table">
+                <div class="table-cell">
+                    <a href="../../index.html" class="nav-item">
+                        <div class="nav-box nav-home"></div>
+                        <div class="nav-txt">首页</div>
+                    </a>
+                </div>
+                <div class="table-cell">
+                    <a href="../award/award.html" class="nav-item">
+                        <div class="nav-box nav-award"></div>
+                        <div class="nav-txt">开奖</div>
+                    </a>
+                </div>
+                <div class="table-cell">
+                    <a href="../discover/discover.html" class="nav-item">
+                        <div class="nav-box nav-discover"></div>
+                        <div class="nav-txt">发现</div>
+                    </a>
+                </div>
+                <div class="table-cell">
+                    <a href="#" class="nav-item active">
+                        <div class="nav-box nav-mine"></div>
+                        <div class="nav-txt">我的</div>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <script src="../../libs/vue.min.js"></script>
+    <script src="../../libs/swiper.min.js"></script>
+    <script src="../../mui/js/mui.min.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                show: false,
+            },
+            mounted: function() {},
+            methods: {}
+        })
+
+        var swiper = new Swiper('.query .swiper-container', {
+            scrollbar: {
+                el: '.swiper-scrollbar',
+                hide: false,
+            },
+            on:{
+                slideChange: function(){
+                    vm.$data.show = false
+                    var activeIndex = this.activeIndex
+                    // console.log(document.querySelectorAll('.tab .table-cell'))
+                    document.querySelectorAll('.tab .table-cell').forEach(function(i, index, arr){
+                        if(index === activeIndex )
+                            i.className = 'table-cell active'
+                        else
+                            i.className = 'table-cell'
+                    })
+                },
+            },
+        });
+
+        // 点击选项卡滑动到对应内容
+        function swiperTo(index){
+            try{
+                swiper.slideTo(index, 1000, false)
+            } catch (e) {
+                console.log(e.message)
+            }
+        }
+
+        // 绑定点击事件
+        document.querySelectorAll('.tab .table-cell').forEach(function(i, index){
+            i.onclick = function () {
+                swiperTo(index)
+            }
+        })
+    </script>
+
+</body>
+
+</html>

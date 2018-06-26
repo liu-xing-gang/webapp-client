@@ -230,6 +230,73 @@
 .awards .versus span{
     display: inline-block; *display: inline; *zoom: 1;
     vertical-align: middle;
+    margin: 0 .2rem;
+}
+
+.awards .versus{
+    position: relative;
+    width: 88%;
+    text-align: center; line-height: .64rem;
+}
+
+.awards .v-box{
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: .64rem;
+    height: .64rem;
+    overflow: hidden;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+.awards .w248{
+    width: 2.48rem;
+    height: .64rem;
+    border-radius: .32rem;
+    text-align: center;
+    line-height: .64rem;
+    background-color: #5ba16a;
+    -webkit-border-radius: .32rem;
+    -moz-border-radius: .32rem;
+    -ms-border-radius: .32rem;
+    -o-border-radius: .32rem;
+}
+
+.awards .w248 .dice:first-child{
+    background: url(../../images/szk3.png) no-repeat;
+    background-size: .44rem auto;
+    background-position: 0 -1.3rem;
+}
+.awards .w248 .dice:nth-child(2){
+    background: url(../../images/szk3.png) no-repeat;
+    background-size: .44rem auto;
+    background-position: 0 -1.73rem;
+}
+.awards .w248 .dice:last-child{
+    background: url(../../images/szk3.png) no-repeat;
+    background-size: .44rem auto;
+    background-position: 0 -2.17rem;
+}
+
+.awards .dice{
+    display: inline-block;
+    width: .44rem; height: .44rem; margin: .1rem .05rem;
+    overflow: hidden;
+}
+
+.awards .dice-sum{
+    margin-left: .36rem;
+    font-size: .3rem; color: #000;
+    line-height: .64rem;
 }
 
 

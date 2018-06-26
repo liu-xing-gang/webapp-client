@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../../mui/css/mui.min.css">
+    <link rel="stylesheet" href="../../libs/swiper.min.css">
+    <link rel="stylesheet" href="../../app.css" />
+    <link rel="stylesheet" href="discover.css">
+    <script src="../../app.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <header class="title">
+            <span>发现</span>
+        </header>
+        <main class="container">
+            <section class="discover">
+                <div class="table-view">
+                    <div class="entry arrow-r3">
+                        <a href="" class="entry-link">
+                            <div class="inline-block ebox"><img src="../../images/icon-rein.png" alt=""></div>
+                            <div class="inline-block ebox-txt">世界杯猜球</div>
+                        </a>
+                    </div>
+                </div>
+                <div class="table-view">
+                    <div class="entry arrow-r3 margt30">
+                        <a href="" class="entry-link">
+                            <div class="inline-block ebox"><img src="../../images/icon-circle.png" alt=""></div>
+                            <div class="inline-block ebox-txt">圈子</div>
+                        </a>
+                    </div>
+                </div>
+                <div class="table-view margt30">
+                    <div class="entry arrow-r3">
+                        <a href="" class="entry-link">
+                            <div class="inline-block ebox"><img src="../../images/icon-circle.png" alt=""></div>
+                            <div class="inline-block ebox-txt">免费刮卡</div>
+                        </a>
+                    </div>
+                    <div class="entry arrow-r3">
+                        <a href="" class="entry-link">
+                            <div class="inline-block ebox"><img src="../../images/icon-rein.png" alt=""></div>
+                            <div class="inline-block ebox-txt">大神推荐</div>
+                        </a>
+                    </div>
+                    <div class="entry arrow-r3">
+                        <a href="" class="entry-link">
+                            <div class="inline-block ebox"><img src="../../images/icon-circle.png" alt=""></div>
+                            <div class="inline-block ebox-txt">AI看球</div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="table-view margt30">
+                    <div class="entry arrow-r3">
+                        <a href="" class="entry-link">
+                            <div class="inline-block ebox"><img src="../../images/icon-circle.png" alt=""></div>
+                            <div class="inline-block ebox-txt">减188元</div>
+                        </a>
+                    </div>
+                    <div class="entry arrow-r3">
+                        <a href="" class="entry-link">
+                            <div class="inline-block ebox"><img src="../../images/icon-circle.png" alt=""></div>
+                            <div class="inline-block ebox-txt">趣味测试</div>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <nav class="navbar">
+            <div class="table">
+                <div class="table-cell">
+                    <a href="../../index.html" class="nav-item">
+                        <div class="nav-box nav-home"></div>
+                        <div class="nav-txt">首页</div>
+                    </a>
+                </div>
+                <div class="table-cell">
+                    <a href="../award/award.html" class="nav-item">
+                        <div class="nav-box nav-award"></div>
+                        <div class="nav-txt">开奖</div>
+                    </a>
+                </div>
+                <div class="table-cell">
+                    <a href="#" class="nav-item active">
+                        <div class="nav-box nav-discover"></div>
+                        <div class="nav-txt">发现</div>
+                    </a>
+                </div>
+                <div class="table-cell">
+                    <a href="../mine/mine.html" class="nav-item">
+                        <div class="nav-box nav-mine"></div>
+                        <div class="nav-txt">我的</div>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <script src="../../libs/vue.min.js"></script>
+    <script src="../../libs/swiper.min.js"></script>
+    <script src="../../mui/js/mui.min.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                arrSpecies: []
+            },
+            mounted: function() {},
+            methods: {}
+        })
+
+        var swiperNews = new Swiper('.news .swiper-container', {
+            allowTouchMove: false,
+            direction: 'vertical',
+            autoplay: true,
+            loop: true,
+            speed: 1000,
+        });
+    </script>
+
+</body>
+
+</html>
