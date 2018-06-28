@@ -1,5 +1,7 @@
 @charset "utf-8";
-.user {}
+.user {
+    margin-bottom: 1rem;
+}
 
 .user .panel {
     background: url(../../images/member_bg2-cdf90644df80c0fe08c50420cc59e5b4.png) no-repeat;
@@ -216,8 +218,25 @@
     position: relative;
     display: block;
     padding: .16rem .2rem;
+    padding: .16rem .56rem .16rem .2rem;
     border-bottom: 1px solid #e5e5e3;
     background-color: #fff;
+}
+
+.user .an-order::after{
+    content: '';
+    position: absolute;
+    right: .16rem;
+    top: 50%;
+    width: .28rem;
+    height: .28rem;
+    background: url(../../images/arrow-r-gray.png) no-repeat right center;
+    background-size: .28rem .28rem;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
 }
 
 .user .an-order:last-child {
@@ -225,12 +244,12 @@
 }
 
 .user .list-item-cont .font32 {
-    margin-bottom: .06rem;
+    margin-bottom: .1rem;
 }
 
 .user .list-item-status {
     position: absolute;
-    right: .2rem;
+    right: .56rem;
     top: 50%;
     font-size: .32rem;
     color: #aaa;
@@ -255,15 +274,15 @@
     z-index: 8;
     width: 100%;
     max-width: 750px;
-    padding: .16rem .16rem 0;
-    font-size: .28rem;
+    padding: .24rem .24rem 0;
+    font-size: .28rem; text-align: center;
     background-color: #f5f5f5;
-    box-shadow: 0 .04rem .04rem #999;
+    box-shadow: 0 4px 4px 0 hsla(0,6%,58%,.6);
 }
 
 .user .btn-type {
     display: inline-block;
-    margin: 0 .16rem .16rem 0;
+    margin: 0 .24rem .24rem 0;
     padding: .08rem .16rem;
     border-radius: .05rem;
     border: 1px solid #808080;

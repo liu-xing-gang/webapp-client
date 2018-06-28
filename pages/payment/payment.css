@@ -1,0 +1,168 @@
+@charset "utf-8";
+html,
+body {
+    background-color: #faf8f1;
+}
+
+b{
+    font-weight: normal;
+}
+
+.payment {
+    padding: .2rem 0 0;
+}
+
+.margt20 {
+    margin-top: .2rem;
+}
+
+.payment .entry {
+    /* padding: 0 .3rem; */
+    padding-left: .3rem;
+    background-color: #fff;
+}
+
+.entry .inline-block {
+    vertical-align: middle;
+}
+
+.entry-link {
+    position: relative;
+    display: block;
+    padding: .24rem .3rem .24rem 0;
+    font-size: .32rem;
+    color: #3c3f45;
+}
+
+.entry-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #e5e5e5;
+}
+
+.payment .table-view{
+    border-top: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.table-view .entry:last-child .entry-link::after {
+    background: none;
+}
+
+.ebox {
+    width: .48rem;
+    height: .48rem;
+    margin-right: .3rem;
+    overflow: hidden;
+}
+
+.ebox img {
+    max-width: 100%;
+    height: auto;
+}
+
+.payment .btn-pay{
+    display: block;
+    width: 5.3rem;
+    height: .72rem;
+    margin: .3rem auto;
+    padding: 0;
+    border: none;
+    border-radius: .1rem;
+    -webkit-border-radius: .1rem;
+    -moz-border-radius: .1rem;
+    -ms-border-radius: .1rem;
+    -o-border-radius: .1rem;
+    font-size: .36rem;
+    text-align: center;
+    color: #fff;
+    background-color: #da1a36;
+}
+
+.payment .btn-pay:active{
+    opacity: .6;
+    background-color: #da1a36;
+}
+
+.payment .checkbox{
+    position: absolute; top: 0; right: .3rem; bottom: 0;
+    width: .44rem; height: .44rem; margin: auto;
+}
+
+.payment .checkbox input{
+    position: absolute; top: 0; right: 0; bottom: 0; left: 0;
+    width: .44rem; height: .44rem; margin: auto;
+    text-align: center;
+    line-height: .44rem;
+}
+
+.payment .checkbox input::before{
+    font-size: .44rem;
+}
+
+.payment .red-envelope{
+    font-size: .24rem;
+}
+
+.payment .red-envelope .btn-toggle{
+    position: relative;
+    display: block;
+    padding-right: .4rem;
+    color: #b5a897;
+}
+
+.payment .red-envelope .btn-toggle::after{
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: .28rem;
+    height: .28rem;
+    margin: auto;
+    background: url(../../images/arrow-down-2.png) no-repeat right center;
+    background-size: .28rem .28rem;
+    transition: .3s ease;
+    -webkit-transition: .3s ease;
+    -moz-transition: .3s ease;
+    -ms-transition: .3s ease;
+    -o-transition: .3s ease;
+}
+
+.payment .red-envelope .btn-toggle.active::after{
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+}
+
+.payment .red-envelope .box{
+    position: relative;
+    width: 1.8rem; height: 1.8rem; margin: 0 auto;
+}
+
+.payment .red-envelope .box .checkbox{
+    right: 0;
+    bottom: unset;
+}
+
+.payment .red-envelope .h1{
+    margin: .16rem 0;
+    font-size: .32rem;
+    color: #303030;
+}
+
+.payment .red-envelope .h2{
+    padding-bottom: .08rem;
+    color: #808080;
+}
+
+.mui-popup-title+.mui-popup-text{
+    margin: 0;
+}
+

@@ -161,6 +161,14 @@ body {
     margin: 0 auto;
 }
 
+i{
+    font-style: normal;
+}
+
+b{
+    font-weight: normal;
+}
+
 .img-responsive {
     display: block;
     max-width: 100%;
@@ -194,11 +202,13 @@ a:active {
 }
 
 .main {
-    margin-bottom: 1rem;
+    /* margin-bottom: 1rem; */
+    padding-top: .88rem;
 }
 
 .table {
     display: table;
+    width: 100%;
 }
 
 .table .table-cell {
@@ -244,10 +254,6 @@ a:active {
     height: .48rem;
     margin: 0 auto .06rem;
     overflow: hidden;
-}
-
-.color1 {
-    color: #4199e9!important;
 }
 
 .arrow-r {
@@ -492,7 +498,7 @@ a:active {
     -ms-transform: translateY(-50%);
     -o-transform: translateY(-50%);
     color: #fff;
-    background: url(images/arrow-l.png) no-repeat center;
+    background: url(images/back.png) no-repeat center;
     background-size: .44rem .44rem;
 }
 
@@ -574,4 +580,55 @@ a:active {
 
     {
     opacity: 0;
+}
+
+.margb100{
+    margin-bottom: 1rem;
+}
+
+/* checkbox自定义样式 */
+.awart-cart-list .a-checkbox{
+    position: absolute; top: 0; bottom: 0; left: 0;
+    width: .4rem; height: .4rem; margin: auto;
+}
+
+.a-checkbox input[type=checkbox]{
+    position: relative;
+    display: inline-block;
+    width: .32rem; height: .32rem;
+    outline: 0!important;
+    background-color: transparent;
+    -webkit-appearance: none;
+    vertical-align: middle;
+}
+
+.a-checkbox input[type=checkbox]:before{
+    content: '';
+    display: block;
+    width: .32rem; height: .32rem;
+    -webkit-font-smoothing: antialiased;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+}
+
+.a-checkbox input[type=checkbox]:checked:before{
+    background: url(images/icon-checkbox-checked.png) no-repeat center;
+    background-size: .32rem .32rem;
+}
+
+/* 颜色 */
+.color1 {
+    color: #4199e9!important;
+}
+
+.color2 {
+    color: #d5001a!important;
+}
+
+.color3{
+    color: #303030!important;
 }

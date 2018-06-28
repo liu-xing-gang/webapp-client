@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../../mui/css/mui.min.css">
+    <link rel="stylesheet" href="../../app.css" />
+    <link rel="stylesheet" href="payment.css">
+    <script src="../../app.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <header class="title">
+            <a class="mui-action-back mui-icon mui-icon-left-nav" id="back"></a>
+            <span>支付</span>
+        </header>
+        <form action="">
+            <main class="main">
+                <section class="payment">
+                    <div class="table-view">
+                        <div class="entry">
+                            <div class="entry-link">
+                                <span class="ebox-txt">彩种信息</span>
+                                <span class="fr"><b>双色球</b> <b>第2018072期</b></span>
+                            </div>
+                        </div>
+                        <div class="entry">
+                            <div class="entry-link">
+                                <span class="ebox-txt">订单金额</span>
+                                <span class="fr"><b>2.00</b> 元</span>
+                            </div>
+                        </div>
+                        <div class="entry">
+                            <div class="entry-link">
+                                <span class="ebox-txt">红包抵扣</span>
+                                <span class="fr"><b>-1.00</b> 元</span>
+                                <div class="red-envelope">
+                                    <a :class=" show == true ? 'btn-toggle fr active' : 'btn-toggle fr'" @click="show = !show">收起红包</a>
+                                    <div class="clearfix"></div>
+                                    <transition name="fade">
+                                        <div class="red-envelope-detail" v-if="show">
+                                            <div class="box">
+                                                <img src="../../images/icon-red-envelop.png" width="100%" height="100%" alt="" class="img-responsive">
+                                                <div class="mui-checkbox checkbox">
+                                                    <input name="checkbox1" value="Item 3" type="checkbox" :checked="useRed" @click="show = !show; useRed = !useRed">
+                                                </div>
+                                            </div>
+                                            <h1 class="h1 txt-center">剩余<i class="color2">1元</i></h1>
+                                            <h2 class="h2 txt-center">新手红包</h2>
+                                            <h2 class="h2 txt-center">七天后过期</h2>
+                                        </div>
+                                    </transition>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="entry">
+                            <div class="entry-link">
+                                <span class="ebox-txt">还需支付</span>
+                                <span class="fr color2"><b>1.00</b> 元</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-view margt20">
+                        <div class="entry">
+                            <div class="entry-link">
+                                <span class="ebox-txt">选择支付方式</span>
+                            </div>
+                        </div>
+                        <div class="entry">
+                            <div class="entry-link">
+                                <div class="inline-block ebox"><img src="../../images/icon-pay-wechat.png" alt=""></div>
+                                <div class="inline-block ebox-txt">微信支付</div>
+                                <div class="mui-checkbox checkbox">
+                                    <input name="checkbox1" value="Item 3" type="checkbox" :checked="!selected" @click="selected = !selected">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="entry">
+                            <div class="entry-link">
+                                <div class="inline-block ebox"><img src="../../images/icon-pay-jd.png" alt=""></div>
+                                <div class="inline-block ebox-txt">京东支付</div>
+                                <div class="mui-checkbox checkbox">
+                                    <input name="checkbox1" value="Item 3" type="checkbox" :checked="selected" @click="selected = !selected">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn-pay" id="btn-pay" @click="pay">立即支付</button>
+                </section>
+            </main>
+        </form>
+        <script src="../../libs/vue.min.js"></script>
+        <script src="../../mui/js/mui.min.js"></script>
+        <script>
+            new Vue({
+                el: '#app',
+                data: {
+                    show: false,
+                    useRed: true,
+                    selected: false,
+                },
+                mounted: function() {},
+                methods: {
+                    pay: function() {
+
+                    }
+                }
+            })
+
+            document.getElementById("btn-pay").addEventListener('tap', function() {
+                var btnArray = ['查看订单', '确定'];
+                mui.confirm('', '支付成功', btnArray, function(e) {
+                    if (e.index == 1) {
+                        window.location.href="../../index.html"
+                    } else {
+                        window.location.href="../mine/mine.html"
+                    }
+                })
+            });
+        </script>
+
+</body>
+
+</html>

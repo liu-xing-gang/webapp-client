@@ -16,7 +16,7 @@
 
 <body>
     <div id="app">
-        <main class="main user">
+        <main class="user">
             <section class="panel">
                 <div class="panel-head">
                     <a href="">客服</a>
@@ -79,15 +79,21 @@
                                         <h2 class="font36">18</h2>
                                     </div>
                                     <div class="list-item-cont">
-                                        <a href="" class="an-order">
+                                        <a href="../order/order.html" class="an-order">
                                             <div class="font32">竞彩足球混合过关</div>
                                             <div class="font22"><span>10.00元</span><span>普通订单</span></div>
-                                            <div class="list-item-status arrow-r4">未中奖</div>
+                                            <div class="list-item-status ">未中奖</div>
                                         </a>
-                                        <a href="" class="an-order">
-                                            <div class="font32">竞彩足球混合过关</div>
-                                            <div class="font22"><span>10.00元</span><span>普通订单</span></div>
-                                            <div class="list-item-status arrow-r4">未中奖</div>
+                                        <a href="../order/order.html" class="an-order ">
+                                            <div class="font32">
+                                                <span>竞彩足球混合过关</span>
+                                                <span class="fr">今天21:15开奖</span>
+                                            </div>
+                                            <div class="font22">
+                                                <span>10.00元</span>
+                                                <span>普通订单</span>
+                                                <span class="fr color3">(投注站已完成出票)</span>
+                                            </div>
                                         </a>
                                     </div>
                                     <div class="clearfix"></div>
@@ -98,15 +104,15 @@
                                         <h2 class="font36">17</h2>
                                     </div>
                                     <div class="list-item-cont">
-                                        <a href="" class="an-order">
+                                        <a href="../order/order.html" class="an-order">
                                             <div class="font32">竞彩足球混合过关</div>
                                             <div class="font22"><span>10.00元</span><span>普通订单</span></div>
-                                            <div class="list-item-status arrow-r4">未中奖</div>
+                                            <div class="list-item-status ">未中奖</div>
                                         </a>
-                                        <a href="" class="an-order">
+                                        <a href="../order/order.html" class="an-order">
                                             <div class="font32">竞彩足球混合过关</div>
                                             <div class="font22"><span>10.00元</span><span>普通订单</span></div>
-                                            <div class="list-item-status arrow-r4">未中奖</div>
+                                            <div class="list-item-status ">未中奖</div>
                                         </a>
                                     </div>
                                     <div class="clearfix"></div>
@@ -192,7 +198,7 @@
         // 点击选项卡滑动到对应内容
         function swiperTo(index){
             try{
-                swiper.slideTo(index, 1000, false)
+                swiper.slideTo(index, 500, false)
             } catch (e) {
                 console.log(e.message)
             }

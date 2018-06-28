@@ -1,24 +1,4 @@
 /**
- * 判断ISO,Andrio, 网页
- */
-function isiOSApp() {
-    var userAgentInfo = navigator.userAgent;
-    var Agents = ["ios_app"];
-    var flag = false;
-    for (var v = 0; v < Agents.length; v++) {
-        if (userAgentInfo.indexOf(Agents[v]) > 0) {
-            flag = true;
-            break;
-        }
-    }
-    return flag;
-}
-
-if (isiOSApp()) {
-    window.webkit.messageHandlers.nav.postMessage('hide');
-}
-
-/**
  * writed by liuxinggang | 2018/05/28 ~
  * 定义命名空间
  */
@@ -136,17 +116,30 @@ CcpClient.Common = (function () {
 
         }
 
+        /**
+         * 改变数量
+         */
+        function changeAmount(n, f) {
+            f == true ? n++ : n--
+            n = n <= 1 ? 1 : n
+            console.log(n)
+            return n;
+        }
+
         return {
+            init: function () {
+                // 初始化
+                resize()
+            },
             upload: function (c, d, e) {
                 upload(c, d, e)
             },
             imgPreview: function(){
                 initImgPreview()
             },
-            init: function () {
-                // 初始化
-                resize()
-            }
+            changeNum: function(o, key, f){
+                o[key] = changeAmount(o[key], f)
+            },
         }
     }
 

@@ -1,0 +1,66 @@
+@charset "utf-8";
+html,body{
+    background-color: #faf8f1;
+}
+.order{
+    line-height: 1;
+}
+
+.order .order-header{
+    position: relative;
+    padding: 0 .3rem .4rem;
+    
+}
+
+.order .order-header.waiting{
+    background: #fff url(../../images/condition-waiting.png) no-repeat right top;
+    background-size: 1.5rem 1.5rem;
+}
+
+.order .order-header.lose{
+    background: #fff url(../../images/condition-lose.png) no-repeat right top;
+    background-size: 1.5rem 1.5rem;
+}
+
+.order .order-header::after{
+    content: '';
+    position: absolute; left: 0; bottom: 0;
+    width: 100%; height: .14rem;
+    background: url(../../images/sawtooth-down-2.png) repeat bottom;
+    background-size: contain;
+}
+
+.order .order-header .box{
+    width: .6rem; height: .6rem; overflow: hidden;
+}
+
+.order .order-header .w80{
+    width: .8rem;
+}
+
+.order .order-header .w190{
+    width: 1.9rem;
+}
+
+.order .order-header .txt{
+    margin-bottom: .12rem;
+    font-size: .24rem;
+    color: #898989;
+}
+
+.order .order-header .txt:last-child{
+    margin-bottom: 0;
+}
+
+.order .order-header .txt-big{
+    font-size: .28rem; font-weight: bold;
+    color: #8e8e8e;
+}
+
+.paddV30{
+    padding: .3rem 0;
+}
+
+.paddb20{
+    padding-bottom: .2rem;
+}

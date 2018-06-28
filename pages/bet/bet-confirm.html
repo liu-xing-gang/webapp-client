@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../../mui/css/mui.min.css">
+    <link rel="stylesheet" href="../../app.css" />
+    <link rel="stylesheet" href="bet.css">
+    <script src="../../app.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <header class="title">
+            <a class="mui-action-back mui-icon mui-icon-left-nav" id="back"></a>
+            <span>双色球</span>
+        </header>
+        <main class="main bet-confirm">
+            <section class="btn-options-group txt-center">
+                <a class="btn-option btn-option-self" onclick="window.location.href='bet-double-chromosphere.html'">
+                    <div>自选号码</div>
+                </a>
+                <a class="btn-option btn-option-robot" @click="test.unshift(1)">
+                    <div>机选一注</div>
+                </a>
+                <a class="btn-option btn-option-empty" @click="clear(0, test.length, test)">
+                    <div>清空列表</div>
+                </a>
+            </section>
+            <section class="list">
+                <div class="list-head"></div>
+                <transition name="fade">
+                
+               
+                <div class="list-body" v-if="test.length > 0">
+                    <div class="list-item" v-for="(item, index) in test" v-if="(index+1)%test != 0">
+                        <div class="table">
+                            <div class="table-cell">
+                                <div class="btn-del-item" @click="clear(index, 1, test)">
+                                    <img src="../../images/icon-del-1.png" alt="" class="img-responsive">
+                                </div>
+                            </div>
+                            <div class="table-cell">
+                                <a href="">
+                                    <div class="list-item-line">
+                                        {{item}}
+                                        <span class="bet-num">12</span>
+                                        <span class="bet-num">18</span>
+                                        <span class="bet-num">20</span>
+                                        <span class="bet-num">25</span>
+                                        <span class="bet-num">31</span>
+                                        <span class="bet-num">33</span>
+                                        <span class="bet-num bet-num-blue">11</span>
+                                    </div>
+                                    <div class="list-item-line">
+                                        <span class="font28">单式</span>
+                                        <span class="font28">1注2元</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-item last" v-else>
+                        <div class="table">
+                            <div class="table-cell">
+                                <div class="btn-del-item" @click="clear(index, 1, test)">
+                                    <img src="../../images/icon-del-1.png" alt="" class="img-responsive">
+                                </div>
+                            </div>
+                            <div class="table-cell">
+                                <a href="">
+                                    <div class="list-item-line">
+                                        <span class="bet-num">12</span>
+                                        <span class="bet-num">18</span>
+                                        <span class="bet-num">20</span>
+                                        <span class="bet-num">25</span>
+                                        <span class="bet-num">31</span>
+                                        <span class="bet-num">33</span>
+                                        <span class="bet-num bet-num-blue">11</span>
+                                    </div>
+                                    <div class="list-item-line">
+                                        <span class="font28">单式</span>
+                                        <span class="font28">1注2元</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-protocol txt-center">
+                        <div class="a-checkbox">
+                            <input type="checkbox" name="" id="" checked>
+                            <span>我已阅读并同意<a href="">委托投注规则</a></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-body">
+                    <div class="txt-center font28">null</div>
+                </div>
+            </transition>
+            </section>
+            <section class="pay">
+                <div class="table">
+                    <div class="pay-input table-cell">
+                        <span>追</span>
+                        <div class="btn-control">
+                            <div class="btn-action btn-del fl" 
+                                @click="CcpClient.Common.getInstance().changeNum(vm, 'term')">
+                                -
+                            </div>
+                            <input type="number" class="btn-action amount" :value="term">
+                            <div class="btn-action btn-add fr"
+                                @click="CcpClient.Common.getInstance().changeNum(vm, 'term', true)">
+                                +
+                            </div>
+                        </div>
+                        <span>期</span>
+                    </div>
+                    <div class="pay-input table-cell">
+                        <span>投</span>
+                        <div class="btn-control">
+                            <div class="btn-action btn-del fl" 
+                                @click="CcpClient.Common.getInstance().changeNum(vm, 'multiple')">
+                                -
+                            </div>
+                            <input type="number" class="btn-action amount" :value="multiple">
+                            <div class="btn-action btn-add fr" 
+                                @click="CcpClient.Common.getInstance().changeNum(vm, 'multiple', true)">
+                                +
+                            </div>
+                        </div>
+                        <span>倍</span>
+                    </div>
+                </div>
+                <div class="txt-center">
+                    <div class="pay-money color-yellow">共<i v-text="term*multiple*test.length*price"></i>元</div>
+                    <div>
+                        <i v-text="test.length"></i>注
+                        <i v-text="term"></i>期
+                        <i v-text="multiple"></i>倍
+                    </div>
+                    <button class="btn-to-pay" onclick="window.location.href='../payment/payment.html'">付款</button>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="../../libs/vue.min.js"></script>
+    <script src="../../mui/js/mui.min.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                test: [1,2,3,4,5,6,7,8],
+                term: 1,
+                multiple: 1,
+                price: 2
+            },
+            mounted: function() {
+            },
+            methods: {
+                clear: function(index, n, target){
+                    target.splice(index, n)
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

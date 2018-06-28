@@ -11,6 +11,10 @@ body,
     height: 100%;
 }
 
+i{
+    font-style: normal;
+}
+
 .choices {
     position: fixed;
     z-index: 8;
@@ -53,7 +57,7 @@ body,
     padding-left: .28rem;
     font-size: .28rem;
     color: #8b7d67;
-    background: url(../../images/btn-random.png) no-repeat left center;
+    background: url(../../images/shake.png) no-repeat left center;
     background-size: .28rem .28rem;
 }
 
@@ -145,7 +149,7 @@ body,
     background-color: #252526;
 }
 
-.foot-action button {
+.foot-action button, .btn-action-machine{
     display: block;
     margin: 0;
     padding: 0;
@@ -174,11 +178,15 @@ body,
     background-color: #f5bd41;
 }
 
+.foot-action .btn-action-machine{
+    color: #f5bd41;
+}
+
 .foot-action span {
     margin: 0 .1rem;
 }
 
-.foot-action i{
+.foot-action i {
     font-style: normal;
 }
 
@@ -223,7 +231,8 @@ body,
 }
 
 .bet .layer-recent {
-    position: fixed; z-index: 3;
+    position: fixed;
+    z-index: 3;
     left: auto;
     right: auto;
     width: 100%;
@@ -259,4 +268,304 @@ body,
 
 .bet .layer-recent .table .table-cell:nth-child(3) {
     width: 30%;
+}
+
+/* 弹出菜单 */
+#topPopover{
+    min-height: 3rem;
+    width: 3rem;
+}
+
+#bottomPopover{
+    width: 3rem;
+}
+
+/* 投注确认页 */
+
+.fixed{
+    left: auto; right: auto;
+    width: 100%; max-width: 750px;
+}
+
+.bet-confirm .btn-options-group{
+    position: fixed;
+    z-index: 4;
+    padding: .2rem;
+    background-color: #f9f8f1;
+}
+
+.bet-confirm .btn-option{
+    position: relative;
+    display: inline-block; *display: inline; *zoom: 1;
+    width: 2.08rem;
+    height: .6rem;
+    margin: 0 .1rem;
+    border: 1px solid #dededd;
+    text-align:center; font-size: .28rem; line-height: .6rem;
+    color: #303030;
+    border-radius: .1rem;
+    -webkit-border-radius: .1rem;
+    -moz-border-radius: .1rem;
+    -ms-border-radius: .1rem;
+    -o-border-radius: .1rem;
+}
+
+.bet-confirm .btn-option::before{
+    content: '';
+    position: absolute;
+    left: .28rem;
+    top: 50%;
+    width: .28rem;
+    height: .28rem;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+}
+
+.bet-confirm .btn-option > div{
+    padding-left: .28rem;
+}
+
+.bet-confirm .btn-option-self::before{
+    background: url(../../images/icon-add.png) no-repeat center;
+    background-size: .28rem .28rem; 
+}
+
+.bet-confirm .btn-option-robot::before{
+    background: url(../../images/icon-add.png) no-repeat center;
+    background-size: .28rem .28rem; 
+}
+
+.bet-confirm .btn-option-empty::before{
+    background: url(../../images/icon-trash.png) no-repeat center;
+    background-size: .28rem .28rem; 
+}
+
+.bet-confirm .list{
+    position: relative; 
+    top: 1.2rem; 
+    padding-bottom: 1.8rem;
+    width: 6.9rem;    
+    margin: 0 .3rem;
+    line-height: 1;
+}
+
+ .bet-confirm .list::before{
+    content: '';
+    position: fixed;
+    left: -.1rem;
+    height: .14rem;
+    width: 7.1rem;
+    border-radius: .07rem;
+    background-color: #a19e95;
+    -webkit-border-radius: .07rem;
+    -moz-border-radius: .07rem;
+    -ms-border-radius: .07rem;
+    -o-border-radius: .07rem;
+    top: -.04rem;
+    z-index: 4;
+    left: 0;
+    right: 0;
+    top: 1.88rem;
+    margin: auto;
+}
+
+.bet-confirm .list .list-item.last ::after{
+    content: '';
+    position: absolute; left: 0; bottom: 0;
+    width: 100%;
+    height: .16rem;
+    background: url(../../images/sawtooth-down.png) repeat;
+    background-size: contain;
+}
+
+
+.bet-confirm .list-head{
+    position: fixed;
+    width: 6.9rem;
+    top: 1.92rem;
+    z-index: 8;
+
+    height: .15rem;
+    background-color: #fff;
+    overflow: hidden;
+    border-radius: .1rem .1rem 0 0;
+    -webkit-border-radius: .1rem .1rem 0 0;
+    -moz-border-radius: .1rem .1rem 0 0;
+    -ms-border-radius: .1rem .1rem 0 0;
+    -o-border-radius: .1rem .1rem 0 0;
+}
+
+.bet-confirm .list-head::after{
+    content: '';
+    position: absolute;
+    height: .06rem;
+    width: 100%;
+    background-color: #f3f3f3;
+}
+
+.bet-confirm .list-body{
+    height: 100%;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.bet-confirm .list-item{
+    position: relative;
+    display: block;
+    border-top: 1px dashed #f3f3f3;
+    line-height: 1;
+    transition: .3s ease;
+    -webkit-transition: .3s ease;
+    -moz-transition: .3s ease;
+    -ms-transition: .3s ease;
+    -o-transition: .3s ease;
+}
+
+.bet-confirm .list-item .table{
+    width: 100%;
+    padding: .2rem 0 .24rem;
+    background: #fff url(../../images/icon-link.png) no-repeat 6.4rem center;
+    background-size: .28rem .28rem;
+}
+
+.bet-confirm .btn-del-item{
+    display: block;
+    width: .4rem; height: .4rem;
+    margin: 0 auto;
+}
+
+.bet-confirm .bet-num{
+    font-size: .28rem;
+    color: #d5001b;
+}
+
+.bet-confirm .bet-num-blue{
+    color: #2083d6;
+}
+
+.bet-confirm .list-item-line:nth-child(1){
+    padding-bottom: .1rem;
+}
+
+.bet-confirm .list-item-line:nth-child(2){
+    padding-top: .1rem;
+}
+
+.bet-confirm .list-protocol{
+    position: relative;
+    padding: .3rem 0;
+    font-size: .28rem;
+    color: #808080;
+    background-color: #f9f8f1;
+}
+
+.bet-confirm .list-protocol span, .bet-confirm .list-foot input{
+    vertical-align: middle;
+}
+
+.bet-confirm .pay{
+    position: fixed; left: auto; right: auto; bottom: 0;
+    width: 100%; max-width: 750px;
+    font-size: .28rem; color: #303030;
+}
+
+.bet-confirm .pay .table{
+    width: 100%;
+    background-color: #fff;
+    text-align: center;
+}
+
+.bet-confirm .pay .txt-center{
+    position: relative;
+    padding: .12rem 0;
+    line-height: 1;
+    color: #fff;
+    background-color: #242624;
+}
+
+.bet-confirm .pay .pay-money{
+    margin-bottom: .06rem;
+}
+
+.bet-confirm .pay-input{
+    padding: .16rem 0;
+}
+
+.bet-confirm .pay-input input[type="text"]{
+    width: 1rem;
+    margin: 0; padding: 0; box-shadow: none;
+}
+
+.bet-confirm .pay-input span{
+    margin: 0 .16rem;
+    vertical-align: middle;
+}
+
+/* 加，减按钮 */
+
+.btn-control{
+    position: relative;
+    display: inline-block; vertical-align: middle;
+    width: 2.18rem; height: .56rem;
+    border: 1px solid #cbcbcb;
+    border-radius: .05rem;
+    text-align: center;
+    line-height: .56rem;
+}
+
+
+
+.btn-control .btn-action {
+    display: block;
+    width: .56rem;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.btn-control .btn-action img{
+    width: .28rem; height: .28rem;
+    vertical-align: middle;
+}
+
+.btn-control .amount {
+    display: block;
+    position: absolute;  top: 0; right: 0; bottom: 0; left: 0; margin: auto!important; padding: 0!important; border: none!important;
+    outline: none!important; line-height: initial!important;
+}
+
+.btn-control .btn-add {
+    border-left: 1px solid #cbcbcb;
+}
+
+.btn-control .btn-del {
+    border-right: 1px solid #cbcbcb;
+}
+
+.bet-confirm .btn-to-pay{
+    position: absolute;
+    right: .3rem;
+    top: 50%;
+    width: 1.16rem;
+    height: .64rem;
+    margin: 0; padding: 0; 
+    font-size: .32rem;
+    line-height: .64rem;
+    border: none;
+    color: #303030;
+    background-color: #f5bd41;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+}
+
+.bet-confirm .btn-to-pay:active{
+    background-color: #f5bd41;
+    color: #303030;
 }
