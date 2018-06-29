@@ -45,22 +45,104 @@
                 </div>
             </section>
             <section class="order-main">
-                <ul class="order-info">
-                    <li>
-                        <span class="font32">订单状态</span>
-                        <span class="font32">未中奖</span>
-                    </li>
-                    <li><span class="font32">开奖号码</span></li>
-                </ul>
+                <div class="order-info">
+                    <div class="table">
+                        <div class="table-cell font32 w180">订单状态</div>
+                        <div class="table-cell font32">未中奖</div>
+                    </div>
+                    <div class="table">
+                        <div class="table-cell font32 w180">开奖号码</div>
+                        <div class="table-cell">
+                            <span class="color2">
+                                <i>08</i>
+                                <i>17</i>
+                                <i>24</i>
+                                <i>26</i>
+                                <i>28</i>
+                                <i>33</i>
+                                <i class="color4"> : </i>
+                                <i class="color1">04</i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div :class="show == true ? 'order-view active' : 'order-view'">
+                    <div class="table order-view-head" @click="show = !show">
+                        <div class="table-cell w180"><span class="font32">选号详情</span></div>
+                        <div class="table-cell">
+                            <span class="font32">1条</span>
+                            <span class="btn-display">
+                                <img src="../../images/arrow-down-2.png" alt="" class="img-responsive">
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="table order-view-item" v-if="show">
+                        <div class="table-cell  w180">
+                            <h1 class="font28 color4">单式</h1>
+                            <h2 class="font28 color4">1倍</h2>
+                        </div>
+                        <div class="table-cell color4">
+                            <span>01</span>
+                            <span class="color2">08</span>
+                            <span>12</span>
+                            <span>15</span>
+                            <span class="color2">26</span>
+                            <span>32</span>
+                            <span> : </span>
+                            <span>10</span>
+                        </div>
+                    </div>
+
+                </div>
             </section>
             <section class="order-footer">
-
+                <div class="order-row arrow-r5">
+                    <a href="explain.html" class="arrow"><span class="font32">中奖怎么算</span></a>
+                </div>
+                <ul class="order-detail">
+                    <li>
+                        <span class="inline-block w180">支付信息</span>
+                        <span class="inline-block">本订单使用红包支付1.99元</span>
+                    </li>
+                    <li>
+                        <span class="inline-block w180">下单时间</span>
+                        <span class="inline-block">2018-03-30 15:00:33</span>
+                    </li>
+                    <li>
+                        <span class="inline-block w180">订单编号</span>
+                        <span class="inline-block">2018033015CP59699755</span>
+                    </li>
+                    <li>
+                        <span class="inline-block w180">温馨提示</span>
+                        <span class="inline-block">奖金直接打入您的账户</span>
+                    </li>
+                </ul>
+                <div class="space txt-center">
+                    <a href="" id="btn-del-order" class=" font36 color1">删除本订单</a>
+                </div>
             </section>
         </main>
     </div>
     <script src="../../libs/vue.min.js"></script>
     <script src="../../mui/js/mui.min.js"></script>
     <script>
+        new Vue({
+            el: '#app',
+            data: {
+                show: false
+            }
+        })
+
+        document.getElementById("btn-del-order").addEventListener('tap', function() {
+                var btnArray = ['取消', '确定'];
+                mui.confirm('删除本订单信息将无法还原', '删除本订单', btnArray, function(e) {
+                    if (e.index == 1) {
+                        window.location.href="../../index.html"
+                    } else {
+                    }
+                })
+            });
     </script>
 </body>
 

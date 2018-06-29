@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../../mui/css/mui.min.css">
+    <link rel="stylesheet" href="../../libs/swiper.min.css">
+    <link rel="stylesheet" href="../../app.css" />
+    <link rel="stylesheet" href="award.css">
+    <script src="../../app.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <header class="title">
+            <a class="mui-action-back mui-icon mui-icon-left-nav" id="back"></a>
+            <span>期次详情</span>
+            <a href="" class="btn-basic btn-ar"></a>
+            <a href="" class="btn-basic btn-ar">
+                <span class="btn-basic-txt">分享</span>
+            </a>
+        </header>
+        <main class="container award-detial">
+            <section class="awards">
+                <a href="award-list.html" class="award-cell">
+                    <h1 class="a-header"><span class="font30 a-name">双色球</span> <span class="font24">第2018030期 </span> <span class="font24">2018-06-17（星期日）</span></h1>
+                    <div class="a-main flex"><span class="a-num"><i>06</i></span> <span class="a-num"><i>13</i></span> <span class="a-num"><i>17</i></span> <span class="a-num"><i>19</i></span> <span class="a-num"><i>23</i></span> <span class="a-num"><i>31</i></span> <span class="a-num a-num-blue"><i>12</i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </section>
+            <section class="table txt-center brief">
+                <div class="table-cell">
+                    <div class="txt1">本期销量(元)</div>
+                    <div class="txt2">327,800,026</div>
+                </div>
+                <div class="table-cell">
+                    <div class="txt1">奖池奖金(元)</div>
+                    <div class="txt2">813,581,190</div>
+                </div>
+            </section>
+            <section class="award-table">
+                <div class="table">
+                    <div class="table-cell"><span>奖项</span></div>
+                    <div class="table-cell"><span>中奖注数</span></div>
+                    <div class="table-cell"><span>每注金额(元)</span></div>
+                </div>
+                <div class="table" v-for="i in 6">
+                    <div class="table-cell"><span class="color3">一等奖</span></div>
+                    <div class="table-cell"><span class="color3">19</span></div>
+                    <div class="table-cell"><span class="color2">5128649</span></div>
+                </div>
+                <div class="hint txt-center">
+                    <img src="../../images/icon-hint-1.png" alt="">
+                    <span>奖金将直接打入您的余额</span>
+                </div>
+            </section>
+        </main>
+        <footer class="btn-award-group">
+            <a href="../bet/bet-confirm.html" class="btn-award">投注双色球</a>
+            <a href="award-query.html" class="btn-award active">中奖查询</a>
+        </footer>
+    </div>
+    <script src="../../libs/vue.min.js"></script>
+    <script src="../../libs/swiper.min.js"></script>
+    <script src="../../mui/js/mui.min.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                arrSpecies: []
+            },
+            mounted: function() {},
+            methods: {}
+        })
+
+        var swiperNews = new Swiper('.news .swiper-container', {
+            allowTouchMove: false,
+            direction: 'vertical',
+            autoplay: true,
+            loop: true,
+            speed: 1000,
+        });
+    </script>
+
+</body>
+
+</html>

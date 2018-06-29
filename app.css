@@ -153,7 +153,7 @@ html {
 html,
 body {
     -webkit-font-smoothing: antialiased;
-    background-color: #f2f2f2;
+    background-color: #f5f5f4;
 }
 
 body {
@@ -352,10 +352,6 @@ a:active {
 }
 
 .btn-basic {
-    /* display: block;
-    width: .44rem;
-    height: .44rem;
-    overflow: hidden; */
     display: -webkit-box;
     display: -ms-flexbox;
     display: -webkit-flex;
@@ -631,4 +627,12 @@ a:active {
 
 .color3{
     color: #303030!important;
+}
+
+.color4{
+    color: #aeb0b1!important;
+}
+
+.color5{
+    color: #888!important;
 }

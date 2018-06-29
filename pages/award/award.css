@@ -22,6 +22,7 @@
 }
 
 .awards .award-cell{
+    display: block;
     padding: 0 .3rem;
     border-bottom: 1px solid #f2f2f2;
     background-color: #fff;
@@ -129,6 +130,11 @@
     padding: .3rem 0 .32rem;
 }
 
+.awards .a-header-txt1{
+    font-size: .24rem;
+    color: #888;
+}
+
 .awards .a-num{
     float: left;
     position: relative;
@@ -156,6 +162,16 @@
 
 .awards .a-main{
     padding-bottom: .42rem;
+}
+
+.awards .a-main.bg-none .a-num{ 
+    color: #de4846;
+    background: none;
+}
+
+.awards .a-main.bg-none .a-num-blue{ 
+    color: #5fa0e4;
+    background: none;
 }
 
 .awards .a-num i{
@@ -297,6 +313,133 @@
     margin-left: .36rem;
     font-size: .3rem; color: #000;
     line-height: .64rem;
+}
+
+.award-push-set{
+    padding: .16rem .2rem;
+    font-size: .28rem;
+    text-align: justify;
+    line-height: 1.6;
+    color: #9e9ea6;
+    background-color: #fffdcb;
+}
+
+.award-push-set > a{
+    display: block;
+    background: url(../../images/arrow-r-gray.png) no-repeat right center;
+    background-size: .28rem .28rem;
+}
+
+/* 期次详情 */
+.btn-award-group{
+    position: fixed; left: auto; right: auto; bottom: 0;
+    width: 100%; max-width: 750px; height: 1rem;
+    border-top: 1px solid #e5e5e5;
+    font-size: .32rem; text-align: center; line-height: 1rem;
+    background-color: #fff;
+}
+
+.btn-award-group .btn-award{
+    display: inline-block;
+    width: 3.3rem;
+    height: .7rem;
+    margin: 0 .1rem;
+    border: 1px solid #ec3037;
+    border-radius: .05rem;
+    text-align: center; line-height: .7rem;
+    -webkit-border-radius: .05rem;
+    -moz-border-radius: .05rem;
+    -ms-border-radius: .05rem;
+    -o-border-radius: .05rem;
+    color: #ec3037;
+}
+
+.btn-award-group .btn-award.active{
+    color: #fff;
+    background-color: #ec3037; 
+}
+
+.flex{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.awards .flex .a-num{
+    margin: 0 .06rem;
+}
+
+.awards .flex{
+    padding-bottom: .32rem;
+}
+
+.award-detial .awards .award-cell{
+    border: none;
+}
+
+.award-detial .brief{
+    line-height: 1;
+    background-color: #fff;
+}
+
+.award-detial .brief .txt1{
+    padding-bottom: .24rem;
+    font-size: .32rem;
+    color: #808080;
+}
+
+.award-detial .brief .txt2{
+    padding-bottom: .24rem;
+    font-size: .3rem;
+    color: #d40016;
+}
+
+.award-detial  .award-table{
+    padding: .2rem .3rem .32rem;
+}
+
+.award-detial  .award-table .table{
+    background-color: #fff;
+}
+
+.award-detial  .award-table{
+    border-top: 1px solid #f2f2f2;
+    border-left: 1px solid #f2f2f2;
+    color: #888;
+}
+
+.award-detial  .award-table .table-cell{
+    width: 33.333%;
+    padding: .16rem 0;
+    border-right: 1px solid #f2f2f2;
+    border-bottom: 1px solid #f2f2f2;
+    font-size: .28rem; text-align: center;
+}
+
+.award-detial .hint{
+    padding: .32rem .3rem 0;
+    font-size: .28rem;
+    line-height: 1.6;
+    color: #bcbcbc;
+}
+
+.award-detial .hint img{
+    vertical-align: middle;
+    width: .28rem; height: .28rem;
+    margin-right: .2rem;
+}
+
+.award-detial .hint span{
+    vertical-align: middle;
 }
 
 
