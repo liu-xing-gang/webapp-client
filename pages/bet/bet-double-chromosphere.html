@@ -46,7 +46,11 @@
                     <div class="table-cell" v-text="past.blueball"></div>
                 </div>
             </section>
-            <section id="layer-random" class="layer-random" @touchstart="touchStart($event)" @touchend="touchEnd($event)" :style="slide">
+            <section id="layer-random" class="layer-random" 
+                @touchstart="touchStart($event)" 
+                @touchmove="touchMove($event)"
+                @touchend="touchEnd($event)" 
+                :style="slide">
                 <div class="paddh30">
                     <a class="btn-random fl" @click="machineSelect"> 摇一摇机选</a>
                     <span class="font28 fr">至少选择6个红球,1个蓝球</span>
@@ -66,9 +70,20 @@
         </main>
         <footer class="foot-action">
             <div class="txt-center">
-                <button class="btn-clearall fl" v-if="haveOne">清空</button>
-                <a href="#bottomPopover" class="btn-action-machine fl" v-else>机选</a>
-                <span>共<i v-text="totalNum"></i>注</span><span class="color-yellow"><i v-text="totalMoney"></i>元</span>
+                <!-- <a href="#bottomPopover" class="btn-action-machine fl" v-if="isEmpty">机选</a>
+                <button class="btn-clearall fl" v-else @click="clear(arrRedBalls, arrBlueBalls)">清空</button>
+
+                <span  v-if="!isEmpty">共<i v-text="totalNum"></i>注</span>
+                <span class="color-yellow"  v-if="!isEmpty"><i v-text="totalMoney"></i>元</span> -->
+
+
+                <a href="#bottomPopover" class="btn-action-machine fl" v-if="isEmpty">机选</a>
+                <button class="btn-clearall fl" v-else @click="clear(arrRedBalls, arrBlueBalls)">清空</button>
+                <div class="absolute-center">
+                    <span v-if="!isEmpty">共<i v-text="totalNum"></i>注</span>
+                    <span class="color-yellow" v-if="!isEmpty"><i v-text="totalMoney"></i>元</span>        
+                </div>
+                
                 <button class="btn-confirm-bet fr" onclick="window.location='bet-confirm.html'">确定</button>
                 <div class="clearfix"></div>
             </div>
@@ -138,7 +153,7 @@
                 slide: '',
                 totalNum: 0,
                 totalMoney: 0,
-                haveOne: false,
+                isEmpty: true,
                 arrPastTerm: [{
                         term: '061期',
                         redball: '09 10 11 12 18 23',
@@ -332,9 +347,7 @@
                     selected: false
                 }, ]
             },
-            mounted: function() {
-
-            },
+            mounted: function() {},
             methods: {
                 touchStart: function(e) {
                     if (e.touches.length == 1) {
@@ -342,20 +355,42 @@
                         this.startY = e.touches[0].clientY;
                     }
                 },
+                touchMove: function(e){
+                    var d = e.changedTouches[0].clientY - this.startY
+                    this.slide = "transform:translateY(" + d + "px);"
+                }, 
                 touchEnd: function(e) {
                     var endY = e.changedTouches[0].clientY;
                     this.disY = endY - this.startY;
+                    
+                   
+                    // if ((this.disY >= 0 && this.disY <= 50) || (this.disY <= 0) && this.disY >= 50 ) {
+                    //     //如果距离小于删除按钮一半,强行回到起点
+                    //     this.slide = "transform:translateY(0px); transition: .5s linear; -webkit-transform:translateY(0px); -webkit-transition: .5s linear; -moz-transform:translateY(0px); -moz-transition: .5s linear;-ms-transform:translateY(0px); -ms-transition: .5s linear;-o-transform:translateY(0px); -o-transition: .5s linear;"
+                    //     document.getElementById('layer-random').style = "overflow-y: auto;-webkit-overflow-scrolling: touch;";
+                    // } else {
+                    //     //大于一半 滑动到最大值
+                    //     var d = document.getElementById('layer-recent').offsetHeight
+                    //     this.slide = "transform:translateY(" + d + "px); transition: .5s linear; -webkit-transform:translateY(" + d + "px); -webkit-transition: .5s linear; -moz-transform:translateY(" + d + "px); -moz-transition: .5s linear;-ms-transform:translateY(" + d + "px);-ms-transition: .5s linear;-o-transform:translateY(" + d + "px); -o-transition: .5s linear;"
+                    //     document.getElementById('layer-random').style = "overflow: hidden;";
+                    // }
 
-                    if ((this.disY >= 0 && this.disY < 50) || (this.disY <= 0)) {
+                    if ((this.disY >= 0 && this.disY <= 50)) {
                         //如果距离小于删除按钮一半,强行回到起点
-                        this.slide = "transform:translateY(0px); transition: .5s ease; -webkit-transform:translateY(0px); -webkit-transition: .5s ease; -moz-transform:translateY(0px); -moz-transition: .5s ease;-ms-transform:translateY(0px); -ms-transition: .5s ease;-o-transform:translateY(0px); -o-transition: .5s ease;"
-                        document.getElementById('layer-random').style = "overflow-y: auto;-webkit-overflow-scrolling: touch;";
-                    } else {
+                        this.slide = "transform:translateY(0px); transition: ."+this.disY+"s ease;"
+                        document.getElementById('layer-random').style = "overflow-y: auto;";
+                    } else if(this.disY > 50) {
+                        console.log('this.disY :', this.disY, document.getElementById('layer-recent').offsetHeight)
                         //大于一半 滑动到最大值
                         var d = document.getElementById('layer-recent').offsetHeight
-                        this.slide = "transform:translateY(" + d + "px); transition: .5s ease; -webkit-transform:translateY(" + d + "px); -webkit-transition: .5s ease; -moz-transform:translateY(" + d + "px); -moz-transition: .5s ease;-ms-transform:translateY(" + d + "px);-ms-transition: .5s ease;-o-transform:translateY(" + d + "px); -o-transition: .5s ease;"
+                        this.slide = "transform:translateY(" + d + "px); transition: ."+d+"s ease; "
+
+                    } else {
+                        this.slide = "transform:translateY(0px); transition: .5s ease;"
                         document.getElementById('layer-random').style = "overflow: hidden;";
+
                     }
+                    console.log(this.disY)
                 },
                 /**
                  * 递归求下注数
@@ -399,11 +434,13 @@
                         if (n != undefined)
                             return n
                     }
-
                     o.selected = !o.selected
                     var tempRedNum = getNum(this.arrRedBalls)
                     var tempBlueNum = getNum(this.arrBlueBalls)
                     this.calculate(tempRedNum, tempBlueNum)
+
+                    // 是否选中一个红球或蓝球
+                    this.isEmpty = this.isSelectOne()
                 },
 
                 /**
@@ -435,7 +472,46 @@
                         balls[i].style.transitionDelay = +i / 100 + 's'
                         balls[i].style.WebkitTransitionDelay = +i / 100 + 's'
                     }
+
+                    // 是否选中一个红球或蓝球
+                    this.isEmpty = this.isSelectOne()
                 },
+
+                /**
+                 * 判断是否选中1个红球或1个蓝球，以切换底部相应菜单
+                 */
+                isSelectOne: function() {
+                    var that = this
+                    that.arrRedBalls.forEach(function(item, index) {
+                        if (item.selected === true)
+                            that.isEmpty = false
+                    })
+                    that.arrBlueBalls.forEach(function(item, index) {
+                        if (item.selected === true)
+                            that.isEmpty = false
+                    })
+                    if (that.isEmpty)
+                        return true
+                    else
+                        return false
+
+                },
+
+                /**
+                 * 清空
+                 */
+                clear: function() {
+                    try {
+                        for (var i = 0; i < arguments.length; i++) {
+                            arguments[i].forEach(function(item) {
+                                item.selected = false
+                            })
+                        }
+                        this.isEmpty = this.isSelectOne
+                    } catch (e) {
+                        consol.log(e.message)
+                    }
+                }
 
             }
         })

@@ -52,14 +52,31 @@ i{
     background-size: .2rem .2rem;
 }
 
-.bet .btn-random {
+.bet .btn-random{
+    position: relative;
     display: block;
-    padding-left: .28rem;
+    padding-left: .48rem;
     font-size: .28rem;
     color: #8b7d67;
-    background: url(../../images/shake.png) no-repeat left center;
-    background-size: .28rem .28rem;
 }
+
+.bet .btn-random::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: .48rem;
+    height: .48rem;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    background: url(../../images/shake.png) no-repeat left center;
+    background-size: contain;
+}
+
+
 
 .bet .balls {
     padding: .3rem .3rem .18rem;
@@ -68,16 +85,16 @@ i{
 .bet .balls li {
     float: left;
     width: 14.286%;
-    height: .88rem;
+    height: .8rem;
     margin-bottom: .12rem;
     text-align: center;
-    line-height: .88rem;
+    line-height: .8rem;
     overflow: hidden;
 }
 
 .bet .balls .ball {
-    width: .88rem;
-    height: .88rem;
+    width: .8rem;
+    height: .8rem;
     margin: 0 auto;
     border: 1px solid #d5d5d5;
     border-radius: 50%;
@@ -85,7 +102,7 @@ i{
     -moz-border-radius: 50%;
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
-    font-size: .28rem;
+    font-size: .32rem;
     color: #c3222b;
     background-color: #fff;
     transition: .3s ease-in-out;
@@ -148,6 +165,17 @@ i{
     color: #fff;
     background-color: #252526;
 }
+
+.foot-action .txt-center{
+    position: relative;
+}
+
+.foot-action .absolute-center{
+    position: absolute; top: 0; right: 0; bottom: 0; left: 0;
+    width: 3rem; margin: auto;
+}
+
+
 
 .foot-action button, .btn-action-machine{
     display: block;
@@ -220,11 +248,11 @@ i{
     padding-top: .4rem;
     line-height: 1;
     background-color: #f9f8f1;
-    transition: .5s ease;
+    /* transition: .5s ease;
     -webkit-transition: .5s ease;
     -moz-transition: .5s ease;
     -ms-transition: .5s ease;
-    -o-transition: .5s ease;
+    -o-transition: .5s ease; */
     margin-bottom: 1rem;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
@@ -272,12 +300,20 @@ i{
 
 /* 弹出菜单 */
 #topPopover{
-    min-height: 3rem;
     width: 3rem;
+    height: 220px;
 }
 
 #bottomPopover{
     width: 3rem;
+}
+
+#topPopover, #bottomPopover{
+    font-size: .32rem;
+}
+
+.mui-table-view-cell:after{
+    right: 15px;
 }
 
 /* 投注确认页 */
@@ -346,7 +382,7 @@ i{
 .bet-confirm .list{
     position: relative; 
     top: 1.2rem; 
-    padding-bottom: 1.8rem;
+    padding-bottom: 2rem;
     width: 6.9rem;    
     margin: 0 .3rem;
     line-height: 1;
@@ -415,7 +451,7 @@ i{
 .bet-confirm .list-item{
     position: relative;
     display: block;
-    border-top: 1px dashed #f3f3f3;
+    border-top: 1px dashed #e5e5e4;
     line-height: 1;
     transition: .3s ease;
     -webkit-transition: .3s ease;
@@ -480,14 +516,21 @@ i{
 
 .bet-confirm .pay .txt-center{
     position: relative;
-    padding: .12rem 0;
-    line-height: 1;
+    height: 1rem;
     color: #fff;
     background-color: #242624;
 }
 
 .bet-confirm .pay .pay-money{
+    padding-top: .19rem;
+    font-size: .32rem;
+    line-height: 1;
     margin-bottom: .06rem;
+}
+
+.bet-confirm .pay .pay-term{
+    font-size: .24rem;
+    line-height: 1;
 }
 
 .bet-confirm .pay-input{
@@ -563,6 +606,11 @@ i{
     -moz-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
     -o-transform: translateY(-50%);
+    border-radius: .1rem;
+    -webkit-border-radius: .1rem;
+    -moz-border-radius: .1rem;
+    -ms-border-radius: .1rem;
+    -o-border-radius: .1rem;
 }
 
 .bet-confirm .btn-to-pay:active{
