@@ -130,9 +130,17 @@ i{
     background-color: #e5e5e0;
 }
 
+/* .bet .balls-blue.none{
+    margin-bottom: .18rem;
+} */
+
+.bet .balls-blue.none::before {
+    background: none;
+}
+
 .bet .balls-blue {
     position: relative;
-    margin-bottom: 2rem;
+    padding-bottom: 2rem;
 }
 
 .bet .balls-blue .ball {
