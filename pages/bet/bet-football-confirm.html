@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../../mui/css/mui.min.css">
+    <link rel="stylesheet" href="../../app.css" />
+    <link rel="stylesheet" href="bet.css">
+    <script src="../../app.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <header class="title">
+            <a class="mui-action-back mui-icon mui-icon-left-nav" id="back"></a>
+            <span>竞彩足球</span>
+        </header>
+        <main class="main bet-confirm">
+            <section class="btn-options-group txt-center">
+                <a class="btn-option btn-option-self w350" onclick="window.location.href='bet-double-chromosphere.html'">
+                    <div><span>添加/编辑赛事</span></div>
+                </a>
+                <a class="btn-option btn-option-empty w350" @click="clear(0, test.length, test)">
+                    <div><span>清空列表</span></div>
+                </a>
+            </section>
+            <section class="list">
+                <div class="list-head"></div>
+                <transition name="fade">
+                    <div class="list-body" v-if="test.length > 0">
+                        <div :class="(index+1)%test.length != 0 ? 'list-item' : 'list-item last'" v-for="(item, index) in 1">
+                            <div class="tbale-cell">
+                                <h1 class="football-title font32 txt-center">
+                                    <span>乌拉圭</span>
+                                    <span class="color9">vs</span>
+                                    <span>法国</span>
+                                </h1>
+                            </div>
+                            <div class="table football-table txt-center">
+                                <div class="table-cell">
+                                    <div class="btn-del-item"><img src="../../images/icon-del-1.png" alt="" class="img-responsive"></div>
+                                </div>
+                                <div class="table-cell w490">
+                                    <section class="table expect-2">
+                                        <div class="table-cell w333 active">
+                                            <h1 class="font28 margb04">乌拉圭</h1>
+                                            <h2 class="font24"><span class="color11">主胜</span> 2.58</h2>
+                                        </div>
+                                        <div class="table-cell w333">
+                                            <h1 class="font28 margb04">法国</h1>
+                                            <h2 class="font24"><span class="color11">平</span> 3.5</h2>
+                                        </div>
+                                    </section>
+                                </div>
+                                <div class="table-cell">
+                                    <span class="rectangle58 active">胆</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list-item">
+                            <div class="tbale-cell">
+                                <h1 class="football-title font32 txt-center">
+                                    <span>巴西</span>
+                                    <span class="color9">vs</span>
+                                    <span>比利时</span>
+                                </h1>
+                            </div>
+                            <div class="table football-table txt-center">
+                                <div class="table-cell">
+                                    <div class="btn-del-item"><img src="../../images/icon-del-1.png" alt="" class="img-responsive"></div>
+                                </div>
+                                <div class="table-cell w490">
+                                    <section class="table expect-2">
+                                        <div class="table-cell w333">
+                                            <h1 class="font28 margb04">巴西</h1>
+                                            <h2 class="font24">主胜2.58</h2>
+                                        </div>
+                                        <div class="table-cell w333">
+                                            <h1 class="font28 margb04">VS</h1>
+                                            <h2 class="font24">平3.5</h2>
+                                        </div>
+                                        <div class="table-cell w333">
+                                            <h1 class="font28 margb04">比利时</h1>
+                                            <h2 class="font24">平3.5</h2>
+                                        </div>
+                                    </section>
+                                </div>
+                                <div class="table-cell">
+                                    <span class="rectangle58 active">胆</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list-item">
+                            <div class="tbale-cell">
+                                <h1 class="football-title font32 txt-center">
+                                    <span>瑞典</span>
+                                    <span class="color9">vs</span>
+                                    <span>英格兰</span>
+                                </h1>
+                            </div>
+                            <div class="table football-table txt-center">
+                                <div class="table-cell">
+                                    <div class="btn-del-item"><img src="../../images/icon-del-1.png" alt="" class="img-responsive"></div>
+                                </div>
+                                <div class="table-cell w490">
+                                    <div class="expect font36 color2 txt-center" @click="show = true">
+                                        <span>1:0</span>
+                                        <span>3:2</span>
+                                        <span>4:2</span>
+                                        <span>5:0</span>
+                                        <span>胜其它</span>
+                                        <span>0:0</span>
+                                        <span>2:2</span>
+                                        <span>平其他</span>
+                                        <span>0:1</span>
+                                        <span>0:3</span>
+                                    </div>
+                                </div>
+                                <div class="table-cell">
+                                    <span class="rectangle58 active">胆</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list-item last">
+                            <div class="tbale-cell">
+                                <h1 class="football-title font32 txt-center">
+                                    <span>俄罗斯</span>
+                                    <span class="color9">vs</span>
+                                    <span>克罗地亚</span>
+                                </h1>
+                            </div>
+                            <div class="table football-table txt-center">
+                                <div class="table-cell">
+                                    <div class="btn-del-item"><img src="../../images/icon-del-1.png" alt="" class="img-responsive"></div>
+                                </div>
+                                <div class="table-cell w490">
+                                    <div class="expect font36 color2 txt-center" @click="show = true">
+                                        <span>主胜</span>
+                                    </div>
+                                </div>
+                                <div class="table-cell">
+                                    <span class="rectangle58 active">胆</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list-protocol txt-center">
+                            <div class="a-checkbox">
+                                <input type="checkbox" name="" id="" checked disabled>
+                                <span>我已阅读并同意<a href="">委托投注规则</a></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="list-body">
+                        <div class="txt-center font28"></div>
+                    </div>
+                </transition>
+            </section>
+            <footer class="footer">
+                <div class="table bg6 mode">
+                    <div :class="showMode === true ? 'table-cell mode-item active' : 'table-cell mode-item'" @click="showMode = !showMode">
+                        <span class="font32 s2"><b>投注方式</b><b class="color2">(必填)</b></span>
+                        <span class="font32 s1">收起</span>
+                        <i class="circle-arrow"></i>
+                    </div>
+                    <div class="table-cell mode-item">
+                        <span class="font32">投 <input type="number" name="" id="" class="mode-num" value="50"> 倍</span>
+                    </div>
+                </div>
+                <div class="btn-mode-group" v-if="showMode">
+                    <div class="btn-mode-wrap">
+                        <div class="btn-mode font32 txt-center">2串1</div>
+                    </div>
+                    <div class="btn-mode-wrap">
+                        <div class="btn-mode font32 txt-center">3串1</div>
+                    </div>
+                    <div class="btn-mode-wrap">
+                        <div class="btn-mode font32 txt-center">4串1</div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="paddv36">
+                        <a :class="showMore ===true ? 'color1 inline-block btn-more-toggle active' : 'color1 inline-block btn-more-toggle'" @click="showMore = !showMore">
+                            <span class="s1">收起更多</span>
+                            <span class="s2">更多玩法</span>
+                        </a>
+                        <a href="" class="color10 inline-block fr">2串1，3串1等是什么意思 ></a>
+                    </div>
+                    <transition name="fade">
+                        <div v-if="showMore">
+                            <div class="btn-mode-wrap">
+                                <div class="btn-mode font32 txt-center">3串3</div>
+                            </div>
+                            <div class="btn-mode-wrap">
+                                <div class="btn-mode font32 txt-center">3串4</div>
+                            </div>
+                            <div class="btn-mode-wrap">
+                                <div class="btn-mode font32 txt-center">4串4</div>
+                            </div>
+                            <div class="btn-mode-wrap">
+                                <div class="btn-mode font32 txt-center">4串5</div>
+                            </div>
+                            <div class="btn-mode-wrap">
+                                <div class="btn-mode font32 txt-center">4串6</div>
+                            </div>
+                            <div class="btn-mode-wrap">
+                                <div class="btn-mode font32 txt-center">4串11</div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </transition>
+                </div>
+                <div class="table">
+                    <div class="table-cell"><button class="btn-primary btn-white">奖金优化</button></div>
+                    <div class="table-cell">
+                        <div class="txt-center">
+                            <div class="pay-money margb10 fontsize32">
+                                <i>50注</i>
+                                <i class="color-yellow">共100元</i></div>
+                            <div class="pay-term fontsize24">
+                                预计奖金: <i>1135.00</i>元
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-cell">
+                        <button class="btn-primary btn-confirm" @click="window.location.href='../payment/payment.html'">支付</button>
+                    </div>
+                </div>
+            </footer>
+        </main>
+
+        <layer-substance :showlayer="show" @closelayer="close"></layer-substance>
+    </div>
+    <script type="text/x-template" id="test">
+        <div>
+            <div :class="showlayer ===true ? 'layer-mask active' : 'layer-mask'" @clcik="closeLayer"></div>
+            <div :class="showlayer ===true ? 'layer-substance active' : 'layer-substance '">
+                <section class="layer-substance-head">
+                    <h1><span>瑞典</span> vs <span>瑞士</span></h1>
+                </section>
+                <section class="layer-substance-body">
+                    <div class="txt-justify font24 color8 hint">
+                        橙色区域支持单关固定，胜平负，比分，总进球，半全场
+                    </div>
+                    <div class="txt-center">
+                        <div class="table-style-1 units">
+                            <section class="table grid-row">
+                                <section class="table-cell grid bg2 color0">
+                                    <div class="score">0</div>
+                                </section>
+                                <section class="table-cell grid"><span>主胜2.95</span></section>
+                                <section class="table-cell grid"><span>平2.70</span></section>
+                                <section class="table-cell grid"><span>客胜2.22</span></section>
+                            </section>
+                            <section class="table grid-row">
+                                <section class="table-cell grid bg3 color0">
+                                    <div class="score">+1</div>
+                                </section>
+                                <section class="table-cell grid"><span>主胜1.44</span></section>
+                                <section class="table-cell grid"><span>平3.60</span></section>
+                                <section class="table-cell grid"><span>客胜5.35</span></section>
+                            </section>
+                        </div>
+                    </div>
+                    <div class="txt-center margb20">
+                        <div class="holder gb4">
+                            <span class="score-label">比分</span>
+                            <div class="score-item" v-for="item in 7">
+                                <h1 class="txt-big">1:0</h1>
+                                <h2 class="txt-small">7.50</h2>
+                            </div>
+                            <div class="score-item" v-for="item in 5">
+                                <h1 class="txt-big">1:0</h1>
+                                <h2 class="txt-small">7.50</h2>
+                            </div>
+                            <div class="score-item score-item-col2">
+                                <h1 class="txt-big">胜其它</h1>
+                                <h2 class="txt-small">100.0</h2>
+                            </div>
+                            <div class="score-item" v-for="item in 4">
+                                <h1 class="txt-big">1:0</h1>
+                                <h2 class="txt-small">7.50</h2>
+                            </div>
+                            <div class="score-item score-item-col3">
+                                <h1 class="txt-big">平其它</h1>
+                                <h2 class="txt-small">400.0</h2>
+                            </div>
+
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <div class="txt-center margb20">
+                        <div class="holder b4">
+                            <span class="score-label">半全场</span>
+                            <div class="score-item" v-for="item in 7">
+                                <h1 class="txt-big">胜胜</h1>
+                                <h2 class="txt-small">7.50</h2>
+                            </div>
+                            <div class="score-item" v-for="item in 5">
+                                <h1 class="txt-big">生平</h1>
+                                <h2 class="txt-small">7.50</h2>
+                            </div>
+                            <div class="score-item score-item-col2">
+                                <h1 class="txt-big">胜负</h1>
+                                <h2 class="txt-small">100.0</h2>
+                            </div>
+                            <div class="score-item">
+                                <h1 class="txt-big">平胜</h1>
+                                <h2 class="txt-small">7.50</h2>
+                            </div>
+                            <div class="score-item score-item-col3">
+                                <h1 class="txt-big">平平</h1>
+                                <h2 class="txt-small">400.0</h2>
+                            </div>
+
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <div class="txt-center">
+                        <div class="holder b5">
+                            <span class="score-label">比分</span>
+                            <div class="score-item" v-for="item in 7">
+                                <h1 class="txt-big">1:0</h1>
+                                <h2 class="txt-small">7.50</h2>
+                            </div>
+                            <div class="score-item" v-for="item in 5">
+                                <h1 class="txt-big">1:0</h1>
+                                <h2 class="txt-small">7.50</h2>
+                            </div>
+                            <div class="score-item score-item-col2">
+                                <h1 class="txt-big">胜其它</h1>
+                                <h2 class="txt-small">100.0</h2>
+                            </div>
+                            <div class="score-item" v-for="item in 4">
+                                <h1 class="txt-big">1:0</h1>
+                                <h2 class="txt-small">7.50</h2>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </section>
+                <section class="layer-substance-foot">
+                    <button class="btn-cancle" @click="closeLayer"> 取消</button>
+                    <button class="btn-confirm" @click="closeLayer">确定</button>
+                    <div class="clearfloat"></div>
+                </section>
+            </div>
+        </div>
+    </script>
+    <script src="../../libs/vue.min.js"></script>
+    <script src="../../mui/js/mui.min.js"></script>
+    <script>
+        Vue.component('layer-substance', {
+            props: {
+                showlayer: false
+            },
+            data: function() {
+                return {
+                    showlayer: this.showlayer
+                }
+            },
+            template: '#test',
+            methods: {
+                closeLayer: function() {
+                    this.showlayer = false
+                    this.$emit('closelayer', this.showlayer)
+                }
+            }
+        })
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                test: [1, 2, 3, 4, 5, 6, 7, 8],
+                term: 1,
+                multiple: 1,
+                price: 2,
+                show: false,
+                showMore: false,
+                showMode: false
+            },
+            mounted: function() {},
+            methods: {
+                clear: function(index, n, target) {
+                    target.splice(index, n)
+                },
+                close: function(msg) {
+                    console.log(msg)
+                    this.show = msg
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

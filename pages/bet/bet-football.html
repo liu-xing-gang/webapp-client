@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../../mui/css/mui.min.css">
+    <link rel="stylesheet" href="../../app.css" />
+    <link rel="stylesheet" href="bet.css">
+    <script src="../../app.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <header class="title">
+            <a class="mui-action-back mui-icon mui-icon-left-nav" id="back"></a>
+            <div @click="show = !show" :class="show == true ? 'btn-drop-down active txt-center' : 'btn-drop-down txt-center'">
+                <div class="i">玩法</div>
+                <div class="txt">混合投注</div>
+            </div>
+            <div class="btn-basic btn-ar">
+                <div class="btn-right-action">
+                    <a href=""><img src="../../images/icon-filter.png" alt="" class="img-responsive"></a>
+                </div>
+                <div class="btn-right-action">
+                    <a href=""><img src="../../images/icon-menu.png" alt="" class="img-responsive"></a>
+                    </d>
+                </div>
+        </header>
+        <transition name="fade">
+            <div class="choices" v-if="show">
+                <div class="btn-size1"><a href="" class="btn-choice">胜平负</a></div>
+                <!-- <div class="btn-size1"><a href="" class="btn-choice">让球胜平负</a></div>
+                <div class="btn-size1"><a href="" class="btn-choice">比分</a></div>
+                <div class="btn-size1"><a href="" class="btn-choice">总进球</a></div>
+                <div class="btn-size1"><a href="" class="btn-choice">半全场</a></div>
+                <div class="btn-size1"><a href="" class="btn-choice active">混合投注</a></div>
+                <div class="btn-size1"><a href="" class="btn-choice">2选1</a></div>
+                <div class="btn-size1"><a href="" class="btn-choice">猜一场</a></div>
+                <div class="btn-size1"><a href="" class="btn-choice">单关固定</a></div> -->
+                <div class="clearfix"></div>
+            </div>
+        </transition>
+        <main>
+            <!--下拉刷新容器-->
+            <div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+                <section class="mui-scroll">
+                    <!--数据列表-->
+                    <ul class="mui-table-view mui-table-view-chevron">
+                        <li>
+                            <section class="competition">
+                                <div :class="showCompetitionMain === true ? 'competition-header txt-center font28 active':'competition-header txt-center font28'" @touchstart="showCompetitionMain = !showCompetitionMain">
+                                    <span>2018-06-21 </span>
+                                    <span>星期四 </span>
+                                    <span>六场比赛可投</span>
+                                </div>
+                                <transition name="fade"></transition>
+                                <div :class="showCompetitionMain === true ? 'active competition-main' : 'competition-main'" 
+                                >
+                                    <section>
+                                        <div class="pk">
+                                            <i class="i">让球</i>
+                                            <span class="opponent font32 color2">瑞典</span>
+                                            <span class="font28">vs</span>
+                                            <span class="opponent font32 color2">瑞士</span>
+                                        </div>
+                                        <div class="flex paddb24">
+                                            <div :class="showCompetitionMainContent === true ? 'flex-col-24 txt-center active' : 'flex-col-24 txt-center'" @touchstart="showCompetitionMainContent = !showCompetitionMainContent">
+                                                <h1 class="h1">世界杯</h1>
+                                                <h2 class="h1">周二055</h2>
+                                                <h3 class="h1">20:00截止</h3>
+                                                <div class="icon-toggle"><img src="../../images/arrow-down-2.png" alt="" class="img-responsive"></div>
+                                            </div>
+                                            <div class="flex-col-86 txt-center">
+                                                <div class="table table-style-1">
+                                                    <div class="table-cell">
+                                                        <section class="table grid-row">
+                                                            <section class="table-cell grid bg2 color0">
+                                                                <div class="score">0</div>
+                                                            </section>
+                                                            <section class="table-cell grid"><span>主胜2.95</span></section>
+                                                            <section class="table-cell grid"><span>平2.70</span></section>
+                                                            <section class="table-cell grid"><span>客胜2.22</span></section>
+                                                        </section>
+                                                        <section class="table grid-row">
+                                                            <section class="table-cell grid bg3 color0">
+                                                                <div class="score">+1</div>
+                                                            </section>
+                                                            <section class="table-cell grid"><span>主胜1.44</span></section>
+                                                            <section class="table-cell grid"><span>平3.60</span></section>
+                                                            <section class="table-cell grid"><span>客胜5.35</span></section>
+                                                        </section>
+                                                    </div>
+                                                    <div class="table-cell expend">
+                                                        <div @touchStart="showLayer = true">展开全部</div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+
+                                    <transition name="fade">
+                                        <section class="content" v-if="showCompetitionMainContent">
+                                            <div class="competition-row">
+                                                <div class="competition-tag">智能预测</div>
+                                                <div class="competition-txt">本场无预测</div>
+                                            </div>
+                                            <div class="competition-row">
+                                                <div class="competition-tag">投注比例</div>
+                                                <div class="competition-txt">
+                                                    <div class="table">
+                                                        <div class="table-cell">0</div>
+                                                        <div class="table-cell">14%</div>
+                                                        <div class="table-cell">5%</div>
+                                                        <div class="table-cell">81%</div>
+                                                    </div>
+                                                </div>
+                                                <div class="competition-txt">
+                                                    <div class="table">
+                                                        <div class="table-cell color2">+1</div>
+                                                        <div class="table-cell">58%</div>
+                                                        <div class="table-cell">21%</div>
+                                                        <div class="table-cell">21%</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="competition-row">
+                                                <div class="competition-tag">赛事排名</div>
+                                                <div class="competition-txt">本场无排名信息</div>
+                                            </div>
+                                            <div class="competition-row">
+                                                <div class="competition-tag">历史交锋</div>
+                                                <div class="competition-txt">
+                                                    <div>
+                                                        <span>近6次交战，瑞典</span>
+                                                        <span class="color2">3胜</span>
+                                                        <span class="color6">2平</span>
+                                                        <span class="color7">1负</span>
+                                                    </div>
+                                                    <div>
+                                                        <img src="../../images/test.jpg" alt="" class="img-responsive">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="competition-row">
+                                                <div class="competition-tag">近期战绩</div>
+                                                <div class="competition-txt">主队3胜4平3负，客队5胜4平1负</div>
+                                            </div>
+                                            <div class="txt-center">
+                                                <a href="" class="btn-analysis">
+                                                            <span> 详细赛事分析 </span>
+                                                        </a>
+                                            </div>
+                                        </section>
+                                    </transition>
+                                </div>
+                                </transition>
+                            </section>
+                        </li>
+                    </ul>
+            </div>
+            <div :class="showLayer ===true ? 'layer-mask active' : 'layer-mask'" @clcik="showLayer = !showLayer"></div>
+            <div :class="showLayer ===true ? 'layer-substance active' : 'layer-substance '">
+                <section class="layer-substance-head">
+                    <h1><span>瑞典</span> vs <span>瑞士</span></h1>
+                </section>
+                <section class="layer-substance-body">
+                    <div class="txt-justify font24 color8 hint">
+                        橙色区域支持单关固定，胜平负，比分，总进球，半全场
+                    </div>
+                    <div class="txt-center">
+                        <div class="table-style-1 units">
+                            <section class="table grid-row">
+                                <section class="table-cell grid bg2 color0">
+                                    <div class="score">0</div>
+                                </section>
+                                <section class="table-cell grid"><span>主胜2.95</span></section>
+                                <section class="table-cell grid"><span>平2.70</span></section>
+                                <section class="table-cell grid"><span>客胜2.22</span></section>
+                            </section>
+                            <section class="table grid-row">
+                                <section class="table-cell grid bg3 color0">
+                                    <div class="score">+1</div>
+                                </section>
+                                <section class="table-cell grid"><span>主胜1.44</span></section>
+                                <section class="table-cell grid"><span>平3.60</span></section>
+                                <section class="table-cell grid"><span>客胜5.35</span></section>
+                            </section>
+                        </div>
+                    </div>
+                    <div class="txt-center margb20">
+                        <div class="holder gb4">
+                            <span class="score-label">比分</span>
+                            <div class="score-item" v-for="item in 7">
+                                <h1 class="txt-big">1:0</h1>
+                                <h2 class="txt-small">7.50</h2>
+                            </div>
+                            <div class="score-item" v-for="item in 5">
+                                <h1 class="txt-big">1:0</h1>
+                                <h2 class="txt-small">7.50</h2>
+                            </div>
+                            <div class="score-item score-item-col2">
+                                <h1 class="txt-big">胜其它</h1>
+                                <h2 class="txt-small">100.0</h2>
+                            </div>
+                            <div class="score-item" v-for="item in 4">
+                                <h1 class="txt-big">1:0</h1>
+                                <h2 class="txt-small">7.50</h2>
+                            </div>
+                            <div class="score-item score-item-col3">
+                                <h1 class="txt-big">平其它</h1>
+                                <h2 class="txt-small">400.0</h2>
+                            </div>
+
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <div class="txt-center margb20">
+                        <div class="holder b4">
+                            <span class="score-label">半全场</span>
+                            <div class="score-item" v-for="item in 7">
+                                <h1 class="txt-big">胜胜</h1>
+                                <h2 class="txt-small">7.50</h2>
+                            </div>
+                            <div class="score-item" v-for="item in 5">
+                                <h1 class="txt-big">生平</h1>
+                                <h2 class="txt-small">7.50</h2>
+                            </div>
+                            <div class="score-item score-item-col2">
+                                <h1 class="txt-big">胜负</h1>
+                                <h2 class="txt-small">100.0</h2>
+                            </div>
+                            <div class="score-item">
+                                <h1 class="txt-big">平胜</h1>
+                                <h2 class="txt-small">7.50</h2>
+                            </div>
+                            <div class="score-item score-item-col3">
+                                <h1 class="txt-big">平平</h1>
+                                <h2 class="txt-small">400.0</h2>
+                            </div>
+
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <div class="txt-center">
+                        <div class="holder b5">
+                            <span class="score-label">比分</span>
+                            <div class="score-item" v-for="item in 7">
+                                <h1 class="txt-big">1:0</h1>
+                                <h2 class="txt-small">7.50</h2>
+                            </div>
+                            <div class="score-item" v-for="item in 5">
+                                <h1 class="txt-big">1:0</h1>
+                                <h2 class="txt-small">7.50</h2>
+                            </div>
+                            <div class="score-item score-item-col2">
+                                <h1 class="txt-big">胜其它</h1>
+                                <h2 class="txt-small">100.0</h2>
+                            </div>
+                            <div class="score-item" v-for="item in 4">
+                                <h1 class="txt-big">1:0</h1>
+                                <h2 class="txt-small">7.50</h2>
+                            </div>
+
+
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </section>
+                <section class="layer-substance-foot">
+                    <button class="btn-cancle" @click="showLayer=false"> 取消</button>
+                    <button class="btn-confirm" @click="showLayer=false">确定</button>
+                    <div class="clearfloat"></div>
+                </section>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="table">
+                <div class="table-cell"><button class="btn-primary btn-white">清空</button></div>
+                <div class="table-cell">
+                    <div class="txt-left txt-gray">请先选择比赛</div>
+                    <div class="txt-left txt-gray-small">页面赔率仅供参考,请以出票赔率为准</div>
+                </div>
+                <div class="table-cell">
+                    <button class="btn-primary btn-confirm" @click="window.location.href='bet-football-confirm.html'">确定</button>
+                </div>
+            </div>
+        </footer>
+
+        </div>
+
+        <script src="../../libs/vue.min.js"></script>
+        <script src="../../libs/layer_mobile/layer.js"></script>
+        <script src="../../mui/js/mui.min.js"></script>
+        <script>
+            var vm = new Vue({
+                'el': '#app',
+                data: {
+                    show: false,
+                    showCompetitionMain: true,
+                    showCompetitionMainContent: false,
+                    showLayer: false,
+                    // 投注类型
+                    arrTypes: [
+                        {id: '1', name: '胜平负', slected: false}, {id: '2', name: '让球胜平负', slected: false}, {id: '3', name: '比分', slected: false},
+                        {id: '4', name: '总进球', slected: false}, {id: '5', name: '半全场', slected: false},
+                        {id: '6', name: '混合投注', slected: true},
+                        {id: '7', name: '2选1', slected: false}, {id: '8', name: '猜一场', slected: false}, {id: '9', name: '单关固定', slected: false},
+                    ],
+
+                }
+            })
+
+            mui.init({
+                pullRefresh: {
+                    container: '#pullrefresh',
+                    down: {
+                        style: 'circle',
+                        callback: pulldownRefresh
+                    },
+                    up: {
+                        auto: false,
+                        contentrefresh: '正在加载...',
+                        callback: pullupRefresh
+                    }
+                }
+            });
+
+            var count = 0;
+
+            function pullupRefresh() {
+                // setTimeout(function() {
+                //     mui('#pullrefresh').pullRefresh().endPullupToRefresh((++count > 2)); //参数为true代表没有更多数据了。
+                //     var table = document.body.querySelector('.mui-table-view');
+                //     var cells = document.body.querySelectorAll('.mui-table-view-cell');
+                //     var newCount = cells.length > 0 ? 5 : 2; //首次加载20条，满屏
+                //     for (var i = cells.length, len = i + newCount; i < len; i++) {
+                //         var li = document.createElement('li');
+                //         li.className = 'mui-table-view-cell';
+                //         li.innerHTML = '<a class="mui-navigate-right">Item ' + (i + 1) + '</a>';
+                //         table.appendChild(li);
+                //     }
+                // }, 1500);
+            }
+
+            function addData() {
+                // var table = document.body.querySelector('.mui-table-view');
+                // var cells = document.body.querySelectorAll('.mui-table-view-cell');
+                // for (var i = cells.length, len = i + 5; i < len; i++) {
+                //     var li = document.createElement('li');
+                //     li.className = 'mui-table-view-cell';
+                //     li.innerHTML = '<a class="mui-navigate-right">Item ' + (i + 1) + '</a>';
+                //     //下拉刷新，新纪录插到最前面；
+                //     table.insertBefore(li, table.firstChild);
+                // }
+            }
+            /**
+             * 下拉刷新具体业务实现
+             */
+            function pulldownRefresh() {
+                // setTimeout(function() {
+                //     addData();
+                //     mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+                //     mui.toast("为你推荐了5篇文章");
+                // }, 1500);
+            }
+        </script>
+
+</body>
+
+</html>

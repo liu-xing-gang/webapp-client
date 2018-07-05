@@ -25,7 +25,7 @@
     font-size: .36rem;
     text-align: center;
     color: #303030;
-    background-color: #fbfbfb;
+    background-color: rgba(255,255,255,.7);
 }
 
 .user .panel-foot a {

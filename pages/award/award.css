@@ -364,6 +364,12 @@
     display: -ms-flexbox;
     display: -webkit-flex;
     display: flex;
+
+    -webkit-box-orient: horizontal;
+    -moz-flex-direction: row;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     -webkit-justify-content: center;
@@ -372,6 +378,8 @@
     -ms-flex-align: center;
     -webkit-align-items: center;
     align-items: center;
+
+
 }
 
 .awards .flex .a-num{
@@ -425,7 +433,7 @@
     font-size: .28rem; text-align: center;
 }
 
-.award-detial .hint{
+/* .award-detial .hint{
     padding: .32rem .3rem 0;
     font-size: .28rem;
     line-height: 1.6;
@@ -440,6 +448,6 @@
 
 .award-detial .hint span{
     vertical-align: middle;
-}
+} */
 
 

@@ -104,34 +104,36 @@
                     @touchend="touchEnd($event)" 
                     :style="slideTrans"> -->
             <section id="layer-random" class="layer-random">
-                <div class="paddh30 margb30">
-                    <a href="" class="color1">什么是胆拖?</a>
-                </div>
-                <div class="paddh30 font28">胆码区,红球,至少选择1个,最多5个</div>
-                <ul class="balls clearfloat">
-                    <li v-for="redBall in arrRedBallsCode1">
-                        <div :class="redBall.selected == true ? 'ball active' : 'ball'" 
-                            v-text="redBall.num" 
-                            v-if="redBall.num"
-                            @click="twoColorBallLottery.select(redBall, 0, $event)"></div>
-                    </li>
-                </ul>
-                <div class="paddh30 font28">托码区,红球,至少选择2个</div>
-                <ul class="balls clearfloat">
-                    <li v-for="redBall in arrRedBallsCode2">
-                        <div :class="redBall.selected == true ? 'ball active' : 'ball'" 
-                            v-text="redBall.num" v-if="redBall.num"
-                            @click="twoColorBallLottery.select(redBall, 1, $event)"></div>
-                    </li>
-                </ul>
-                <div class="paddh30 font28 ">请至少选择个1蓝球</div>
-                <ul class="balls balls-blue none clearfloat">
-                    <li v-for="blueBall in arrBlueBallsCode">
-                        <div :class="blueBall.selected == true ? 'ball active' : 'ball'" 
-                            v-text="blueBall.num" v-if="blueBall.num" 
-                            @click="twoColorBallLottery.select(blueBall, 2, $event)"></div>
-                    </li>
-                </ul>
+                
+                    <div class="paddh30 margb30">
+                        <a href="" class="color1">什么是胆拖?</a>
+                    </div>
+                    <div class="paddh30 font28">胆码区,红球,至少选择1个,最多5个</div>
+                    <ul class="balls clearfloat">
+                        <li v-for="redBall in arrRedBallsCode1">
+                            <div :class="redBall.selected == true ? 'ball active' : 'ball'" 
+                                v-text="redBall.num" 
+                                v-if="redBall.num"
+                                @click="twoColorBallLottery.select(redBall, 0, $event)"></div>
+                        </li>
+                    </ul>
+                    <div class="paddh30 font28">托码区,红球,至少选择2个</div>
+                    <ul class="balls clearfloat">
+                        <li v-for="redBall in arrRedBallsCode2">
+                            <div :class="redBall.selected == true ? 'ball active' : 'ball'" 
+                                v-text="redBall.num" v-if="redBall.num"
+                                @click="twoColorBallLottery.select(redBall, 1, $event)"></div>
+                        </li>
+                    </ul>
+                    <div class="paddh30 font28 ">请至少选择个1蓝球</div>
+                    <ul class="balls balls-blue none clearfloat">
+                        <li v-for="blueBall in arrBlueBallsCode">
+                            <div :class="blueBall.selected == true ? 'ball active' : 'ball'" 
+                                v-text="blueBall.num" v-if="blueBall.num" 
+                                @click="twoColorBallLottery.select(blueBall, 2, $event)"></div>
+                        </li>
+                    </ul>
+                
             </section>
             <footer class="foot-action">
                 <div class="txt-center">
@@ -438,7 +440,6 @@
 
                     }
                     this.slideTrans = "transform:translateY(" + this.slideDistance + "px);"
-
                 },
                 touchEnd: function(e) {
                     var endY = e.changedTouches[0].clientY;
@@ -447,15 +448,19 @@
                     if ((this.disY >= 0 && this.disY <= 50)) {
                         //如果距离小于删除按钮一半,强行回到起点
                         this.slideTrans = "transform:translateY(0px); transition: ." + this.disY + "s linear;"
+
                     } else if (this.disY > 50) {
                         //大于一半 滑动到最大值
                         this.slideDistance = document.getElementById('layer-recent').offsetHeight
                         this.slideTrans = "transform:translateY(" + this.slideDistance + "px); transition: ." + this.slideDistance + "s linear; "
+                       
                     } else {
                         var t = document.getElementById('layer-recent').offsetHeight
                         this.slideDistance = 0
                         this.slideTrans = "transform:translateY(" + this.slideDistance + "px); transition: ." + t + "s linear; "
+                        
                     }
+                    
                 },
                 /**
                  * 递归求下注数
@@ -583,7 +588,7 @@
 
         // 收起弹层
         document.getElementById('app').ontouchmove = function() {
-            vm.$data.show = false
+            vm.$data.show = false 
         }
 
 
