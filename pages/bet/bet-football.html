@@ -17,9 +17,12 @@
     <div id="app">
         <header class="title">
             <a class="mui-action-back mui-icon mui-icon-left-nav" id="back"></a>
-            <div @click="show = !show" :class="show == true ? 'btn-drop-down active txt-center' : 'btn-drop-down txt-center'">
-                <div class="i">玩法</div>
-                <div class="txt">混合投注</div>
+            <div @click="show = !show" :class="show == true ? 'btn-drop-down txt-center active' : 'btn-drop-down txt-center'">
+
+                <div class="txt" v-for="(type, index) in arrTypes" v-if="type.selected === true">
+                    <div class="i">玩法</div>
+                    <span v-text="type.name"></span>
+                </div>
             </div>
             <div class="btn-basic btn-ar">
                 <div class="btn-right-action">
@@ -32,15 +35,11 @@
         </header>
         <transition name="fade">
             <div class="choices" v-if="show">
-                <div class="btn-size1"><a href="" class="btn-choice">胜平负</a></div>
-                <!-- <div class="btn-size1"><a href="" class="btn-choice">让球胜平负</a></div>
-                <div class="btn-size1"><a href="" class="btn-choice">比分</a></div>
-                <div class="btn-size1"><a href="" class="btn-choice">总进球</a></div>
-                <div class="btn-size1"><a href="" class="btn-choice">半全场</a></div>
-                <div class="btn-size1"><a href="" class="btn-choice active">混合投注</a></div>
-                <div class="btn-size1"><a href="" class="btn-choice">2选1</a></div>
-                <div class="btn-size1"><a href="" class="btn-choice">猜一场</a></div>
-                <div class="btn-size1"><a href="" class="btn-choice">单关固定</a></div> -->
+                <!-- 竞彩投注类型 -->
+                <div class="btn-size1" v-for="(type, index) in arrTypes">
+                    <a :class="type.selected === true ? 'btn-choice active' : 'btn-choice'" v-text="type.name" @click="select(type, arrTypes, 'show')">
+                    </a>
+                </div>
                 <div class="clearfix"></div>
             </div>
         </transition>
@@ -50,19 +49,19 @@
                 <section class="mui-scroll">
                     <!--数据列表-->
                     <ul class="mui-table-view mui-table-view-chevron">
-                        <li>
-                            <section class="competition">
+                        <li v-for="(type, index) in arrTypes">
+                            <!-- 竞彩足球不同类型的列表项 start-->
+                            <section class="competition" v-if="type.selected === true && type.name === '混合投注'">
+                                <!-- 选择对应的比赛显示模板 -->
                                 <div :class="showCompetitionMain === true ? 'competition-header txt-center font28 active':'competition-header txt-center font28'" @touchstart="showCompetitionMain = !showCompetitionMain">
                                     <span>2018-06-21 </span>
                                     <span>星期四 </span>
                                     <span>六场比赛可投</span>
                                 </div>
-                                <transition name="fade"></transition>
-                                <div :class="showCompetitionMain === true ? 'active competition-main' : 'competition-main'" 
-                                >
+                                <div :class="showCompetitionMain === true ? 'active competition-main' : 'competition-main'">
                                     <section>
                                         <div class="pk">
-                                            <i class="i">让球</i>
+                                            <i class="i" @touchstart="showLayerSinglePass2 = !showLayerSinglePass2 ">让球</i>
                                             <span class="opponent font32 color2">瑞典</span>
                                             <span class="font28">vs</span>
                                             <span class="opponent font32 color2">瑞士</span>
@@ -75,7 +74,7 @@
                                                 <div class="icon-toggle"><img src="../../images/arrow-down-2.png" alt="" class="img-responsive"></div>
                                             </div>
                                             <div class="flex-col-86 txt-center">
-                                                <div class="table table-style-1">
+                                                <div class="table table-style-1 highlight">
                                                     <div class="table-cell">
                                                         <section class="table grid-row">
                                                             <section class="table-cell grid bg2 color0">
@@ -102,7 +101,6 @@
                                             </div>
                                         </div>
                                     </section>
-
                                     <transition name="fade">
                                         <section class="content" v-if="showCompetitionMainContent">
                                             <div class="competition-row">
@@ -158,8 +156,118 @@
                                         </section>
                                     </transition>
                                 </div>
-                                </transition>
                             </section>
+                            <section class="competition" v-if="type.selected === true && type.name === '胜平负'">
+                                <ul class="blocks clearfloat">
+                                    <li :class="showBlocks === true ? 'active' : ''" @touchstart="showBlocks = true">过关(至少选择两场)</li>
+                                    <li :class="showBlocks === true ? '' : 'active'" @touchstart="showBlocks = false">单关(猜一场，奖金固定)</li>
+                                </ul>
+                                <div class="padd30">
+                                    <a class="btn-random fl"> 摇一摇选号</a>
+                                    <a href="" class="font28 fr">至少选择6个红球,1个蓝球 ></a>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="competition-header txt-center font28 active">
+                                    <span>2018-07-06 </span>
+                                    <span>星期四 </span>
+                                    <span>2场比赛可投</span>
+                                </div>
+                                <div class="competition-main active">
+                                        <section>
+                                            <div class="pk">
+                                                <i class="i">让球</i>
+                                                <span class="opponent font32 color2">瑞典</span>
+                                                <span class="font28">vs</span>
+                                                <span class="opponent font32 color2">瑞士</span>
+                                            </div>
+                                            <div class="flex paddb24">
+                                                <div :class="showCompetitionMainContent === true ? 'flex-col-24 txt-center active' : 'flex-col-24 txt-center'" @touchstart="showCompetitionMainContent = !showCompetitionMainContent">
+                                                    <h1 class="h1">世界杯</h1>
+                                                    <h2 class="h1">周二055</h2>
+                                                    <h3 class="h1">20:00截止</h3>
+                                                    <div class="icon-toggle"><img src="../../images/arrow-down-2.png" alt="" class="img-responsive"></div>
+                                                </div>
+                                                <div class="flex-col-86 txt-center">
+                                                    <div class="table table-style-1">
+                                                        <div class="table-cell">
+                                                            <section class="table grid-row">
+                                                                <section class="table-cell grid bg3 color0">
+                                                                    <div class="score">+1</div>
+                                                                </section>
+                                                                <section class="table-cell grid"><span>主胜1.44</span></section>
+                                                                <section class="table-cell grid"><span>平3.60</span></section>
+                                                                <section class="table-cell grid"><span>客胜5.35</span></section>
+                                                            </section>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <transition name="fade">
+                                            <section class="content" v-if="showCompetitionMainContent">
+                                                <div class="competition-row">
+                                                    <div class="competition-tag">智能预测</div>
+                                                    <div class="competition-txt">本场无预测</div>
+                                                </div>
+                                                <div class="competition-row">
+                                                    <div class="competition-tag">投注比例</div>
+                                                    <div class="competition-txt">
+                                                        <div class="table">
+                                                            <div class="table-cell">0</div>
+                                                            <div class="table-cell">14%</div>
+                                                            <div class="table-cell">5%</div>
+                                                            <div class="table-cell">81%</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="competition-txt">
+                                                        <div class="table">
+                                                            <div class="table-cell color2">+1</div>
+                                                            <div class="table-cell">58%</div>
+                                                            <div class="table-cell">21%</div>
+                                                            <div class="table-cell">21%</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="competition-row">
+                                                    <div class="competition-tag">赛事排名</div>
+                                                    <div class="competition-txt">本场无排名信息</div>
+                                                </div>
+                                                <div class="competition-row">
+                                                    <div class="competition-tag">历史交锋</div>
+                                                    <div class="competition-txt">
+                                                        <div>
+                                                            <span>近6次交战，瑞典</span>
+                                                            <span class="color2">3胜</span>
+                                                            <span class="color6">2平</span>
+                                                            <span class="color7">1负</span>
+                                                        </div>
+                                                        <div>
+                                                            <img src="../../images/test.jpg" alt="" class="img-responsive">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="competition-row">
+                                                    <div class="competition-tag">近期战绩</div>
+                                                    <div class="competition-txt">主队3胜4平3负，客队5胜4平1负</div>
+                                                </div>
+                                                <div class="txt-center">
+                                                    <a href="" class="btn-analysis">
+                                                                <span> 详细赛事分析 </span>
+                                                            </a>
+                                                </div>
+                                            </section>
+                                        </transition>
+                                    </div>
+                            </section>
+                            <section class="competition" v-if="type.selected === true && type.name === '让球胜平负'"></section>
+                            <section class="competition" v-if="type.selected === true && type.name === '比分'"></section>
+                            <section class="competition" v-if="type.selected === true && type.name === '总进球'"></section>
+                            <section class="competition" v-if="type.selected === true && type.name === '半全场'"></section>
+                            <section class="competition" v-if="type.selected === true && type.name === '混合投注'"></section>
+                            <section class="competition" v-if="type.selected === true && type.name === '2选1'"></section>
+                            <section class="competition" v-if="type.selected === true && type.name === '猜一场'"></section>
+                            <section class="competition" v-if="type.selected === true && type.name === '单关固定'"></section>
+                            <!-- 竞彩足球不同类型的列表项 end-->
                         </li>
                     </ul>
             </div>
@@ -278,15 +386,62 @@
                 </section>
             </div>
         </main>
-
+        <!-- 提示弹层需优化为一个弹出层组件layer-prompt start-->
+        <section :class=" showLayerSinglePass2 === true ? 'layer-mask active' : 'layer-mask'"></section>
+        <section :class=" showLayerSinglePass2 === true ? 'layer-substance layer-single-pass active' : 'layer-substance layer-single-pass'">
+            <div class="layer-substance-head">
+                <h1 class="font28">让球说明</h1>
+            </div>
+            <div class="layer-substance-body txt-justify">
+                <p style="line-height: 1.6;">
+                   让球：0表示没有让球；“-”表示主队让客队，主队的净胜球大于客队让客队，主队的净胜球大于让球数才算赢；
+                </p>
+                <p style="line-height: 1.6;">
+                    “+”表示客队让主队，客队的净胜球大于主队让客队，客队的净胜球大于让球数才算赢；
+                </p>
+            </div>
+            <div class="layer-substance-foot txt-center">
+                <a class="font28" @click="showLayerSinglePass2 = false">我知道了</a>
+            </div>
+        </section>
+        <section :class=" showLayerSinglePass === true ? 'layer-mask active' : 'layer-mask'"></section>
+        <section :class=" showLayerSinglePass === true ? 'layer-substance layer-single-pass active' : 'layer-substance layer-single-pass'">
+            <div class="layer-substance-head">
+                <h1 class="font28">单关固定</h1>
+            </div>
+            <div class="layer-substance-body txt-justify">
+                <p style="line-height: 1.6;">
+                    单关固定：只猜一场比赛，猜中及中奖。奖金以出票时刻的赔率为准。
+                    单关固定返奖率高达87%。
+                </p>
+                <p style="line-height: 1.6;">
+                    勾选后，橙色框区域表示该场次支持单关固定的玩法。
+                </p>
+            </div>
+            <div class="layer-substance-foot txt-center">
+                <a class="font28" @click="showLayerSinglePass = false">我知道了</a>
+            </div>
+        </section>
+        <!-- 提示弹层需优化为一个弹出层组件layer-prompt end-->
         <footer class="footer">
+            <div class="bg6 txt-center single-pass">
+                <div class="a-checkbox flex">
+                    <input type="checkbox" name="" id="" checked>
+                    <span>&nbsp;显示单关固定比赛表示</span>
+                    <span>&nbsp;&nbsp;<img src="../../images/icon-doubt.png" alt="" @click="showLayerSinglePass=!showLayerSinglePass"></span>
+                </div>
+            </div>
             <div class="table">
-                <div class="table-cell"><button class="btn-primary btn-white">清空</button></div>
-                <div class="table-cell">
-                    <div class="txt-left txt-gray">请先选择比赛</div>
-                    <div class="txt-left txt-gray-small">页面赔率仅供参考,请以出票赔率为准</div>
+                <div class="table-cell w118">
+                    <a class="inline-block btn-remove"><img src="../../images/icon-trash.png" alt=""></a>
                 </div>
                 <div class="table-cell">
+                    <section class="footer-hint">
+                        <div class="txt-left txt-gray">请先选择比赛</div>
+                        <div class="txt-left txt-gray-small">页面赔率仅供参考,请以出票赔率为准</div>
+                    </section>
+                </div>
+                <div class="table-cell w118">
                     <button class="btn-primary btn-confirm" @click="window.location.href='bet-football-confirm.html'">确定</button>
                 </div>
             </div>
@@ -294,10 +449,21 @@
 
         </div>
 
+        <script type="text/x-template" id="#test">
+            
+        </script>
+
         <script src="../../libs/vue.min.js"></script>
         <script src="../../libs/layer_mobile/layer.js"></script>
         <script src="../../mui/js/mui.min.js"></script>
         <script>
+            Vue.component('layer-prompt', {
+                props: {
+                    txt: String,
+                },
+                template: '#test',
+            })
+
             var vm = new Vue({
                 'el': '#app',
                 data: {
@@ -305,14 +471,101 @@
                     showCompetitionMain: true,
                     showCompetitionMainContent: false,
                     showLayer: false,
+                    showBlocks: false,
+                    showLayerSinglePass: false,
+                    showLayerSinglePass2: false,
                     // 投注类型
-                    arrTypes: [
-                        {id: '1', name: '胜平负', slected: false}, {id: '2', name: '让球胜平负', slected: false}, {id: '3', name: '比分', slected: false},
-                        {id: '4', name: '总进球', slected: false}, {id: '5', name: '半全场', slected: false},
-                        {id: '6', name: '混合投注', slected: true},
-                        {id: '7', name: '2选1', slected: false}, {id: '8', name: '猜一场', slected: false}, {id: '9', name: '单关固定', slected: false},
+                    arrTypes: [{
+                            id: '1',
+                            name: '胜平负',
+                            selected: false
+                        }, {
+                            id: '2',
+                            name: '让球胜平负',
+                            selected: false
+                        }, {
+                            id: '3',
+                            name: '比分',
+                            selected: false
+                        },
+                        {
+                            id: '4',
+                            name: '总进球',
+                            selected: false
+                        }, {
+                            id: '5',
+                            name: '半全场',
+                            selected: false
+                        },
+                        {
+                            id: '6',
+                            name: '混合投注',
+                            selected: true
+                        },
+                        {
+                            id: '7',
+                            name: '2选1',
+                            selected: false
+                        }, {
+                            id: '8',
+                            name: '猜一场',
+                            selected: false
+                        }, {
+                            id: '9',
+                            name: '单关固定',
+                            selected: false
+                        },
                     ],
+                    // 比赛列表 
+                    arrCompetitions: [
+                        {
+                            competitionName: '世界杯',
+                            competitionNumber: '周五057',
+                            closingData: '20:00',
+                            nationHome: '乌拉圭', 
+                            nationGuest: '法国',
+                            rateGroup: [
+                                {rateType: '0', rateList: [{rate: '主胜4.10'},{rate: '平3.00'},{rate: '客胜1.72'}]},
+                                {rateType: '1', reateList: [{rate: '主胜1.79'},{rate: '平3.15'},{rate: '客胜3.53'}]},
+                                {
+                                    rateType: '比分', 
+                                    rateList: [
+                                        {score: '1:0', rate: '6.70'}, {score: '2:0', rate: '8.25'}, {score: '2:1', rate: '7.00'}, {score: '3:0', rate: '15.00'},{score: '3:1', rate: '15.00'},{score: '3:2', rate: '22.00'},{score: '4:0', rate: '35.00'},
+                                        {score: '4:1', rate: '35.00'},{score: '4:2', rate: '50.00'},{score: '5:0', rate: '80.00'},{score: '5:1', rate: '80.00'},{score: '5:2', rate: '100.00'},{score: '胜其他', rate: '50.00'},
+                                        {score: '0:0', rate: '8.5'},{score: '1:1', rate: '6.10'},{score: '2:2', rate: '13.00'},{score: '3:3', rate: '50.00'},{score: '平其它', rate: '200.00'},
+                                        {score: '0:1', rate: '9.70'},{score: '0:2', rate: '18.00'},{score: '1:2', rate: '11.00'},{score: '0:3', rate: '40.00'},{score: '1:3', rate: '30.00'},{score: '2:3', rate: '30.00'},{score: '0:4', rate: '150.00'},
+                                        {score: '1:4', rate: '100.00'},{score: '2:4', rate: '100.00'},{score: '0:5', rate: '400.00'},{score: '1:5', rate: '200.00'},{score: '2:5', rate: '200.00'},{score: '负其他', rate: '90.00'}
+                                    ]
+                                },
+                                {rateType: '总进球', rateList: [
+                                        {in: '0球', rate: '8.50'},{in: '1球', rate: '4.10'},{in: '2球', rate: '3.15'},{in: '3球', rate: '3.70'},
+                                        {in: '4球', rate: '5.75'},{in: '5球', rate: '10.50'},{in: '6球', rate: '18.00'},{in: '7+球', rate: '25.00'}
 
+                                    ]
+                                },
+                                {
+                                    rateType: '半全场', rateList: [
+                                        {ending: '胜胜', rate: '2.75'},{ending: '胜平', rate: '14.00'},{ending: '胜负', rate: '30.00'},{ending: '平胜', rate: '4.30'},{ending: '平平', rate: '5.00'},
+                                        {ending: '平负', rate: '8.00'},{ending: '负胜', rate: '20.00'},{ending: '负平', rate: '14.00'},{ending: '负负', rate: '6.00'},
+                                    ]
+                                }
+                                
+                            ]
+                        }
+                    ]
+
+                },
+                methods: {
+                    /*
+                     * 选择竞彩足球类型
+                     */
+                    select: function(o1, o2, key) {
+                        o2.forEach(function(item) {
+                            item.selected = false
+                        })
+                        o1.selected = true
+                        this[key] = false
+                    },
                 }
             })
 

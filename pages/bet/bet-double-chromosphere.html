@@ -17,10 +17,9 @@
     <div id="app">
         <header class="title">
             <a class="mui-action-back mui-icon mui-icon-left-nav" id="back"></a>
-            <div @click="show = !show" :class="show == true ? 'btn-drop-down active' : 'btn-drop-down'">
-                <div class="i">玩法</div>
-                <div class="txt" v-if="type === 0">双色球普通</div>
-                <div class="txt" v-else>双色球胆拖</div>
+            <div @click="show = !show" :class="show == true ? 'btn-drop-down txt-center active' : 'btn-drop-down txt-center'">
+                <div class="txt" v-if="type === 0"><span>双色球普通</span></div>
+                <div class="txt" v-else><div class="i">玩法</div><span>双色球胆拖</span></div>
             </div>
             <a href="#topPopover" class="btn-basic btn-ar">
                 <img src="../../images/icon-line-chart.png" alt="" class="img-responsive">

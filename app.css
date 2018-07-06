@@ -514,7 +514,7 @@ a:active {
     text-align: center!important;
 }
 
-.txt-jusify {
+.txt-justify {
     text-align: justify;
 }
 
@@ -540,7 +540,7 @@ a:active {
 
 .btn-drop-down {
     position: relative;
-    width: 2.7rem;
+    /* width: 2.7rem; */
     margin: 0 auto;
     text-align: right;
 }
@@ -552,7 +552,7 @@ a:active {
     font-size: .2rem;
     line-height: 1.2;
     position: absolute;
-    left: 0;
+    left: -.4rem;
     top: 50%;
     transform: translateY(-50%);
     -webkit-transform: translateY(-50%);
@@ -770,6 +770,7 @@ a:active {
 }
 
 .footer .btn-confirm{
+    float: right;
     color: #303030;
     background-color: #f5bd41;
 }
@@ -910,6 +911,24 @@ a:active {
 
 .footer .active .s2{
     display: none;
+}
+
+.footer .btn-remove{
+    width: 1.18rem; text-align: center;
+}
+
+.footer .btn-remove img{
+    width: .48rem; height: .48rem;
+    vertical-align: middle;
+}
+
+.footer .footer-hint{
+    padding-left: .24rem;
+    border-left: 1px solid #999;
+}
+
+.w118{
+    width: 1.18rem;
 }
 
 .paddv36{
