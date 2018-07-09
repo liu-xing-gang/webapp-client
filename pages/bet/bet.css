@@ -122,6 +122,10 @@ i {
     padding-bottom: .24rem;
 }
 
+.paddb20{
+    padding-bottom: .20rem;
+}
+
 .margb30 {
     margin-bottom: .3rem;
 }
@@ -891,6 +895,11 @@ i {
 
 .table-style-1{
     background-color: #fff;
+    transition: border .3s ease-in-out;
+    -webkit-transition: border .3s ease-in-out;
+    -moz-transition: border .3s ease-in-out;
+    -ms-transition: border .3s ease-in-out;
+    -o-transition: border .3s ease-in-out;
 }
 
 .table-style-1 .grid{
@@ -929,6 +938,7 @@ i {
 
 
 .table-style-1 .expend{
+    width: .88rem;
     font-size: .28rem;
     color: #91826d;
 }
@@ -969,6 +979,20 @@ i {
     border-left: none;
 }
 
+.table-style-1 .expend.chosen{
+    background-color: #eedfcc;
+}
+
+.table-style-1 .expend .null, .table-style-1 .expend.chosen .not-null{
+    display: block;
+}
+
+.table-style-1 .expend .no-null, .table-style-1 .expend.chosen .null{
+    display: none;
+}
+
+
+
 /* 单关标识 end */
 
 .competition{
@@ -976,6 +1000,7 @@ i {
     margin: 0 auto;
     background: #f9f8f1;
     line-height: 1;
+    margin-bottom: 1rem;
 }
 
 .competition .competition-header{
@@ -1075,14 +1100,29 @@ i {
 }
 
 .competition .competition-row{
+    position: relative;
     padding: .1rem 0;
     zoom: 1;
     line-height: 1;
 }
 
 .competition .competition-tag{
+    
     float: left;
     width: 1.8rem;
+}
+
+.icon-result{
+    position: absolute;
+    left: 1.5rem;
+    top: 56%;
+    width: .25rem;
+    height: 1.12rem;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
 }
 
 .competition .competition-txt{
@@ -1203,7 +1243,7 @@ i {
     position: fixed;
     z-index: 10;
     width: 6.9rem;
-    height: 70%;
+    height: 80%;
     top: 0;
     bottom: 0;
     right: 0;
@@ -1304,17 +1344,19 @@ i {
     font-size: .24rem; color: #808080;
 }
 
-/* .layer-substance .units .unit-item{
-    width: .94rem;
-    padding: .08rem;
-    border-right: 1px solid #e5e5e5;
-    border-bottom: 1px solid #e5e5e5;
-} */
+.holder .score-item.active .txt-big, .holder .score-item.active .txt-small{
+    color: #fff;
+}
 
 .holder{
     position: relative;
     padding-left: .3rem;
+    border-top: 1px solid #e5e5e5;
     color: #fff;
+}
+
+.holder .score-item.active{
+    background-color: #d5001a;
 }
 
 .holder .score-item{
@@ -1322,12 +1364,10 @@ i {
     display: -ms-flexbox;
     display: -webkit-flex;
     display: flex;
-
     -webkit-box-orient: vertical;
     -moz-flex-direction: column;
     -webkit-flex-direction: column;
     flex-direction: column;
-
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     -webkit-justify-content: center;
@@ -1336,12 +1376,17 @@ i {
     -ms-flex-align: center;
     -webkit-align-items: center;
     align-items: center;
-
     float: left;
-    width: .8857142286rem; height: .8857142286rem;
+    width: .88rem;
+    height: .88rem;
     border-right: 1px solid #e5e5e5;
     border-bottom: 1px solid #e5e5e5;
     background-color: #fff;
+    transition: color .3s ease-in-out;
+    -webkit-transition: color .3s ease-in-out;
+    -moz-transition: color .3s ease-in-out;
+    -ms-transition: color .3s ease-in-out;
+    -o-transition: color .3s ease-in-out;
 }
 
 .holder .score-item-col2{
@@ -1482,7 +1527,7 @@ i {
 
 .single-pass .a-checkbox input[type=checkbox]:checked:before {
     background: url(../../images/check-box_fill.png) no-repeat center;
-    background-size: contain;
+    background-size: cover;
 }
 
 .single-pass .a-checkbox input[type=checkbox]{
@@ -1492,6 +1537,10 @@ i {
     -moz-border-radius: .05rem;
     -ms-border-radius: .05rem;
     -o-border-radius: .05rem;
+}
+
+.none{
+    display: none;
 }
 
 

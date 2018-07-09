@@ -278,6 +278,12 @@ a:active {
     background-size: .28rem .28rem;
 }
 
+.arrow-r5 {
+    padding-right: .4rem;
+    background: url(images/arrow-r-black.png) no-repeat right center;
+    background-size: .28rem .28rem;
+}
+
 .arrow-down {
     background: url(images/arrow-down.png) no-repeat right center;
     background-size: .28rem .28rem;
@@ -926,6 +932,132 @@ a:active {
     padding-left: .24rem;
     border-left: 1px solid #999;
 }
+
+/* 竞彩足球已选比赛弹层 */
+.footer .layer-chosen{
+    position: absolute;
+    left: 0;
+    bottom: 1rem;
+    z-index: 2;
+    width: 100%;
+    max-width: 750px;
+    color: #666;
+    background-color: #fff;
+    transition: .5s ease;
+    -webkit-transition: .5s ease;
+    -moz-transition: .5s ease;
+    -ms-transition: .5s ease;
+    -o-transition: .5s ease;
+    transform: translateY(150%);
+    -webkit-transform: translateY(150%);
+    -moz-transform: translateY(150%);
+    -ms-transform: translateY(150%);
+    -o-transform: translateY(150%);
+    opacity: 0;
+}
+
+.footer .layer-chosen.active{
+    opacity: 1;
+    transform: translateY(0);
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+
+    max-height: 6rem;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
+.footer .layer-mask-chosen{
+    z-index: 1;
+}
+
+.footer .chosen-item{
+    padding: 0 .3rem;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.footer .chosen-head{
+    padding: .24rem 0;
+}
+
+.footer .btn-chosen-group{
+    -webkit-flex-wrap:wrap;
+    -webkit-box-lines:multiple;
+    -moz-flex-wrap:wrap;
+    flex-wrap:wrap;
+}
+
+.footer .btn-chosen-wrap{
+    width: 33.333%;
+}
+
+.footer .btn-chosen {
+    margin: 0 auto .24rem;
+}
+
+.footer .chosen-item:last-child{
+    border: none;
+}
+
+.footer .btn-chosen{
+    display: block;
+    width: 2.08rem;
+    height: .64rem;
+    border-radius: .05rem;
+    text-align: center;
+    line-height: .64rem; 
+
+    background-color: #f8f8f8;
+    -webkit-border-radius: .05rem;
+    -moz-border-radius: .05rem;
+    -ms-border-radius: .05rem;
+    -o-border-radius: .05rem;
+}
+
+.footer .chosen-txt{
+    padding-bottom: .1rem;
+    color: #fff;
+}
+
+.footer .chosen-txt span{
+    position: relative;
+}
+
+.footer .chosen-txt span::after{
+    content: '';
+    position: absolute;
+    width: .28rem;
+    height: .28rem;
+    margin-left: .16rem;
+    background: url(images/icon-down-yellow.png) no-repeat;
+    background-size: cover;
+    transition: .3s ease;
+    -webkit-transition: .3s ease;
+    -moz-transition: .3s ease;
+    -ms-transition: .3s ease;
+    -o-transition: .3s ease;
+}
+
+.footer .chosen-txt.active span::after{
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+}
+
+.footer .table{
+    position: relative;
+    z-index: 8;
+    background: #252526;
+}
+
+.footer .chosen-txt i{
+    color: #e2c223;
+}
+
 
 .w118{
     width: 1.18rem;

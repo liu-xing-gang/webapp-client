@@ -52,110 +52,160 @@
                         <li v-for="(type, index) in arrTypes">
                             <!-- 竞彩足球不同类型的列表项 start-->
                             <section class="competition" v-if="type.selected === true && type.name === '混合投注'">
-                                <!-- 选择对应的比赛显示模板 -->
-                                <div :class="showCompetitionMain === true ? 'competition-header txt-center font28 active':'competition-header txt-center font28'" @touchstart="showCompetitionMain = !showCompetitionMain">
-                                    <span>2018-06-21 </span>
-                                    <span>星期四 </span>
-                                    <span>六场比赛可投</span>
-                                </div>
-                                <div :class="showCompetitionMain === true ? 'active competition-main' : 'competition-main'">
-                                    <section>
-                                        <div class="pk">
-                                            <i class="i" @touchstart="showLayerSinglePass2 = !showLayerSinglePass2 ">让球</i>
-                                            <span class="opponent font32 color2">瑞典</span>
-                                            <span class="font28">vs</span>
-                                            <span class="opponent font32 color2">瑞士</span>
-                                        </div>
-                                        <div class="flex paddb24">
-                                            <div :class="showCompetitionMainContent === true ? 'flex-col-24 txt-center active' : 'flex-col-24 txt-center'" @touchstart="showCompetitionMainContent = !showCompetitionMainContent">
-                                                <h1 class="h1">世界杯</h1>
-                                                <h2 class="h1">周二055</h2>
-                                                <h3 class="h1">20:00截止</h3>
-                                                <div class="icon-toggle"><img src="../../images/arrow-down-2.png" alt="" class="img-responsive"></div>
-                                            </div>
-                                            <div class="flex-col-86 txt-center">
-                                                <div class="table table-style-1 highlight">
-                                                    <div class="table-cell">
-                                                        <section class="table grid-row">
-                                                            <section class="table-cell grid bg2 color0">
-                                                                <div class="score">0</div>
-                                                            </section>
-                                                            <section class="table-cell grid"><span>主胜2.95</span></section>
-                                                            <section class="table-cell grid"><span>平2.70</span></section>
-                                                            <section class="table-cell grid"><span>客胜2.22</span></section>
-                                                        </section>
-                                                        <section class="table grid-row">
-                                                            <section class="table-cell grid bg3 color0">
-                                                                <div class="score">+1</div>
-                                                            </section>
-                                                            <section class="table-cell grid"><span>主胜1.44</span></section>
-                                                            <section class="table-cell grid"><span>平3.60</span></section>
-                                                            <section class="table-cell grid"><span>客胜5.35</span></section>
-                                                        </section>
-                                                    </div>
-                                                    <div class="table-cell expend">
-                                                        <div @touchStart="showLayer = true">展开全部</div>
+                                <article v-for="article in arrCompetitions" v-if="article.typeId === type.typeId">
+                                    
+                                    <div :class="article.showCompetitionMain === true ? 'competition-header txt-center font28 active':'competition-header txt-center font28'" 
+                                        @touchstart="article.showCompetitionMain = !article.showCompetitionMain">
 
+                                        <span v-text="article.time">2018-06-21 </span>
+                                        <span><i v-text="article.competitionList.length"></i>场比赛可投</span>
+                                    </div>
+                                    <div v-for="item in article.competitionList"
+                                        :class="article.showCompetitionMain === true ? 'active competition-main' : 'competition-main'">
+                                        
+                                        <section>
+                                            <div class="pk">
+                                                <i class="i" @touchstart="showLayerSinglePass2 = !showLayerSinglePass2 ">让球</i>
+                                                <span class="opponent font32 color2" v-text="item.nationHome">瑞典</span>
+                                                <span class="font28">vs</span>
+                                                <span class="opponent font32 color2"  v-text="item.nationGuest">瑞士</span>
+                                            </div>
+                                            <div class="flex paddb24">
+                                                <div :class="item.showCompetitionMainContent === true ? 'flex-col-24 txt-center active' : 'flex-col-24 txt-center'" 
+                                                    @touchstart="item.showCompetitionMainContent = !item.showCompetitionMainContent">
+
+                                                    <h1 class="h1" v-text="article.competitionName">世界杯</h1>
+                                                    <h2 class="h1" v-text="item.competitionNumber">周二055</h2>
+                                                    <h3 class="h1"><i v-text="item.closingDate"></i>截止</h3>
+                                                    <div class="icon-toggle"><img src="../../images/arrow-down-2.png" alt="" class="img-responsive"></div>
+                                                </div>
+                                                <div class="flex-col-86 txt-center">
+                                                    <div :class="article.showSinglePass === true ? 'table table-style-1 highlight' : 'table table-style-1'">
+                                                        <div class="table-cell">
+                                                            <section class="table grid-row" v-for="i in item.rateGroup" v-if="i.rateType === '0'">
+                                                                <section class="table-cell grid bg2 color0">
+                                                                    <div class="score" v-text="i.rateType">0</div>
+                                                                </section>
+                                                                <section 
+                                                                    v-for="rate in i.rateList"
+                                                                    :class="rate.selected === true ? 'table-cell grid active' : 'table-cell grid'" 
+                                                                    @touchstart="pitchon(rate, 'selected', item)">
+
+                                                                    <span v-text="rate.rate">主胜2.95</span>
+                                                                </section>
+                                                            </section>
+                                                            <section class="table grid-row" v-for="i in item.rateGroup" v-if="i.rateType === '1'">
+                                                                <section class="table-cell grid bg3 color0">
+                                                                    <div class="score" v-text="i.rateType">+1</div>
+                                                                </section>
+                                                                <section class="table-cell grid" 
+                                                                    v-for="rate in i.rateList"
+                                                                    :class="rate.selected === true ? 'table-cell grid active' : 'table-cell grid'" 
+                                                                    @touchstart="pitchon(rate, 'selected', item)">
+
+                                                                    <span v-text="rate.rate">主胜1.44</span>
+                                                                </section>
+                                                            </section>
+                                                        </div>
+                                                        <div 
+                                                            :class="item.isChosen === true ? 'table-cell expend chosen' : 'table-cell expend'"
+                                                            @touchStart="expend(item)">
+
+                                                            <section class="null" v-if="!item.isChosen">
+                                                                <div>展开</div>
+                                                                <div>全部</div>
+                                                            </section>
+                                                            <section class="not-null" v-else>
+                                                                <div>已选</div>
+                                                                <div><span v-text="item.chosenNum">2</span>项</div>
+                                                            </section>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </section>
-                                    <transition name="fade">
-                                        <section class="content" v-if="showCompetitionMainContent">
-                                            <div class="competition-row">
-                                                <div class="competition-tag">智能预测</div>
-                                                <div class="competition-txt">本场无预测</div>
-                                            </div>
-                                            <div class="competition-row">
-                                                <div class="competition-tag">投注比例</div>
-                                                <div class="competition-txt">
-                                                    <div class="table">
-                                                        <div class="table-cell">0</div>
-                                                        <div class="table-cell">14%</div>
-                                                        <div class="table-cell">5%</div>
-                                                        <div class="table-cell">81%</div>
-                                                    </div>
-                                                </div>
-                                                <div class="competition-txt">
-                                                    <div class="table">
-                                                        <div class="table-cell color2">+1</div>
-                                                        <div class="table-cell">58%</div>
-                                                        <div class="table-cell">21%</div>
-                                                        <div class="table-cell">21%</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="competition-row">
-                                                <div class="competition-tag">赛事排名</div>
-                                                <div class="competition-txt">本场无排名信息</div>
-                                            </div>
-                                            <div class="competition-row">
-                                                <div class="competition-tag">历史交锋</div>
-                                                <div class="competition-txt">
-                                                    <div>
-                                                        <span>近6次交战，瑞典</span>
-                                                        <span class="color2">3胜</span>
-                                                        <span class="color6">2平</span>
-                                                        <span class="color7">1负</span>
-                                                    </div>
-                                                    <div>
-                                                        <img src="../../images/test.jpg" alt="" class="img-responsive">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="competition-row">
-                                                <div class="competition-tag">近期战绩</div>
-                                                <div class="competition-txt">主队3胜4平3负，客队5胜4平1负</div>
-                                            </div>
-                                            <div class="txt-center">
-                                                <a href="" class="btn-analysis">
-                                                            <span> 详细赛事分析 </span>
-                                                        </a>
-                                            </div>
+                                            
                                         </section>
-                                    </transition>
-                                </div>
+                                        <transition name="fade">
+                                            <section class="content"
+                                                :style="{display: item.showCompetitionMainContent === true ? 'block' : 'none'}">
+
+                                                <div class="competition-row">
+                                                    <div class="competition-tag">智能预测</div>
+                                                    <div class="competition-txt" v-text="item.forecast">本场无预测</div>
+                                                </div>
+                                                <div class="competition-row">
+                                                    <div class="competition-tag">投注比例</div>
+                                                    <div class="competition-txt">
+                                                        <div class="table" 
+                                                            v-for="betRate in item.betRates" 
+                                                            v-if="betRate.betTypeId === '0'">
+
+                                                            <div class="table-cell">0</div>
+                                                            <div class="table-cell" v-for="bet in betRate.betRateList">
+                                                                <span v-text="bet"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="competition-txt">
+                                                        <div class="table"
+                                                            v-for="betRate in item.betRates" 
+                                                            v-if="betRate.betTypeId === '-1'">
+
+                                                            <div class="table-cell color2">+1</div>
+                                                            <div class="table-cell" v-for="bet in betRate.betRateList">
+                                                                <span v-text="bet"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="competition-row">
+                                                    <div class="competition-tag">赛事排名</div>
+                                                    <div class="competition-txt">
+                                                        <div class="table" v-if="item.rank.rankType === '1'">
+                                                            <div class="table-cell" v-text="item.rank.rankHome"></div>
+                                                            <div class="table-cell" v-text="item.rank.rankGuest"></div>
+                                                        </div>
+                                                        <div v-if="item.rank.rankType === '0'">
+                                                            <span v-text="item.rank.rankInfo"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="competition-row">
+                                                    <div class="competition-tag">历史交锋
+                                                            <img src="../../images/icon-result.png" alt="" class="icon-result img-responsive">
+                                                    </div>
+                                                    <div class="competition-txt">
+                                                        <div class="paddb20">
+                                                            <span>近<i v-text="item.historyPast.details.length"></i>次交战，<i v-text="item.historyPast.brief[0]"></i></span>
+                                                            <span class="color2" v-text="item.historyPast.brief[1]">3胜</span>
+                                                            <span class="color6" v-text="item.historyPast.brief[2]">2平</span>
+                                                            <span class="color7" v-text="item.historyPast.brief[3]">1负</span>
+                                                        </div>
+                                                        <div>
+                                                            
+                                                            <img src="../../images/icon-circle-default.png" alt="" class="none" id="def">
+                                                            <img src="../../images/icon-circle-win.png" alt="" class="none" id="win">
+                                                            <img src="../../images/icon-circle-draw.png" alt="" class="none" id="draw">
+                                                            <img src="../../images/icon-circle-lose.png" alt="" class="none" id="lose">
+                                                            <img src="../../images/test.jpg" alt=""  class="none" class="img-responsive">
+                                                            <canvas :id="item.competitionId" width="560" height="120"></canvas>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="competition-row">
+                                                    <div class="competition-tag">近期战绩</div>
+                                                    <div class="competition-txt" v-text="item.historyRecent.brief.toString()">主队3胜4平3负，客队5胜4平1负</div>
+                                                </div>
+                                                <div class="txt-center">
+                                                    <a href="" class="btn-analysis">
+                                                        <span> 详细赛事分析 </span>
+                                                    </a>
+                                                </div>
+                                            </section>
+                                        </transition>
+                                        
+                                    </div>
+                                </article>
                             </section>
                             <section class="competition" v-if="type.selected === true && type.name === '胜平负'">
                                 <ul class="blocks clearfloat">
@@ -181,7 +231,7 @@
                                                 <span class="opponent font32 color2">瑞士</span>
                                             </div>
                                             <div class="flex paddb24">
-                                                <div :class="showCompetitionMainContent === true ? 'flex-col-24 txt-center active' : 'flex-col-24 txt-center'" @touchstart="showCompetitionMainContent = !showCompetitionMainContent">
+                                                <div class="flex-col-24 txt-center active">
                                                     <h1 class="h1">世界杯</h1>
                                                     <h2 class="h1">周二055</h2>
                                                     <h3 class="h1">20:00截止</h3>
@@ -204,7 +254,7 @@
                                             </div>
                                         </section>
                                         <transition name="fade">
-                                            <section class="content" v-if="showCompetitionMainContent">
+                                            <section class="content">
                                                 <div class="competition-row">
                                                     <div class="competition-tag">智能预测</div>
                                                     <div class="competition-txt">本场无预测</div>
@@ -271,163 +321,50 @@
                         </li>
                     </ul>
             </div>
-            <div :class="showLayer ===true ? 'layer-mask active' : 'layer-mask'" @clcik="showLayer = !showLayer"></div>
-            <div :class="showLayer ===true ? 'layer-substance active' : 'layer-substance '">
-                <section class="layer-substance-head">
-                    <h1><span>瑞典</span> vs <span>瑞士</span></h1>
-                </section>
-                <section class="layer-substance-body">
-                    <div class="txt-justify font24 color8 hint">
-                        橙色区域支持单关固定，胜平负，比分，总进球，半全场
-                    </div>
-                    <div class="txt-center">
-                        <div class="table-style-1 units">
-                            <section class="table grid-row">
-                                <section class="table-cell grid bg2 color0">
-                                    <div class="score">0</div>
-                                </section>
-                                <section class="table-cell grid"><span>主胜2.95</span></section>
-                                <section class="table-cell grid"><span>平2.70</span></section>
-                                <section class="table-cell grid"><span>客胜2.22</span></section>
-                            </section>
-                            <section class="table grid-row">
-                                <section class="table-cell grid bg3 color0">
-                                    <div class="score">+1</div>
-                                </section>
-                                <section class="table-cell grid"><span>主胜1.44</span></section>
-                                <section class="table-cell grid"><span>平3.60</span></section>
-                                <section class="table-cell grid"><span>客胜5.35</span></section>
-                            </section>
-                        </div>
-                    </div>
-                    <div class="txt-center margb20">
-                        <div class="holder gb4">
-                            <span class="score-label">比分</span>
-                            <div class="score-item" v-for="item in 7">
-                                <h1 class="txt-big">1:0</h1>
-                                <h2 class="txt-small">7.50</h2>
-                            </div>
-                            <div class="score-item" v-for="item in 5">
-                                <h1 class="txt-big">1:0</h1>
-                                <h2 class="txt-small">7.50</h2>
-                            </div>
-                            <div class="score-item score-item-col2">
-                                <h1 class="txt-big">胜其它</h1>
-                                <h2 class="txt-small">100.0</h2>
-                            </div>
-                            <div class="score-item" v-for="item in 4">
-                                <h1 class="txt-big">1:0</h1>
-                                <h2 class="txt-small">7.50</h2>
-                            </div>
-                            <div class="score-item score-item-col3">
-                                <h1 class="txt-big">平其它</h1>
-                                <h2 class="txt-small">400.0</h2>
-                            </div>
-
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                    <div class="txt-center margb20">
-                        <div class="holder b4">
-                            <span class="score-label">半全场</span>
-                            <div class="score-item" v-for="item in 7">
-                                <h1 class="txt-big">胜胜</h1>
-                                <h2 class="txt-small">7.50</h2>
-                            </div>
-                            <div class="score-item" v-for="item in 5">
-                                <h1 class="txt-big">生平</h1>
-                                <h2 class="txt-small">7.50</h2>
-                            </div>
-                            <div class="score-item score-item-col2">
-                                <h1 class="txt-big">胜负</h1>
-                                <h2 class="txt-small">100.0</h2>
-                            </div>
-                            <div class="score-item">
-                                <h1 class="txt-big">平胜</h1>
-                                <h2 class="txt-small">7.50</h2>
-                            </div>
-                            <div class="score-item score-item-col3">
-                                <h1 class="txt-big">平平</h1>
-                                <h2 class="txt-small">400.0</h2>
-                            </div>
-
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                    <div class="txt-center">
-                        <div class="holder b5">
-                            <span class="score-label">比分</span>
-                            <div class="score-item" v-for="item in 7">
-                                <h1 class="txt-big">1:0</h1>
-                                <h2 class="txt-small">7.50</h2>
-                            </div>
-                            <div class="score-item" v-for="item in 5">
-                                <h1 class="txt-big">1:0</h1>
-                                <h2 class="txt-small">7.50</h2>
-                            </div>
-                            <div class="score-item score-item-col2">
-                                <h1 class="txt-big">胜其它</h1>
-                                <h2 class="txt-small">100.0</h2>
-                            </div>
-                            <div class="score-item" v-for="item in 4">
-                                <h1 class="txt-big">1:0</h1>
-                                <h2 class="txt-small">7.50</h2>
-                            </div>
-
-
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                </section>
-                <section class="layer-substance-foot">
-                    <button class="btn-cancle" @click="showLayer=false"> 取消</button>
-                    <button class="btn-confirm" @click="showLayer=false">确定</button>
-                    <div class="clearfloat"></div>
-                </section>
-            </div>
         </main>
-        <!-- 提示弹层需优化为一个弹出层组件layer-prompt start-->
-        <section :class=" showLayerSinglePass2 === true ? 'layer-mask active' : 'layer-mask'"></section>
-        <section :class=" showLayerSinglePass2 === true ? 'layer-substance layer-single-pass active' : 'layer-substance layer-single-pass'">
-            <div class="layer-substance-head">
-                <h1 class="font28">让球说明</h1>
-            </div>
-            <div class="layer-substance-body txt-justify">
-                <p style="line-height: 1.6;">
-                   让球：0表示没有让球；“-”表示主队让客队，主队的净胜球大于客队让客队，主队的净胜球大于让球数才算赢；
-                </p>
-                <p style="line-height: 1.6;">
-                    “+”表示客队让主队，客队的净胜球大于主队让客队，客队的净胜球大于让球数才算赢；
-                </p>
-            </div>
-            <div class="layer-substance-foot txt-center">
-                <a class="font28" @click="showLayerSinglePass2 = false">我知道了</a>
-            </div>
-        </section>
-        <section :class=" showLayerSinglePass === true ? 'layer-mask active' : 'layer-mask'"></section>
-        <section :class=" showLayerSinglePass === true ? 'layer-substance layer-single-pass active' : 'layer-substance layer-single-pass'">
-            <div class="layer-substance-head">
-                <h1 class="font28">单关固定</h1>
-            </div>
-            <div class="layer-substance-body txt-justify">
-                <p style="line-height: 1.6;">
-                    单关固定：只猜一场比赛，猜中及中奖。奖金以出票时刻的赔率为准。
-                    单关固定返奖率高达87%。
-                </p>
-                <p style="line-height: 1.6;">
-                    勾选后，橙色框区域表示该场次支持单关固定的玩法。
-                </p>
-            </div>
-            <div class="layer-substance-foot txt-center">
-                <a class="font28" @click="showLayerSinglePass = false">我知道了</a>
-            </div>
-        </section>
-        <!-- 提示弹层需优化为一个弹出层组件layer-prompt end-->
+
+        <!-- 竞彩足球弹层组件 -->
+        <layer-substance 
+            :showlayer="showLayer" 
+            :match="match" 
+            @closelayer="close"
+            :chosen="chosenCompetitions"
+            :chosenlist="chosenCompetitionsList"></layer-substance>
+
         <footer class="footer">
+            <div :class="showLayerChosen === true ? 'layer-mask layer-mask-chosen active' : 'layer-mask layer-mask-chosen'"
+                @click="showLayerChosen = !showLayerChosen"></div>
+            <div :class="showLayerChosen === true ? 'layer-chosen active' : 'layer-chosen'">
+                <section class="chosen-list clearfloat">
+
+
+            
+                    <div class="chosen-item txt-center" v-for="chosen in chosenCompetitions">
+                            <div class="chosen-head arrow-r5">
+                                <span v-text="chosen.nationHome">哈马比</span>
+                                <span>vs</span>
+                                <span v-text="chosen.nationGuest">厄斯特松</span>
+                            </div>
+                            <div class="btn-chosen-group flex">
+                                
+                                <div class="btn-chosen-wrap" 
+                                    v-for="chosenRate in chosenCompetitionsList">
+                                    <a class="btn-chosen" >
+                                        <span v-text="chosenRate.score" v-if="chosenRate.score"></span>
+                                        <span v-text="chosenRate.rate"></span>
+                                    </a>
+                                </div>
+                                
+                            </div>
+                    </div>
+                </section>
+            </div>
             <div class="bg6 txt-center single-pass">
                 <div class="a-checkbox flex">
-                    <input type="checkbox" name="" id="" checked>
-                    <span>&nbsp;显示单关固定比赛表示</span>
+                    <span @click="toggleSinglePass('singlePassFlag', arrCompetitions)">
+                        <input type="checkbox" name="" id="" :checked="singlePassFlag">
+                        <span>&nbsp;显示单关固定比赛表示</span>
+                    </span>
                     <span>&nbsp;&nbsp;<img src="../../images/icon-doubt.png" alt="" @click="showLayerSinglePass=!showLayerSinglePass"></span>
                 </div>
             </div>
@@ -437,7 +374,11 @@
                 </div>
                 <div class="table-cell">
                     <section class="footer-hint">
-                        <div class="txt-left txt-gray">请先选择比赛</div>
+                        <div class="txt-left txt-gray" v-if="chosenCompetitions.length === 0">请先选择比赛</div>
+                        <div :class="showLayerChosen === true ? 'txt-left chosen-txt active' : 'txt-left chosen-txt'" 
+                            @click="toggleLayerChosen" v-else>
+                            <span>已选择<i v-text="chosenCompetitions.length">2</i>场</span> 
+                        </div>
                         <div class="txt-left txt-gray-small">页面赔率仅供参考,请以出票赔率为准</div>
                     </section>
                 </div>
@@ -446,72 +387,195 @@
                 </div>
             </div>
         </footer>
-
+        
         </div>
 
-        <script type="text/x-template" id="#test">
-            
+        <script type="text/x-template" id="test">
+            <div>
+                    <div :class="showlayer ===true ? 'layer-mask active' : 'layer-mask'" @clcik="closeLayer"></div>
+                    <div :class="showlayer ===true ? 'layer-substance active' : 'layer-substance '">
+                        <section class="layer-substance-head">
+                            <h1><span v-text="match.nationHome"></span> vs <span v-text="match.nationGuest"></span></h1>
+                        </section>
+                        <section class="layer-substance-body">
+                            <div class="txt-justify font24 color8 hint">
+                                橙色区域支持单关固定，胜平负，比分，总进球，半全场
+                            </div>
+                            <div class="txt-center">
+                                <div class="table-style-1 units">
+                                    <section class="table grid-row" 
+                                        v-for="rateItem in match.rateGroup"    
+                                        v-if="rateItem.rateType === '0'">
+
+                                        <section class="table-cell grid bg2 color0">
+                                            <div class="score">0</div>
+                                        </section>
+                                        <section
+                                            v-for="rate in rateItem.rateList"
+                                            :class="rate.selected === true ? 'table-cell grid active' : 'table-cell grid'" 
+                                            @touchstart="pitched(rate, 'selected', match)">
+
+                                            <span v-text="rate.rate"></span>
+                                        </section>
+                                    </section>
+                                    <section class="table grid-row" 
+                                        v-for="rateItem in match.rateGroup"
+                                        v-if="rateItem.rateType === '1'">
+
+                                        <section class="table-cell grid bg3 color0">
+                                            <div class="score">+1</div>
+                                        </section>
+                                        <section
+                                            v-for="rate in rateItem.rateList"
+                                            :class="rate.selected === true ? 'table-cell grid active' : 'table-cell grid'" 
+                                            @touchstart="pitched(rate, 'selected', match)">
+
+                                            <span v-text="rate.rate"></span>
+                                        </section>
+                                    </section>
+                                </div>
+                            </div>
+                            <div class="txt-center margb20">
+                                <div class="holder gb4"
+                                    v-for="rateItem in match.rateGroup"
+                                    v-if="rateItem.rateType === '比分'">
+                                    <span class="score-label">比分</span>
+                                    <div
+                                        v-for="rate in rateItem.rateList"
+                                        :class="rate.selected === true ? 'score-item active' : 'score-item'" 
+                                        @touchstart="pitched(rate, 'selected', match)" 
+                                        v-if="rate.score != '胜其他' && rate.score != '负其他' && rate.score != '平其他'">
+
+                                        <h1 class="txt-big" v-text="rate.score"></h1>
+                                        <h2 class="txt-small" v-text="rate.rate"></h2>
+                                    </div>
+                                    <div
+                                        v-for="rate in rateItem.rateList"
+                                        :class="rate.selected === true ? 'score-item score-item-col2 active' : 'score-item score-item-col2'" 
+                                        @touchstart="pitched(rate, 'selected', match)"
+                                        v-if="rate.score === '胜其他' || rate.score === '负其他'">
+
+                                            <h1 class="txt-big" v-text="rate.score"></h1>
+                                            <h2 class="txt-small" v-text="rate.rate"></h2>
+                                    </div>
+                                    <div
+                                        v-for="rate in rateItem.rateList"
+                                        :class="rate.selected === true ? 'score-item score-item-col3 active' : 'score-item score-item-col3'" 
+                                        @touchstart="pitched(rate, 'selected', match)"
+                                        v-if="rate.score === '平其他'">
+
+                                        <h1 class="txt-big" v-text="rate.score"></h1>
+                                        <h2 class="txt-small" v-text="rate.rate"></h2>
+                                    </div>
+
+                                    
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                            <div class="txt-center margb20">
+                                <div class="holder b4"
+                                    v-for="rateItem in match.rateGroup"
+                                    v-if="rateItem.rateType === '半全场'">
+                                    <span class="score-label">半全场</span>
+
+                                    <div
+                                        v-for="rate in rateItem.rateList"
+                                        :class="rate.selected === true ? 'score-item active' : 'score-item'" 
+                                        @touchstart="pitched(rate, 'selected', match)">
+
+                                        <h1 class="txt-big" v-text="rate.score"></h1>
+                                        <h2 class="txt-small" v-text="rate.rate"></h2>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                            <div class="txt-center">
+                                <div class="holder b5"
+                                v-for="rateItem in match.rateGroup"
+                                v-if="rateItem.rateType === '总进球'">
+                                    <span class="score-label">总进球</span>
+
+                                    <div
+                                        v-for="rate in rateItem.rateList"
+                                        :class="rate.selected === true ? 'score-item active' : 'score-item'" 
+                                        @touchstart="pitched(rate, 'selected', match)">
+
+                                        <h1 class="txt-big" v-text="rate.score"></h1>
+                                        <h2 class="txt-small" v-text="rate.rate"></h2>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </section>
+                        <section class="layer-substance-foot">
+                            <button class="btn-cancle" @click="closeLayer"> 取消</button>
+                            <button class="btn-confirm" @click="closeLayer">确定</button>
+                            <div class="clearfloat"></div>
+                        </section>
+                    </div>
+                </div>
         </script>
 
         <script src="../../libs/vue.min.js"></script>
+        <script src="../../component/component.js"></script>
         <script src="../../libs/layer_mobile/layer.js"></script>
         <script src="../../mui/js/mui.min.js"></script>
         <script>
-            Vue.component('layer-prompt', {
-                props: {
-                    txt: String,
-                },
-                template: '#test',
-            })
-
+            
+           
             var vm = new Vue({
                 'el': '#app',
                 data: {
                     show: false,
-                    showCompetitionMain: true,
                     showCompetitionMainContent: false,
                     showLayer: false,
+                    match: {},
                     showBlocks: false,
                     showLayerSinglePass: false,
                     showLayerSinglePass2: false,
+                    singlePassFlag: true,
+                    showLayerChosen: false,
+                    chosenCompetitions: [],
+                    // 为便于渲染已选择弹出层，从chosenCompetitions整合而来
+                    chosenCompetitionsList: [], 
                     // 投注类型
                     arrTypes: [{
-                            id: '1',
+                            typeId: '1',
                             name: '胜平负',
                             selected: false
                         }, {
-                            id: '2',
+                            typeId: '2',
                             name: '让球胜平负',
                             selected: false
                         }, {
-                            id: '3',
+                            typeId: '3',
                             name: '比分',
                             selected: false
                         },
                         {
-                            id: '4',
+                            typeId: '4',
                             name: '总进球',
                             selected: false
                         }, {
-                            id: '5',
+                            typeId: '5',
                             name: '半全场',
                             selected: false
                         },
                         {
-                            id: '6',
+                            typeId: '6',
                             name: '混合投注',
                             selected: true
                         },
                         {
-                            id: '7',
+                            typeId: '7',
                             name: '2选1',
                             selected: false
                         }, {
-                            id: '8',
+                            typeId: '8',
                             name: '猜一场',
                             selected: false
                         }, {
-                            id: '9',
+                            typeId: '9',
                             name: '单关固定',
                             selected: false
                         },
@@ -519,41 +583,291 @@
                     // 比赛列表 
                     arrCompetitions: [
                         {
+
+                            typeId: '6',
                             competitionName: '世界杯',
-                            competitionNumber: '周五057',
-                            closingData: '20:00',
-                            nationHome: '乌拉圭', 
-                            nationGuest: '法国',
-                            rateGroup: [
-                                {rateType: '0', rateList: [{rate: '主胜4.10'},{rate: '平3.00'},{rate: '客胜1.72'}]},
-                                {rateType: '1', reateList: [{rate: '主胜1.79'},{rate: '平3.15'},{rate: '客胜3.53'}]},
+                            time: '2018-07-06 星期五',
+                            showSinglePass: true,
+                            competitionList: [
                                 {
-                                    rateType: '比分', 
-                                    rateList: [
-                                        {score: '1:0', rate: '6.70'}, {score: '2:0', rate: '8.25'}, {score: '2:1', rate: '7.00'}, {score: '3:0', rate: '15.00'},{score: '3:1', rate: '15.00'},{score: '3:2', rate: '22.00'},{score: '4:0', rate: '35.00'},
-                                        {score: '4:1', rate: '35.00'},{score: '4:2', rate: '50.00'},{score: '5:0', rate: '80.00'},{score: '5:1', rate: '80.00'},{score: '5:2', rate: '100.00'},{score: '胜其他', rate: '50.00'},
-                                        {score: '0:0', rate: '8.5'},{score: '1:1', rate: '6.10'},{score: '2:2', rate: '13.00'},{score: '3:3', rate: '50.00'},{score: '平其它', rate: '200.00'},
-                                        {score: '0:1', rate: '9.70'},{score: '0:2', rate: '18.00'},{score: '1:2', rate: '11.00'},{score: '0:3', rate: '40.00'},{score: '1:3', rate: '30.00'},{score: '2:3', rate: '30.00'},{score: '0:4', rate: '150.00'},
-                                        {score: '1:4', rate: '100.00'},{score: '2:4', rate: '100.00'},{score: '0:5', rate: '400.00'},{score: '1:5', rate: '200.00'},{score: '2:5', rate: '200.00'},{score: '负其他', rate: '90.00'}
-                                    ]
-                                },
-                                {rateType: '总进球', rateList: [
-                                        {in: '0球', rate: '8.50'},{in: '1球', rate: '4.10'},{in: '2球', rate: '3.15'},{in: '3球', rate: '3.70'},
-                                        {in: '4球', rate: '5.75'},{in: '5球', rate: '10.50'},{in: '6球', rate: '18.00'},{in: '7+球', rate: '25.00'}
+                                    competitionId: '001',
+                                    competitionNumber: '周五057',
+                                    closingDate: '20:00',
+                                    nationHome: '乌拉圭', 
+                                    nationGuest: '法国',
+                                    rateGroup: [
+                                        {rateType: '0', rateList: [{rate: '主胜4.10'},{rate: '平3.00'},{rate: '客胜1.72'}]},
+                                        {rateType: '1', rateList: [{rate: '主胜1.79'},{rate: '平3.15'},{rate: '客胜3.53'}]},
+                                        {
+                                            rateType: '比分', 
+                                            rateList: [
+                                                {score: '1:0', rate: '6.70'}, {score: '2:0', rate: '8.25'}, {score: '2:1', rate: '7.00'}, {score: '3:0', rate: '15.00'},{score: '3:1', rate: '15.00'},{score: '3:2', rate: '22.00'},{score: '4:0', rate: '35.00'},
+                                                {score: '4:1', rate: '35.00'},{score: '4:2', rate: '50.00'},{score: '5:0', rate: '80.00'},{score: '5:1', rate: '80.00'},{score: '5:2', rate: '100.00'},{score: '胜其他', rate: '50.00'},
+                                                {score: '0:0', rate: '8.5'},{score: '1:1', rate: '6.10'},{score: '2:2', rate: '13.00'},{score: '3:3', rate: '50.00'},{score: '平其他', rate: '200.00'},
+                                                {score: '0:1', rate: '9.70'},{score: '0:2', rate: '18.00'},{score: '1:2', rate: '11.00'},{score: '0:3', rate: '40.00'},{score: '1:3', rate: '30.00'},{score: '2:3', rate: '30.00'},{score: '0:4', rate: '150.00'},
+                                                {score: '1:4', rate: '100.00'},{score: '2:4', rate: '100.00'},{score: '0:5', rate: '400.00'},{score: '1:5', rate: '200.00'},{score: '2:5', rate: '200.00'},{score: '负其他', rate: '90.00'}
+                                            ]
+                                        },
+                                        {rateType: '总进球', rateList: [
+                                                {in: '0球', rate: '8.50'},{in: '1球', rate: '4.10'},{in: '2球', rate: '3.15'},{in: '3球', rate: '3.70'},
+                                                {in: '4球', rate: '5.75'},{in: '5球', rate: '10.50'},{in: '6球', rate: '18.00'},{in: '7+球', rate: '25.00'}
 
+                                            ]
+                                        },
+                                        {
+                                            rateType: '半全场', rateList: [
+                                                {ending: '胜胜', rate: '2.75'},{ending: '胜平', rate: '14.00'},{ending: '胜负', rate: '30.00'},{ending: '平胜', rate: '4.30'},{ending: '平平', rate: '5.00'},
+                                                {ending: '平负', rate: '8.00'},{ending: '负胜', rate: '20.00'},{ending: '负平', rate: '14.00'},{ending: '负负', rate: '6.00'},
+                                            ]
+                                        }  
                                     ]
-                                },
+                                    ,forecast: '本场无预测',
+                                    betRates: [
+                                        {betTypeId: '0', betRateList: ['100%', '0%', '0%']},
+                                        {betTypeId: '-1', betRateList: ['0%', '0%', '0%']}
+                                    ],
+                                    rank: {
+                                        rankType: 'a',
+                                        rankInfo: '本场无排名信息'
+                                    },
+                                    historyPast:{
+                                        brief: ['乌拉圭', '1胜', '2平', ''],
+                                        details: [
+                                            {time: '2013-06-06', home: '乌拉圭', guest: '法国', endType: 1},
+                                            {time: '2010-06-12', home: '乌拉圭', guest: '法国', endType: 0},
+                                            {time: '2002-06-06', home: '乌拉圭', guest: '法国', endType: 0},
+                                        ]
+                                    } ,
+                                    historyRecent: {
+                                        brief: ['乌拉圭', '1胜', '2平', ''],
+                                        details: [
+                                                {time: '2013-06-06', home: '乌拉圭', guest: '法国', endType: 1},
+                                                {time: '2010-06-12', home: '乌拉圭', guest: '法国', endType: 0},
+                                                {time: '2002-06-06', home: '乌拉圭', guest: '法国', endType: 0},
+                                        ]
+                                    }
+                                }, 
                                 {
-                                    rateType: '半全场', rateList: [
-                                        {ending: '胜胜', rate: '2.75'},{ending: '胜平', rate: '14.00'},{ending: '胜负', rate: '30.00'},{ending: '平胜', rate: '4.30'},{ending: '平平', rate: '5.00'},
-                                        {ending: '平负', rate: '8.00'},{ending: '负胜', rate: '20.00'},{ending: '负平', rate: '14.00'},{ending: '负负', rate: '6.00'},
+                                    competitionId: '002',
+                                    competitionNumber: '周五058',
+                                    closingDate: '00:00',
+                                    nationHome: '巴西', 
+                                    nationGuest: '比利时',
+                                    rateGroup: [
+                                        {rateType: '0', rateList: [{rate: '主胜1.84'},{rate: '平3.18'},{rate: '客胜3.32'}]},
+                                        {rateType: '1', rateList: [{rate: '主胜3.70'},{rate: '平3.45'},{rate: '客胜1.67'}]},
+                                        {
+                                            rateType: '比分', 
+                                            rateList: [
+                                                {score: '1:0', rate: '6.75'}, {score: '2:0', rate: '8.5'}, {score: '2:1', rate: '7.00'}, {score: '3:0', rate: '16.00'},{score: '3:1', rate: '14.00'},{score: '3:2', rate: '20.00'},{score: '4:0', rate: '42.00'},
+                                                {score: '4:1', rate: '35.00'},{score: '4:2', rate: '50.00'},{score: '5:0', rate: '80.00'},{score: '5:1', rate: '80.00'},{score: '5:2', rate: '100.00'},{score: '胜其他', rate: '40.00'},
+                                                {score: '0:0', rate: '9.25'},{score: '1:1', rate: '6.10'},{score: '2:2', rate: '13.00'},{score: '3:3', rate: '45.00'},{score: '平其他', rate: '120.00'},
+                                                {score: '0:1', rate: '9.75'},{score: '0:2', rate: '18.00'},{score: '1:2', rate: '11.00'},{score: '0:3', rate: '45.00'},{score: '1:3', rate: '30.00'},{score: '2:3', rate: '30.00'},{score: '0:4', rate: '150.00'},
+                                                {score: '1:4', rate: '100.00'},{score: '2:4', rate: '80.00'},{score: '0:5', rate: '300.00'},{score: '1:5', rate: '200.00'},{score: '2:5', rate: '175.00'},{score: '负其他', rate: '70.00'}
+                                            ]
+                                        },
+                                        {rateType: '总进球', rateList: [
+                                                {in: '0球', rate: '9.25'},{in: '1球', rate: '4.25'},{in: '2球', rate: '3.25'},{in: '3球', rate: '3.80'},
+                                                {in: '4球', rate: '5.45'},{in: '5球', rate: '9.50'},{in: '6球', rate: '16.00'},{in: '7+球', rate: '21.00'}
+
+                                            ]
+                                        },
+                                        {
+                                            rateType: '半全场', rateList: [
+                                                {ending: '胜胜', rate: '2.8'},{ending: '胜平', rate: '13.00'},{ending: '胜负', rate: '23.00'},{ending: '平胜', rate: '4.75'},{ending: '平平', rate: '5.15'},
+                                                {ending: '平负', rate: '8.00'},{ending: '负胜', rate: '16.00'},{ending: '负平', rate: '13.00'},{ending: '负负', rate: '6.00'},
+                                            ]
+                                        }  
                                     ]
-                                }
+                                    ,forecast: '本场无预测',
+                                    betRates: [
+                                        {betTypeId: '0', betRateList: ['99%', '1%', '0%']},
+                                        {betTypeId: '-1', betRateList: ['1%', '0%', '99%']}
+                                    ],
+                                    rank: {
+                                        rankType: '1',
+                                        rankHome: '5',
+                                        rankGuest: '7'
+                                    },
+                                    historyPast:{
+                                        brief: ['千叶市原', '4胜', '1平', '5负'],
+                                        details: [
+                                            {time: '2018-05-06', home: '大宫松鼠', guest: '千叶市原', endType: 1},
+                                            {time: '2015-09-27', home: '大宫松鼠', guest: '千叶市原', endType: -1},
+                                            {time: '2015-04-11', home: '千叶市原', guest: '大宫松鼠', endType: 1},
+                                            {time: '2009-08-22', home: '大宫松鼠', guest: '千叶市原', endType: 0},
+                                            {time: '2009-06-27', home: '千叶市原', guest: '大宫松鼠', endType: -1},
+
+                                            {time: '2008-10-26', home: '大宫松鼠', guest: '千叶市原', endType: -1},
+                                            {time: '2008-04-12', home: '千叶市原', guest: '大宫松鼠', endType: -1},
+                                            {time: '2007-09-22', home: '大宫松鼠', guest: '千叶市原', endType: 1},
+                                            {time: '2007-04-21', home: '千叶市原', guest: '大宫松鼠', endType: 1},
+                                            {time: '2006-10-21', home: '千叶市原', guest: '大宫松鼠', endType: -1},
+                                        ]
+                                    } ,
+                                    historyRecent: {
+                                        brief: ['千叶市原', '4胜', '1平', '5负'],
+                                        details: [
+                                            {time: '2018-05-06', home: '大宫松鼠', guest: '千叶市原', endType: 1},
+                                            {time: '2015-09-27', home: '大宫松鼠', guest: '千叶市原', endType: -1},
+                                            {time: '2015-04-11', home: '千叶市原', guest: '大宫松鼠', endType: 1},
+                                            {time: '2009-08-22', home: '大宫松鼠', guest: '千叶市原', endType: 0},
+                                            {time: '2009-06-27', home: '千叶市原', guest: '大宫松鼠', endType: -1},
+                                            {time: '2008-10-26', home: '大宫松鼠', guest: '千叶市原', endType: -1},
+                                            {time: '2008-04-12', home: '千叶市原', guest: '大宫松鼠', endType: -1},
+                                            {time: '2007-09-22', home: '大宫松鼠', guest: '千叶市原', endType: 1},
+                                            {time: '2007-04-21', home: '千叶市原', guest: '大宫松鼠', endType: 1},
+                                            {time: '2006-10-21', home: '千叶市原', guest: '大宫松鼠', endType: -1},
+                                        ]
+                                    }
                                 
+                                }, 
                             ]
-                        }
-                    ]
+                        }, 
+                        {
 
+                            typeId: '6',
+                            competitionName: '世界杯',
+                            time: '2018-07-06 星期五',
+                            showSinglePass: true,
+                            competitionList: [
+                                {
+                                    competitionId: '003',
+                                    competitionNumber: '周五057',
+                                    closingDate: '20:00',
+                                    nationHome: '乌拉圭', 
+                                    nationGuest: '法国',
+                                    rateGroup: [
+                                        {rateType: '0', rateList: [{rate: '主胜4.10'},{rate: '平3.00'},{rate: '客胜1.72'}]},
+                                        {rateType: '1', rateList: [{rate: '主胜1.79'},{rate: '平3.15'},{rate: '客胜3.53'}]},
+                                        {
+                                            rateType: '比分', 
+                                            rateList: [
+                                                {score: '1:0', rate: '6.70'}, {score: '2:0', rate: '8.25'}, {score: '2:1', rate: '7.00'}, {score: '3:0', rate: '15.00'},{score: '3:1', rate: '15.00'},{score: '3:2', rate: '22.00'},{score: '4:0', rate: '35.00'},
+                                                {score: '4:1', rate: '35.00'},{score: '4:2', rate: '50.00'},{score: '5:0', rate: '80.00'},{score: '5:1', rate: '80.00'},{score: '5:2', rate: '100.00'},{score: '胜其他', rate: '50.00'},
+                                                {score: '0:0', rate: '8.5'},{score: '1:1', rate: '6.10'},{score: '2:2', rate: '13.00'},{score: '3:3', rate: '50.00'},{score: '平其他', rate: '200.00'},
+                                                {score: '0:1', rate: '9.70'},{score: '0:2', rate: '18.00'},{score: '1:2', rate: '11.00'},{score: '0:3', rate: '40.00'},{score: '1:3', rate: '30.00'},{score: '2:3', rate: '30.00'},{score: '0:4', rate: '150.00'},
+                                                {score: '1:4', rate: '100.00'},{score: '2:4', rate: '100.00'},{score: '0:5', rate: '400.00'},{score: '1:5', rate: '200.00'},{score: '2:5', rate: '200.00'},{score: '负其他', rate: '90.00'}
+                                            ]
+                                        },
+                                        {rateType: '总进球', rateList: [
+                                                {in: '0球', rate: '8.50'},{in: '1球', rate: '4.10'},{in: '2球', rate: '3.15'},{in: '3球', rate: '3.70'},
+                                                {in: '4球', rate: '5.75'},{in: '5球', rate: '10.50'},{in: '6球', rate: '18.00'},{in: '7+球', rate: '25.00'}
+
+                                            ]
+                                        },
+                                        {
+                                            rateType: '半全场', rateList: [
+                                                {ending: '胜胜', rate: '2.75'},{ending: '胜平', rate: '14.00'},{ending: '胜负', rate: '30.00'},{ending: '平胜', rate: '4.30'},{ending: '平平', rate: '5.00'},
+                                                {ending: '平负', rate: '8.00'},{ending: '负胜', rate: '20.00'},{ending: '负平', rate: '14.00'},{ending: '负负', rate: '6.00'},
+                                            ]
+                                        }  
+                                    ]
+                                    ,forecast: '本场无预测',
+                                    betRates: [
+                                        {betTypeId: '0', betRateList: ['100%', '0%', '0%']},
+                                        {betTypeId: '-1', betRateList: ['0%', '0%', '0%']}
+                                    ],
+                                    rank: {
+                                        rankType: 'a',
+                                        rankInfo: '本场无排名信息'
+                                    },
+                                    historyPast:{
+                                        brief: ['乌拉圭', '1胜', '2平', ''],
+                                        details: [
+                                            {time: '2013-06-06', home: '乌拉圭', guest: '法国', endType: 1},
+                                            {time: '2010-06-12', home: '乌拉圭', guest: '法国', endType: 0},
+                                            {time: '2002-06-06', home: '乌拉圭', guest: '法国', endType: 0},
+                                        ]
+                                    } ,
+                                    historyRecent: {
+                                        brief: ['乌拉圭', '1胜', '2平', ''],
+                                        details: [
+                                                {time: '2013-06-06', home: '乌拉圭', guest: '法国', endType: 1},
+                                                {time: '2010-06-12', home: '乌拉圭', guest: '法国', endType: 0},
+                                                {time: '2002-06-06', home: '乌拉圭', guest: '法国', endType: 0},
+                                        ]
+                                    }
+                                }, 
+                                {
+                                    competitionId: '004',
+                                    competitionNumber: '周五058',
+                                    closingDate: '00:00',
+                                    nationHome: '巴西', 
+                                    nationGuest: '比利时',
+                                    rateGroup: [
+                                        {rateType: '0', rateList: [{rate: '主胜1.84'},{rate: '平3.18'},{rate: '客胜3.32'}]},
+                                        {rateType: '1', rateList: [{rate: '主胜3.70'},{rate: '平3.45'},{rate: '客胜1.67'}]},
+                                        {
+                                            rateType: '比分', 
+                                            rateList: [
+                                                {score: '1:0', rate: '6.75'}, {score: '2:0', rate: '8.5'}, {score: '2:1', rate: '7.00'}, {score: '3:0', rate: '16.00'},{score: '3:1', rate: '14.00'},{score: '3:2', rate: '20.00'},{score: '4:0', rate: '42.00'},
+                                                {score: '4:1', rate: '35.00'},{score: '4:2', rate: '50.00'},{score: '5:0', rate: '80.00'},{score: '5:1', rate: '80.00'},{score: '5:2', rate: '100.00'},{score: '胜其他', rate: '40.00'},
+                                                {score: '0:0', rate: '9.25'},{score: '1:1', rate: '6.10'},{score: '2:2', rate: '13.00'},{score: '3:3', rate: '45.00'},{score: '平其他', rate: '120.00'},
+                                                {score: '0:1', rate: '9.75'},{score: '0:2', rate: '18.00'},{score: '1:2', rate: '11.00'},{score: '0:3', rate: '45.00'},{score: '1:3', rate: '30.00'},{score: '2:3', rate: '30.00'},{score: '0:4', rate: '150.00'},
+                                                {score: '1:4', rate: '100.00'},{score: '2:4', rate: '80.00'},{score: '0:5', rate: '300.00'},{score: '1:5', rate: '200.00'},{score: '2:5', rate: '175.00'},{score: '负其他', rate: '70.00'}
+                                            ]
+                                        },
+                                        {rateType: '总进球', rateList: [
+                                                {in: '0球', rate: '9.25'},{in: '1球', rate: '4.25'},{in: '2球', rate: '3.25'},{in: '3球', rate: '3.80'},
+                                                {in: '4球', rate: '5.45'},{in: '5球', rate: '9.50'},{in: '6球', rate: '16.00'},{in: '7+球', rate: '21.00'}
+
+                                            ]
+                                        },
+                                        {
+                                            rateType: '半全场', rateList: [
+                                                {ending: '胜胜', rate: '2.8'},{ending: '胜平', rate: '13.00'},{ending: '胜负', rate: '23.00'},{ending: '平胜', rate: '4.75'},{ending: '平平', rate: '5.15'},
+                                                {ending: '平负', rate: '8.00'},{ending: '负胜', rate: '16.00'},{ending: '负平', rate: '13.00'},{ending: '负负', rate: '6.00'},
+                                            ]
+                                        }  
+                                    ]
+                                    ,forecast: '本场无预测',
+                                    betRates: [
+                                        {betTypeId: '0', betRateList: ['99%', '1%', '0%']},
+                                        {betTypeId: '-1', betRateList: ['1%', '0%', '99%']}
+                                    ],
+                                    rank: {
+                                        rankType: '1',
+                                        rankHome: '5',
+                                        rankGuest: '7'
+                                    },
+                                    historyPast:{
+                                        brief: ['千叶市原', '4胜', '1平', '5负'],
+                                        details: [
+                                            {time: '2018-05-06', home: '大宫松鼠', guest: '千叶市原', endType: 1},
+                                            {time: '2015-09-27', home: '大宫松鼠', guest: '千叶市原', endType: -1},
+                                            {time: '2015-04-11', home: '千叶市原', guest: '大宫松鼠', endType: 1},
+                                            {time: '2009-08-22', home: '大宫松鼠', guest: '千叶市原', endType: 0},
+                                            {time: '2009-06-27', home: '千叶市原', guest: '大宫松鼠', endType: -1},
+
+                                            {time: '2008-10-26', home: '大宫松鼠', guest: '千叶市原', endType: -1},
+                                            {time: '2008-04-12', home: '千叶市原', guest: '大宫松鼠', endType: -1},
+                                            {time: '2007-09-22', home: '大宫松鼠', guest: '千叶市原', endType: 1},
+                                            {time: '2007-04-21', home: '千叶市原', guest: '大宫松鼠', endType: 1},
+                                            {time: '2006-10-21', home: '千叶市原', guest: '大宫松鼠', endType: -1},
+                                        ]
+                                    } ,
+                                    historyRecent: {
+                                        brief: ['千叶市原', '4胜', '1平', '5负'],
+                                        details: [
+                                            {time: '2018-05-06', home: '大宫松鼠', guest: '千叶市原', endType: 1},
+                                            {time: '2015-09-27', home: '大宫松鼠', guest: '千叶市原', endType: -1},
+                                            {time: '2015-04-11', home: '千叶市原', guest: '大宫松鼠', endType: 1},
+                                            {time: '2009-08-22', home: '大宫松鼠', guest: '千叶市原', endType: 0},
+                                            {time: '2009-06-27', home: '千叶市原', guest: '大宫松鼠', endType: -1},
+                                            {time: '2008-10-26', home: '大宫松鼠', guest: '千叶市原', endType: -1},
+                                            {time: '2008-04-12', home: '千叶市原', guest: '大宫松鼠', endType: -1},
+                                            {time: '2007-09-22', home: '大宫松鼠', guest: '千叶市原', endType: 1},
+                                            {time: '2007-04-21', home: '千叶市原', guest: '大宫松鼠', endType: 1},
+                                            {time: '2006-10-21', home: '千叶市原', guest: '大宫松鼠', endType: -1},
+                                        ]
+                                    }
+                                
+                                }, 
+                            ]
+                        }, 
+                    
+                    ]
                 },
                 methods: {
                     /*
@@ -566,7 +880,105 @@
                         o1.selected = true
                         this[key] = false
                     },
-                }
+                    /*
+                     * 展开某个'全部'弹层
+                     */
+                    expend: function(o){
+                        o.showLayer = false
+                        o.showLayer = true
+                        this.showLayer = o.showLayer
+                        // 填充弹层数据
+                        this.match = o
+                    },
+                    /**
+                     * 关闭
+                     */
+                    close: function(msg) {
+                        this.showLayer = msg
+                    },
+
+                    /**
+                     * 切换单关固定比赛表示
+                     */
+                    toggleSinglePass: function (flag, arr) {
+                        var that = this
+                        that[flag] = !that[flag]
+                        arr.forEach(function(o){
+                            o.showSinglePass = that[flag]
+                        })
+                    },
+                    /**
+                     * 切换已选比赛的弹层
+                     */
+                    toggleLayerChosen: function () {
+                        this.showLayerChosen = !this.showLayerChosen 
+                    },
+                    /**
+                     * 选择胜率
+                     */
+                    pitchon: function (item, flag, o) {
+
+                        // 根据场次id获得已选几场
+                        function unique(key, arr){
+                            var i,j
+                            for(i=0; i<arr.length; i++){
+                                for(j = arr.length - 1; j >= i+1; j --)
+                                {
+                                    if(arr[i][key] === arr[j][key])
+                                        arr.splice(i, 1)
+                                }
+                            }
+                        }
+
+                        this.chosenCompetitions.push(o)
+                        unique('competitionNumber', this.chosenCompetitions)
+                        
+
+                        //使已选择弹出层，保持始终居中对其，而整理数据格式
+                        this.chosenCompetitionsList.push(item)
+
+                        
+
+                        item[flag] = !item[flag]
+                        item[flag] === true ? o.chosenNum ++ : o.chosenNum --  
+                        o.chosenNum = o.chosenNum <= 0 ? 0 : o.chosenNum
+                        // 是否选择
+                        o.chosenNum >0 ? o.isChosen = true : o.isChosen = false
+
+                        // 切换显示底部提示
+                        if(o.chosenNum === 0){
+                            this.chosenCompetitions.splice(0, this.chosenCompetitions.length)
+                            this.chosenCompetitionsList.splice(0, this.chosenCompetitionsList.length)
+                        }
+                            
+                    }
+                },
+                mounted: function () {
+                    this.arrCompetitions.forEach(function(item){
+                        Vue.set(item, 'showCompetitionMain', true)
+                    })
+                    
+                    // 添加控制切换变量
+                    this.arrCompetitions.forEach(function(item){
+                        item.competitionList.forEach(function(o){
+                            Vue.set(o, 'showCompetitionMainContent', false)
+                            Vue.set(o, 'showLayer', false)
+
+                            // 添加是否已选择的标记，和已选择几个
+                            Vue.set(o, 'chosenNum', 0)
+                            Vue.set(o, 'isChosen', false)
+
+                            new CcpClient.Drawing(o.competitionId, o.historyPast.details)
+                            
+                            o.rateGroup.forEach(function(item){
+                                
+                                item.rateList.forEach(function(o){
+                                    Vue.set(o, 'selected', false)
+                                })
+                            })
+                        }) 
+                    })
+                },
             })
 
             mui.init({
@@ -578,7 +990,7 @@
                     },
                     up: {
                         auto: false,
-                        contentrefresh: '正在加载...',
+                        contentrefresh: '',
                         callback: pullupRefresh
                     }
                 }
@@ -622,6 +1034,7 @@
                 //     mui.toast("为你推荐了5篇文章");
                 // }, 1500);
             }
+
         </script>
 
 </body>

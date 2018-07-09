@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #movement {
+            width: 560px;
+            height: 120px;
+            border: 1px solid #000;
+        }
+        img{display: none;}
+    </style>
+    <script src="mui/js/mui.min.js"></script>
+    <script src="app.js"></script>
+    
+</head>
+
+<body>
+    <div id="app">
+        <img src="images/icon-circle-default.png" alt="" id="def">
+        <img src="images/icon-circle-win.png" alt="" id="win">
+        <img src="images/icon-circle-draw.png" alt="" id="draw">
+        <img src="images/icon-circle-lose.png" alt="" id="lose">
+        <canvas id="001" width="560" height="120"></canvas>
+    </div>
+
+    <script src="libs/vue.min.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {},
+            methods: {},
+            mounted: function(){
+                // 生成坐标点
+                // endType需站在某个国家上确定
+                // endType: 空，默认的灰色圆点
+                // endType：1 胜；endType：0 平；endType：-1 负
+                // 时间转换成x轴，胜负转换成y轴
+                var demoData = [
+                    {time: '2013-06-06', home: '乌拉圭', guest: '法国', endType: 1},
+                    {time: '2010-06-12', home: '乌拉圭', guest: '法国', endType: 0},
+                    {time: '2002-06-06', home: '乌拉圭', guest: '法国', endType: 0},
+                ]
+
+                var demoData2 = [
+                    {time: '2018-05-06', home: '大宫松鼠', guest: '千叶市原', endType: 1},
+                    {time: '2015-09-27', home: '大宫松鼠', guest: '千叶市原', endType: -1},
+                    {time: '2015-04-11', home: '千叶市原', guest: '大宫松鼠', endType: 1},
+                    {time: '2009-08-22', home: '大宫松鼠', guest: '千叶市原', endType: 0},
+                    {time: '2009-06-27', home: '千叶市原', guest: '大宫松鼠', endType: -1},
+
+                    {time: '2008-10-26', home: '大宫松鼠', guest: '千叶市原', endType: -1},
+                    {time: '2008-04-12', home: '千叶市原', guest: '大宫松鼠', endType: -1},
+                    {time: '2007-09-22', home: '大宫松鼠', guest: '千叶市原', endType: 1},
+                    {time: '2007-04-21', home: '千叶市原', guest: '大宫松鼠', endType: 1},
+                    {time: '2006-10-21', home: '千叶市原', guest: '大宫松鼠', endType: -1},
+                ]
+                var drawing = new CcpClient.Drawing('001', demoData2)
+            }
+        })
+
+        window.onresize = window.onorientationchange = window.onload = function () {
+           
+
+        }
+
+           
+    </script>
+</body>
+
+</html>
