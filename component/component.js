@@ -38,13 +38,14 @@ Vue.component('layer-substance', {
         showlayer: false,
         match: Object,
         chosen: Array,
-        chosenlist: Array,
+        arr: Array,
     },
     data: function() {
         return {
             showlayer: this.showlayer,
             chosen: this.chosen,
             chosenlist: this.chosenlist,
+            arr: this.arr
         }
     },
     template: '#test',
@@ -67,13 +68,6 @@ Vue.component('layer-substance', {
                 }
             }
 
-            this.chosen.push(o)
-            unique('competitionNumber', this.chosen)
-            console.log(this.chosenlist)
-
-            //使已选择弹出层，保持始终居中对其，而整理数据格式
-            this.chosenlist.push(item)
-            
             item[flag] = !item[flag]
             item[flag] === true ? o.chosenNum ++ : o.chosenNum --  
             o.chosenNum = o.chosenNum <= 0 ? 0 : o.chosenNum
@@ -82,8 +76,46 @@ Vue.component('layer-substance', {
             // 切换显示底部提示
             if(o.chosenNum === 0){
                 this.chosen.splice(0, this.chosen.length)
-                this.chosenlist.splice(0, this.chosenlist.length)
+                localStorage.clear()
+                return
             }
+
+            this.chosen.push(o)
+            unique('competitionNumber', this.chosen)
+            
+            // 更新缓存
+            this.arr.forEach(function(item){
+                item.competitionList.forEach(function(o1){
+                    if(o1.competitionNumber === o.competitionNumber){
+                        console.log('chosenNum', o1.chosenNum, o.chosenNum)
+                        Vue.set(o1, 'chosenNum', o.chosenNum)
+                        o1.rateGroup.forEach(function(item1){
+                            item1.rateList.forEach(function(r1){
+                                o.rateGroup.forEach(function(item2){
+                                    item2.rateList.forEach(function(r2){
+                                        if(r1.rate === r2.rate)
+                                            Vue.set(r1, 'selected', r2.selected)
+                                    })
+                                })
+                            })
+                        })
+                    }
+                }) 
+            })
+
+            this.$emit('update', JSON.stringify(this.chosen), JSON.stringify(this.arr))
+
+        }
+    },
+    mounted: function () {
+        // // 是否存在localStorage
+        if(JSON.parse(localStorage.getItem('arrCompetitions'))){
+            this.arrCompetitions = JSON.parse(localStorage.getItem('arrCompetitions'))
+        }
+
+        // 是否存在localStorage
+        if(JSON.parse(localStorage.getItem('chosenCompetitions'))){
+            this.chosenCompetitions = JSON.parse(localStorage.getItem('chosenCompetitions'))
         }
     }
 })

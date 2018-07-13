@@ -525,7 +525,7 @@ a:active {
 }
 
 #back {
-    position: absolute;
+    position: absolute; z-index: 4;
     left: .2rem;
     top: 50%;
     width: .44rem;
@@ -745,7 +745,7 @@ a:active {
     left: auto;
     right: auto;
     bottom: 0;
-    z-index: 8;
+    z-index: 4;
     width: 100%;
     max-width: 750px;
     min-height: 1rem;
@@ -854,6 +854,8 @@ a:active {
 .footer .btn-mode-group{
     padding: .24rem .3rem;
     background-color: #f9f8f1;
+    position: relative;
+    z-index: 2;
 }
 
 
@@ -875,6 +877,18 @@ a:active {
     -o-border-radius: .1rem;
     line-height: .7rem;
     background-color: #fff;
+    transition: color .3s ease-in-out, border .3s ease-in-out;
+    -webkit-transition: color .3s ease-in-out, border .3s ease-in-out;
+    -moz-transition: color .3s ease-in-out, border .3s ease-in-out;
+    -ms-transition: color .3s ease-in-out, border .3s ease-in-out;
+    -o-transition: color .3s ease-in-out, border .3s ease-in-out;
+}
+
+.footer .btn-mode.active{
+    color: #d5001a;
+    border: 1px solid #d5001a;
+    background: #fff url(images/icon-check-red.png) no-repeat right bottom;
+    background-size: .32rem .32rem;
 }
 
 .footer .btn-more-toggle{
@@ -989,8 +1003,22 @@ a:active {
     flex-wrap:wrap;
 }
 
+.flex-wrap{
+    -webkit-flex-wrap:wrap;
+    -webkit-box-lines:multiple;
+    -moz-flex-wrap:wrap;
+    flex-wrap:wrap;
+}
+
+.flex-wrap-reverse{
+    -webkit-flex-wrap:wrap-reverse;
+    -webkit-box-lines:multiple;
+    -moz-flex-wrap:wrap-reverse;
+    flex-wrap:wrap-reverse;
+}
+
 .footer .btn-chosen-wrap{
-    width: 33.333%;
+    /* width: 33.333%; */
 }
 
 .footer .btn-chosen {
@@ -1002,6 +1030,7 @@ a:active {
 }
 
 .footer .btn-chosen{
+    float: left;
     display: block;
     width: 2.08rem;
     height: .64rem;
@@ -1014,6 +1043,7 @@ a:active {
     -moz-border-radius: .05rem;
     -ms-border-radius: .05rem;
     -o-border-radius: .05rem;
+    margin: 0 .1rem .24rem;
 }
 
 .footer .chosen-txt{

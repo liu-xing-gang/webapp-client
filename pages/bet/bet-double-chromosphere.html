@@ -124,8 +124,8 @@
                                 @click="twoColorBallLottery.select(redBall, 1, $event)"></div>
                         </li>
                     </ul>
-                    <div class="paddh30 font28 ">请至少选择个1蓝球</div>
-                    <ul class="balls balls-blue none clearfloat">
+                    <div class="paddh30 font28 margb18">请至少选择1个蓝球</div>
+                    <ul class="balls balls-blue clearfloat">
                         <li v-for="blueBall in arrBlueBallsCode">
                             <div :class="blueBall.selected == true ? 'ball active' : 'ball'" 
                                 v-text="blueBall.num" v-if="blueBall.num" 

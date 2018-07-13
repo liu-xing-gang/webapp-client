@@ -65,7 +65,7 @@
                                         
                                         <section>
                                             <div class="pk">
-                                                <i class="i" @touchstart="showLayerSinglePass2 = !showLayerSinglePass2 ">让球</i>
+                                                <i class="i">让球</i>
                                                 <span class="opponent font32 color2" v-text="item.nationHome">瑞典</span>
                                                 <span class="font28">vs</span>
                                                 <span class="opponent font32 color2"  v-text="item.nationGuest">瑞士</span>
@@ -89,8 +89,7 @@
                                                                 <section 
                                                                     v-for="rate in i.rateList"
                                                                     :class="rate.selected === true ? 'table-cell grid active' : 'table-cell grid'" 
-                                                                    @touchstart="pitchon(rate, 'selected', item)">
-
+                                                                    @tap="pitchon(rate, 'selected', item)">
                                                                     <span v-text="rate.rate">主胜2.95</span>
                                                                 </section>
                                                             </section>
@@ -98,10 +97,18 @@
                                                                 <section class="table-cell grid bg3 color0">
                                                                     <div class="score" v-text="i.rateType">+1</div>
                                                                 </section>
+                                                                <!-- <section class="table-cell grid" 
+                                                                    v-for="rate in i.rateList"
+                                                                    :class="rate.selected === true ? 'table-cell grid active' : 'table-cell grid'" 
+                                                                    @tap="pitchon(rate, 'selected', item)">
+
+                                                                    <span v-text="rate.rate">主胜1.44</span>
+                                                                </section> -->
+
                                                                 <section class="table-cell grid" 
                                                                     v-for="rate in i.rateList"
                                                                     :class="rate.selected === true ? 'table-cell grid active' : 'table-cell grid'" 
-                                                                    @touchstart="pitchon(rate, 'selected', item)">
+                                                                    @tap="pitchon(rate, 'selected', item)">
 
                                                                     <span v-text="rate.rate">主胜1.44</span>
                                                                 </section>
@@ -109,15 +116,15 @@
                                                         </div>
                                                         <div 
                                                             :class="item.isChosen === true ? 'table-cell expend chosen' : 'table-cell expend'"
-                                                            @touchStart="expend(item)">
+                                                            @tap="expend(item)">
 
-                                                            <section class="null" v-if="!item.isChosen">
-                                                                <div>展开</div>
-                                                                <div>全部</div>
-                                                            </section>
-                                                            <section class="not-null" v-else>
+                                                            <section class="not-null" v-if="item.isChosen">
                                                                 <div>已选</div>
                                                                 <div><span v-text="item.chosenNum">2</span>项</div>
+                                                            </section>
+                                                            <section class="null" v-else>
+                                                                <div>展开</div>
+                                                                <div>全部</div>
                                                             </section>
                                                         </div>
                                                     </div>
@@ -328,9 +335,9 @@
             :showlayer="showLayer" 
             :match="match" 
             @closelayer="close"
+            @update="updateStorage"
             :chosen="chosenCompetitions"
-            :chosenlist="chosenCompetitionsList"></layer-substance>
-
+            :arr="arrCompetitions"></layer-substance>
         <footer class="footer">
             <div :class="showLayerChosen === true ? 'layer-mask layer-mask-chosen active' : 'layer-mask layer-mask-chosen'"
                 @click="showLayerChosen = !showLayerChosen"></div>
@@ -345,32 +352,35 @@
                                 <span>vs</span>
                                 <span v-text="chosen.nationGuest">厄斯特松</span>
                             </div>
-                            <div class="btn-chosen-group flex">
+                            <div class="flex flex-wrap-reverse">
+                            <div class="btn-chosen-group" v-for="chosenItem in chosen.rateGroup">
                                 
-                                <div class="btn-chosen-wrap" 
-                                    v-for="chosenRate in chosenCompetitionsList">
-                                    <a class="btn-chosen" >
+                                <div class="btn-chosen-wrap flex flex-wrap clearfloat" >
+                                    <a class="btn-chosen" 
+                                        v-for="chosenRate in chosenItem.rateList" 
+                                        v-if="chosenRate.selected === true">
+
                                         <span v-text="chosenRate.score" v-if="chosenRate.score"></span>
                                         <span v-text="chosenRate.rate"></span>
                                     </a>
                                 </div>
-                                
                             </div>
+                        </div>
                     </div>
                 </section>
             </div>
             <div class="bg6 txt-center single-pass">
                 <div class="a-checkbox flex">
-                    <span @click="toggleSinglePass('singlePassFlag', arrCompetitions)">
-                        <input type="checkbox" name="" id="" :checked="singlePassFlag">
+                    <span @click="toggleSinglePass('singlePassFlag')">
+                        <input type="checkbox" name="" id="" :checked="singlePassFlag" >
                         <span>&nbsp;显示单关固定比赛表示</span>
                     </span>
-                    <span>&nbsp;&nbsp;<img src="../../images/icon-doubt.png" alt="" @click="showLayerSinglePass=!showLayerSinglePass"></span>
+                    <span id="btn-single-pass">&nbsp;&nbsp;<img src="../../images/icon-doubt.png" alt="" @click="showLayerSinglePass=!showLayerSinglePass"></span>
                 </div>
             </div>
             <div class="table">
                 <div class="table-cell w118">
-                    <a class="inline-block btn-remove"><img src="../../images/icon-trash.png" alt=""></a>
+                    <a class="inline-block btn-remove" @click="clear(chosenCompetitions)"><img src="../../images/icon-trash.png" alt=""></a>
                 </div>
                 <div class="table-cell">
                     <section class="footer-hint">
@@ -413,7 +423,7 @@
                                         <section
                                             v-for="rate in rateItem.rateList"
                                             :class="rate.selected === true ? 'table-cell grid active' : 'table-cell grid'" 
-                                            @touchstart="pitched(rate, 'selected', match)">
+                                            @tap="pitched(rate, 'selected', match)">
 
                                             <span v-text="rate.rate"></span>
                                         </section>
@@ -428,7 +438,7 @@
                                         <section
                                             v-for="rate in rateItem.rateList"
                                             :class="rate.selected === true ? 'table-cell grid active' : 'table-cell grid'" 
-                                            @touchstart="pitched(rate, 'selected', match)">
+                                            @tap="pitched(rate, 'selected', match)">
 
                                             <span v-text="rate.rate"></span>
                                         </section>
@@ -443,7 +453,7 @@
                                     <div
                                         v-for="rate in rateItem.rateList"
                                         :class="rate.selected === true ? 'score-item active' : 'score-item'" 
-                                        @touchstart="pitched(rate, 'selected', match)" 
+                                        @tap="pitched(rate, 'selected', match)" 
                                         v-if="rate.score != '胜其他' && rate.score != '负其他' && rate.score != '平其他'">
 
                                         <h1 class="txt-big" v-text="rate.score"></h1>
@@ -452,7 +462,7 @@
                                     <div
                                         v-for="rate in rateItem.rateList"
                                         :class="rate.selected === true ? 'score-item score-item-col2 active' : 'score-item score-item-col2'" 
-                                        @touchstart="pitched(rate, 'selected', match)"
+                                        @tap="pitched(rate, 'selected', match)"
                                         v-if="rate.score === '胜其他' || rate.score === '负其他'">
 
                                             <h1 class="txt-big" v-text="rate.score"></h1>
@@ -461,7 +471,7 @@
                                     <div
                                         v-for="rate in rateItem.rateList"
                                         :class="rate.selected === true ? 'score-item score-item-col3 active' : 'score-item score-item-col3'" 
-                                        @touchstart="pitched(rate, 'selected', match)"
+                                        @tap="pitched(rate, 'selected', match)"
                                         v-if="rate.score === '平其他'">
 
                                         <h1 class="txt-big" v-text="rate.score"></h1>
@@ -481,7 +491,7 @@
                                     <div
                                         v-for="rate in rateItem.rateList"
                                         :class="rate.selected === true ? 'score-item active' : 'score-item'" 
-                                        @touchstart="pitched(rate, 'selected', match)">
+                                        @tap="pitched(rate, 'selected', match)">
 
                                         <h1 class="txt-big" v-text="rate.score"></h1>
                                         <h2 class="txt-small" v-text="rate.rate"></h2>
@@ -498,7 +508,7 @@
                                     <div
                                         v-for="rate in rateItem.rateList"
                                         :class="rate.selected === true ? 'score-item active' : 'score-item'" 
-                                        @touchstart="pitched(rate, 'selected', match)">
+                                        @tap="pitched(rate, 'selected', match)">
 
                                         <h1 class="txt-big" v-text="rate.score"></h1>
                                         <h2 class="txt-small" v-text="rate.rate"></h2>
@@ -536,8 +546,6 @@
                     singlePassFlag: true,
                     showLayerChosen: false,
                     chosenCompetitions: [],
-                    // 为便于渲染已选择弹出层，从chosenCompetitions整合而来
-                    chosenCompetitionsList: [], 
                     // 投注类型
                     arrTypes: [{
                             typeId: '1',
@@ -583,7 +591,6 @@
                     // 比赛列表 
                     arrCompetitions: [
                         {
-
                             typeId: '6',
                             competitionName: '世界杯',
                             time: '2018-07-06 星期五',
@@ -728,15 +735,15 @@
 
                             typeId: '6',
                             competitionName: '世界杯',
-                            time: '2018-07-06 星期五',
+                            time: '2018-07-07 星期六',
                             showSinglePass: true,
                             competitionList: [
                                 {
-                                    competitionId: '003',
-                                    competitionNumber: '周五057',
+                                    competitionId: '001',
+                                    competitionNumber: '周五059',
                                     closingDate: '20:00',
-                                    nationHome: '乌拉圭', 
-                                    nationGuest: '法国',
+                                    nationHome: '克罗地亚', 
+                                    nationGuest: '英格兰',
                                     rateGroup: [
                                         {rateType: '0', rateList: [{rate: '主胜4.10'},{rate: '平3.00'},{rate: '客胜1.72'}]},
                                         {rateType: '1', rateList: [{rate: '主胜1.79'},{rate: '平3.15'},{rate: '客胜3.53'}]},
@@ -773,28 +780,28 @@
                                         rankInfo: '本场无排名信息'
                                     },
                                     historyPast:{
-                                        brief: ['乌拉圭', '1胜', '2平', ''],
+                                        brief: ['克罗地亚', '1胜', '2平', ''],
                                         details: [
-                                            {time: '2013-06-06', home: '乌拉圭', guest: '法国', endType: 1},
-                                            {time: '2010-06-12', home: '乌拉圭', guest: '法国', endType: 0},
-                                            {time: '2002-06-06', home: '乌拉圭', guest: '法国', endType: 0},
+                                            {time: '2013-06-06', home: '克罗地亚', guest: '英格兰', endType: 1},
+                                            {time: '2010-06-12', home: '克罗地亚', guest: '英格兰', endType: 0},
+                                            {time: '2002-06-06', home: '克罗地亚', guest: '英格兰', endType: 0},
                                         ]
                                     } ,
                                     historyRecent: {
-                                        brief: ['乌拉圭', '1胜', '2平', ''],
+                                        brief: ['克罗地亚', '1胜', '2平', ''],
                                         details: [
-                                                {time: '2013-06-06', home: '乌拉圭', guest: '法国', endType: 1},
-                                                {time: '2010-06-12', home: '乌拉圭', guest: '法国', endType: 0},
-                                                {time: '2002-06-06', home: '乌拉圭', guest: '法国', endType: 0},
+                                                {time: '2013-06-06', home: '克罗地亚', guest: '英格兰', endType: 1},
+                                                {time: '2010-06-12', home: '克罗地亚', guest: '英格兰', endType: 0},
+                                                {time: '2002-06-06', home: '克罗地亚', guest: '英格兰', endType: 0},
                                         ]
                                     }
                                 }, 
                                 {
-                                    competitionId: '004',
-                                    competitionNumber: '周五058',
+                                    competitionId: '002',
+                                    competitionNumber: '周日060',
                                     closingDate: '00:00',
-                                    nationHome: '巴西', 
-                                    nationGuest: '比利时',
+                                    nationHome: '芝加哥', 
+                                    nationGuest: '费城',
                                     rateGroup: [
                                         {rateType: '0', rateList: [{rate: '主胜1.84'},{rate: '平3.18'},{rate: '客胜3.32'}]},
                                         {rateType: '1', rateList: [{rate: '主胜3.70'},{rate: '平3.45'},{rate: '客胜1.67'}]},
@@ -884,7 +891,6 @@
                      * 展开某个'全部'弹层
                      */
                     expend: function(o){
-                        o.showLayer = false
                         o.showLayer = true
                         this.showLayer = o.showLayer
                         // 填充弹层数据
@@ -900,11 +906,11 @@
                     /**
                      * 切换单关固定比赛表示
                      */
-                    toggleSinglePass: function (flag, arr) {
+                    toggleSinglePass: function (flag) {
                         var that = this
                         that[flag] = !that[flag]
-                        arr.forEach(function(o){
-                            o.showSinglePass = that[flag]
+                        this.arrCompetitions.forEach(function(a){
+                            a.showSinglePass = that[flag]
                         })
                     },
                     /**
@@ -930,27 +936,48 @@
                             }
                         }
 
-                        this.chosenCompetitions.push(o)
-                        unique('competitionNumber', this.chosenCompetitions)
-                        
-
-                        //使已选择弹出层，保持始终居中对其，而整理数据格式
-                        this.chosenCompetitionsList.push(item)
-
-                        
-
                         item[flag] = !item[flag]
                         item[flag] === true ? o.chosenNum ++ : o.chosenNum --  
                         o.chosenNum = o.chosenNum <= 0 ? 0 : o.chosenNum
+
                         // 是否选择
                         o.chosenNum >0 ? o.isChosen = true : o.isChosen = false
 
                         // 切换显示底部提示
                         if(o.chosenNum === 0){
                             this.chosenCompetitions.splice(0, this.chosenCompetitions.length)
-                            this.chosenCompetitionsList.splice(0, this.chosenCompetitionsList.length)
+                            localStorage.clear()
+                            return
                         }
-                            
+                        this.chosenCompetitions.push(o)
+                        unique('competitionNumber', this.chosenCompetitions)
+
+                        // // 存储数据（需一个专门的处理类）
+
+                        localStorage.setItem('chosenCompetitions', JSON.stringify(this.chosenCompetitions))
+                        localStorage.setItem('arrCompetitions', JSON.stringify(this.arrCompetitions))
+
+
+                    },
+                    /**
+                     * 清空 
+                     */
+                    clear: function(arr){
+                        arr.forEach(function(o){
+                            o.chosenNum = 0
+                            o.isChosen = false
+                            o.rateGroup.forEach(function(item){
+                                item.rateList.forEach(function(i){
+                                    i.selected = false
+                                })
+                            })
+                        })
+                        arr.splice(0, arr.length)
+                        localStorage.clear()
+                    },
+                    updateStorage: function(a, b){
+                        localStorage.setItem('chosenCompetitions', a)
+                        localStorage.setItem('arrCompetitions', b)
                     }
                 },
                 mounted: function () {
@@ -978,6 +1005,17 @@
                             })
                         }) 
                     })
+
+                    // 是否存在localStorage
+                    if(JSON.parse(localStorage.getItem('arrCompetitions'))){
+                        this.arrCompetitions = JSON.parse(localStorage.getItem('arrCompetitions'))
+                    }
+
+                    // // 是否存在localStorage
+                    if(JSON.parse(localStorage.getItem('chosenCompetitions'))){
+                        this.chosenCompetitions = JSON.parse(localStorage.getItem('chosenCompetitions'))
+                    }
+
                 },
             })
 
@@ -1034,7 +1072,18 @@
                 //     mui.toast("为你推荐了5篇文章");
                 // }, 1500);
             }
-
+            
+            // 单关固定描述
+            document.getElementById("btn-single-pass").addEventListener('tap', function() {
+				mui.alert('单关固定：只猜一场比赛，猜中即中奖。奖金以出票时刻的赔率为准。单关固定的返奖率高达87%。勾选后，橙色框区域表示该场次支持单关固定的玩法。', '单关固定', function() {
+				});
+            });
+            document.querySelectorAll('.pk .i').forEach(function(item){
+                item.addEventListener('tap', function() {
+                    mui.alert('让球：0表示没有让球；“-”表示主队让客队，主队的净胜球大于让球数才算主胜。“+”表示客队让主队，客队的净胜球大于让球数才算客胜。', '让球说明', function() {
+                    });
+                });
+            })
         </script>
 
 </body>

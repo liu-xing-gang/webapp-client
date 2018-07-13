@@ -110,6 +110,10 @@ i {
     -o-transition: .3s ease-in-out;
 }
 
+.margb18{
+    margin-bottom: .18rem;
+}
+
 .padd30{
     padding: .3rem;
 }
@@ -508,7 +512,7 @@ i {
     position: fixed;
     width: 6.9rem;
     top: 1.92rem;
-    z-index: 8;
+    z-index: 4;
     height: .15rem;
     background-color: #fff;
     overflow: hidden;
@@ -599,7 +603,6 @@ i {
 
 .bet-confirm .list-item .football-table .expect span{
     display: inline-block;
-    margin: .08rem;
 }
 
 .bet-confirm .expect-2{
@@ -639,8 +642,8 @@ i {
 
 .bet-confirm .btn-del-item {
     display: block;
-    width: .4rem;
-    height: .4rem;
+    width: .58rem;
+    height: .58rem;
     margin: 0 auto;
 }
 
@@ -919,6 +922,7 @@ i {
 }
 
 .table-style-1 .grid{
+    width: 33.333%;
     border-right: 1px solid #e5e5e5;
 }
 
@@ -1001,6 +1005,11 @@ i {
     background: #f9f8f1;
     line-height: 1;
     margin-bottom: 1rem;
+}
+
+.b{
+    display: inline-block;
+    padding: .1rem;
 }
 
 .competition .competition-header{

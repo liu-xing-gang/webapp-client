@@ -21,18 +21,18 @@
         </header>
         <main class="main bet-confirm">
             <section class="btn-options-group txt-center">
-                <a class="btn-option btn-option-self w350" onclick="window.location.href='bet-double-chromosphere.html'">
+                <a class="btn-option btn-option-self w350" onclick="window.location.href='bet-football.html'">
                     <div><span>添加/编辑赛事</span></div>
                 </a>
-                <a class="btn-option btn-option-empty w350" @click="clear(0, test.length, test)">
+                <a class="btn-option btn-option-empty w350" @click="clear(0, chosenCompetitions.length, chosenCompetitions)">
                     <div><span>清空列表</span></div>
                 </a>
             </section>
             <section class="list">
                 <div class="list-head"></div>
                 <transition name="fade">
-                    <div class="list-body" v-if="test.length > 0">
-                        <div :class="(index+1)%test.length != 0 ? 'list-item' : 'list-item last'" v-for="(item, index) in 1">
+                    <div class="list-body">
+                        <!-- <div class="list-item">
                             <div class="tbale-cell">
                                 <h1 class="football-title font32 txt-center">
                                     <span>乌拉圭</span>
@@ -124,13 +124,14 @@
                                     <span class="rectangle58 active">胆</span>
                                 </div>
                             </div>
-                        </div>
-                        <div class="list-item last">
+                        </div> -->
+
+                        <div v-for="(chosen, index) in chosenCompetitions" :class="(index+1) != chosenCompetitions.length ? 'list-item' :'list-item last'">
                             <div class="tbale-cell">
                                 <h1 class="football-title font32 txt-center">
-                                    <span>俄罗斯</span>
+                                    <span v-text="chosen.nationHome">俄罗斯</span>
                                     <span class="color9">vs</span>
-                                    <span>克罗地亚</span>
+                                    <span v-text="chosen.nationGuest">克罗地亚</span>
                                 </h1>
                             </div>
                             <div class="table football-table txt-center">
@@ -138,12 +139,16 @@
                                     <div class="btn-del-item"><img src="../../images/icon-del-1.png" alt="" class="img-responsive"></div>
                                 </div>
                                 <div class="table-cell w490">
-                                    <div class="expect font36 color2 txt-center" @click="show = true">
-                                        <span>主胜</span>
+                                    <div class="expect font36 color2 txt-center" @click="expend(chosen)">
+                                        <span v-for="chosenRate in chosen.rateGroup">
+                                            <i v-for="rate in chosenRate.rateList" v-if="rate.selected">
+                                                <b class="b" v-text="rate.rate"></b>
+                                            </i>
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="table-cell">
-                                    <span class="rectangle58 active">胆</span>
+                                    <span class="rectangle58">胆</span>
                                 </div>
                             </div>
                         </div>
@@ -160,53 +165,43 @@
                 </transition>
             </section>
             <footer class="footer">
+                    <div :class="showMode === true ? 'layer-mask layer-mask-chosen active' : 'layer-mask layer-mask-chosen'" @click="showMode = !showMode"></div>
                 <div class="table bg6 mode">
                     <div :class="showMode === true ? 'table-cell mode-item active' : 'table-cell mode-item'" @click="showMode = !showMode">
-                        <span class="font32 s2"><b>投注方式</b><b class="color2">(必填)</b></span>
+                        <span class="font32 s2" v-if="chosenCompetitions.length === 0"><b>投注方式</b><b class="color2">(必填)</b></span>
+                        <span class="font32 s2" v-else-if="chosenCompetitions.length === 1"><b>单关</b></span>
+                        <span class="font32 s2" v-else-if="chosenCompetitions.length === 2"><b>2串1</b></span>
+                        <span class="font32 s2" v-else><b>投注方式</b><b class="color2">(必填)</b></span>
+
                         <span class="font32 s1">收起</span>
                         <i class="circle-arrow"></i>
                     </div>
+                    
                     <div class="table-cell mode-item">
-                        <span class="font32">投 <input type="number" name="" id="" class="mode-num" value="50"> 倍</span>
+                        <span class="font32">投 <input type="number" name="" id="" class="mode-num" :value="val" v-model="val"> 倍</span>
                     </div>
                 </div>
+
                 <div class="btn-mode-group" v-if="showMode">
-                    <div class="btn-mode-wrap">
-                        <div class="btn-mode font32 txt-center">2串1</div>
-                    </div>
-                    <div class="btn-mode-wrap">
-                        <div class="btn-mode font32 txt-center">3串1</div>
-                    </div>
-                    <div class="btn-mode-wrap">
-                        <div class="btn-mode font32 txt-center">4串1</div>
+                    <div class="btn-mode-wrap" v-for="one in arrBunchOne">
+                        <div :class="one.selected === true ? 'btn-mode font32 txt-center active' : 'btn-mode font32 txt-center'" v-text="one.txt" @click="selectBench(one)">
+
+                        </div>
                     </div>
                     <div class="clearfix"></div>
                     <div class="paddv36">
-                        <a :class="showMore ===true ? 'color1 inline-block btn-more-toggle active' : 'color1 inline-block btn-more-toggle'" @click="showMore = !showMore">
+                        <a :class="showMore ===true ? 'color1 inline-block btn-more-toggle active' : 'color1 inline-block btn-more-toggle'" @click="showMore = !showMore" v-if="chosenCompetitions.length >= 3">
                             <span class="s1">收起更多</span>
                             <span class="s2">更多玩法</span>
                         </a>
                         <a href="" class="color10 inline-block fr">2串1，3串1等是什么意思 ></a>
+                        <div class="clearfix"></div>
                     </div>
                     <transition name="fade">
                         <div v-if="showMore">
-                            <div class="btn-mode-wrap">
-                                <div class="btn-mode font32 txt-center">3串3</div>
-                            </div>
-                            <div class="btn-mode-wrap">
-                                <div class="btn-mode font32 txt-center">3串4</div>
-                            </div>
-                            <div class="btn-mode-wrap">
-                                <div class="btn-mode font32 txt-center">4串4</div>
-                            </div>
-                            <div class="btn-mode-wrap">
-                                <div class="btn-mode font32 txt-center">4串5</div>
-                            </div>
-                            <div class="btn-mode-wrap">
-                                <div class="btn-mode font32 txt-center">4串6</div>
-                            </div>
-                            <div class="btn-mode-wrap">
-                                <div class="btn-mode font32 txt-center">4串11</div>
+                            <div class="btn-mode-wrap" v-for="multi in arrBunchMulti">
+                                <div :class="multi.selected === true ? 'btn-mode font32 txt-center active' : 'btn-mode font32 txt-center'" v-text="multi.txt" @click="selectBench(multi, 1)"></div>
+
                             </div>
                             <div class="clearfix"></div>
                         </div>
@@ -217,10 +212,10 @@
                     <div class="table-cell">
                         <div class="txt-center">
                             <div class="pay-money margb10 fontsize32">
-                                <i>50注</i>
-                                <i class="color-yellow">共100元</i></div>
+                                <i v-text="currentTotalNum"></i>注
+                                <i class="color-yellow">共<b v-text="currentTotalMoney"></b>元</i></div>
                             <div class="pay-term fontsize24">
-                                预计奖金: <i>1135.00</i>元
+                                预计奖金: <i v-text="bonusMin"></i>~<i v-text="bonusMax"></i>元
                             </div>
                         </div>
                     </div>
@@ -231,14 +226,21 @@
             </footer>
         </main>
 
-        <layer-substance :showlayer="show" @closelayer="close"></layer-substance>
+        <layer-substance 
+            :showlayer="showLayer" 
+            :match="match" 
+            @update="updateStorage" 
+            @closelayer="close" 
+            :chosen="chosenCompetitions" 
+            :arr="arrCompetitions"></layer-substance>
     </div>
+
     <script type="text/x-template" id="test">
         <div>
             <div :class="showlayer ===true ? 'layer-mask active' : 'layer-mask'" @clcik="closeLayer"></div>
             <div :class="showlayer ===true ? 'layer-substance active' : 'layer-substance '">
                 <section class="layer-substance-head">
-                    <h1><span>瑞典</span> vs <span>瑞士</span></h1>
+                    <h1><span v-text="match.nationHome"></span> vs <span v-text="match.nationGuest"></span></h1>
                 </section>
                 <section class="layer-substance-body">
                     <div class="txt-justify font24 color8 hint">
@@ -246,96 +248,70 @@
                     </div>
                     <div class="txt-center">
                         <div class="table-style-1 units">
-                            <section class="table grid-row">
+                            <section class="table grid-row" v-for="rateItem in match.rateGroup" v-if="rateItem.rateType === '0'">
+
                                 <section class="table-cell grid bg2 color0">
                                     <div class="score">0</div>
                                 </section>
-                                <section class="table-cell grid"><span>主胜2.95</span></section>
-                                <section class="table-cell grid"><span>平2.70</span></section>
-                                <section class="table-cell grid"><span>客胜2.22</span></section>
+                                <section v-for="rate in rateItem.rateList" :class="rate.selected === true ? 'table-cell grid active' : 'table-cell grid'" @touchstart="pitched(rate, 'selected', match)">
+
+                                    <span v-text="rate.rate"></span>
+                                </section>
                             </section>
-                            <section class="table grid-row">
+                            <section class="table grid-row" v-for="rateItem in match.rateGroup" v-if="rateItem.rateType === '1'">
+
                                 <section class="table-cell grid bg3 color0">
                                     <div class="score">+1</div>
                                 </section>
-                                <section class="table-cell grid"><span>主胜1.44</span></section>
-                                <section class="table-cell grid"><span>平3.60</span></section>
-                                <section class="table-cell grid"><span>客胜5.35</span></section>
+                                <section v-for="rate in rateItem.rateList" :class="rate.selected === true ? 'table-cell grid active' : 'table-cell grid'" @touchstart="pitched(rate, 'selected', match)">
+
+                                    <span v-text="rate.rate"></span>
+                                </section>
                             </section>
                         </div>
                     </div>
                     <div class="txt-center margb20">
-                        <div class="holder gb4">
+                        <div class="holder gb4" v-for="rateItem in match.rateGroup" v-if="rateItem.rateType === '比分'">
                             <span class="score-label">比分</span>
-                            <div class="score-item" v-for="item in 7">
-                                <h1 class="txt-big">1:0</h1>
-                                <h2 class="txt-small">7.50</h2>
+                            <div v-for="rate in rateItem.rateList" :class="rate.selected === true ? 'score-item active' : 'score-item'" @touchstart="pitched(rate, 'selected', match)" v-if="rate.score != '胜其他' && rate.score != '负其他' && rate.score != '平其他'">
+
+                                <h1 class="txt-big" v-text="rate.score"></h1>
+                                <h2 class="txt-small" v-text="rate.rate"></h2>
                             </div>
-                            <div class="score-item" v-for="item in 5">
-                                <h1 class="txt-big">1:0</h1>
-                                <h2 class="txt-small">7.50</h2>
+                            <div v-for="rate in rateItem.rateList" :class="rate.selected === true ? 'score-item score-item-col2 active' : 'score-item score-item-col2'" @touchstart="pitched(rate, 'selected', match)" v-if="rate.score === '胜其他' || rate.score === '负其他'">
+
+                                <h1 class="txt-big" v-text="rate.score"></h1>
+                                <h2 class="txt-small" v-text="rate.rate"></h2>
                             </div>
-                            <div class="score-item score-item-col2">
-                                <h1 class="txt-big">胜其它</h1>
-                                <h2 class="txt-small">100.0</h2>
-                            </div>
-                            <div class="score-item" v-for="item in 4">
-                                <h1 class="txt-big">1:0</h1>
-                                <h2 class="txt-small">7.50</h2>
-                            </div>
-                            <div class="score-item score-item-col3">
-                                <h1 class="txt-big">平其它</h1>
-                                <h2 class="txt-small">400.0</h2>
+                            <div v-for="rate in rateItem.rateList" :class="rate.selected === true ? 'score-item score-item-col3 active' : 'score-item score-item-col3'" @touchstart="pitched(rate, 'selected', match)" v-if="rate.score === '平其他'">
+
+                                <h1 class="txt-big" v-text="rate.score"></h1>
+                                <h2 class="txt-small" v-text="rate.rate"></h2>
                             </div>
 
                             <div class="clearfix"></div>
                         </div>
                     </div>
                     <div class="txt-center margb20">
-                        <div class="holder b4">
+                        <div class="holder b4" v-for="rateItem in match.rateGroup" v-if="rateItem.rateType === '半全场'">
                             <span class="score-label">半全场</span>
-                            <div class="score-item" v-for="item in 7">
-                                <h1 class="txt-big">胜胜</h1>
-                                <h2 class="txt-small">7.50</h2>
-                            </div>
-                            <div class="score-item" v-for="item in 5">
-                                <h1 class="txt-big">生平</h1>
-                                <h2 class="txt-small">7.50</h2>
-                            </div>
-                            <div class="score-item score-item-col2">
-                                <h1 class="txt-big">胜负</h1>
-                                <h2 class="txt-small">100.0</h2>
-                            </div>
-                            <div class="score-item">
-                                <h1 class="txt-big">平胜</h1>
-                                <h2 class="txt-small">7.50</h2>
-                            </div>
-                            <div class="score-item score-item-col3">
-                                <h1 class="txt-big">平平</h1>
-                                <h2 class="txt-small">400.0</h2>
-                            </div>
 
+                            <div v-for="rate in rateItem.rateList" :class="rate.selected === true ? 'score-item active' : 'score-item'" @touchstart="pitched(rate, 'selected', match)">
+
+                                <h1 class="txt-big" v-text="rate.score"></h1>
+                                <h2 class="txt-small" v-text="rate.rate"></h2>
+                            </div>
                             <div class="clearfix"></div>
                         </div>
                     </div>
                     <div class="txt-center">
-                        <div class="holder b5">
-                            <span class="score-label">比分</span>
-                            <div class="score-item" v-for="item in 7">
-                                <h1 class="txt-big">1:0</h1>
-                                <h2 class="txt-small">7.50</h2>
-                            </div>
-                            <div class="score-item" v-for="item in 5">
-                                <h1 class="txt-big">1:0</h1>
-                                <h2 class="txt-small">7.50</h2>
-                            </div>
-                            <div class="score-item score-item-col2">
-                                <h1 class="txt-big">胜其它</h1>
-                                <h2 class="txt-small">100.0</h2>
-                            </div>
-                            <div class="score-item" v-for="item in 4">
-                                <h1 class="txt-big">1:0</h1>
-                                <h2 class="txt-small">7.50</h2>
+                        <div class="holder b5" v-for="rateItem in match.rateGroup" v-if="rateItem.rateType === '总进球'">
+                            <span class="score-label">总进球</span>
+
+                            <div v-for="rate in rateItem.rateList" :class="rate.selected === true ? 'score-item active' : 'score-item'" @touchstart="pitched(rate, 'selected', match)">
+
+                                <h1 class="txt-big" v-text="rate.score"></h1>
+                                <h2 class="txt-small" v-text="rate.rate"></h2>
                             </div>
                             <div class="clearfix"></div>
                         </div>
@@ -350,45 +326,332 @@
         </div>
     </script>
     <script src="../../libs/vue.min.js"></script>
+    <script src="../../component/component.js"></script>
     <script src="../../mui/js/mui.min.js"></script>
     <script>
-        Vue.component('layer-substance', {
-            props: {
-                showlayer: false
-            },
-            data: function() {
-                return {
-                    showlayer: this.showlayer
-                }
-            },
-            template: '#test',
-            methods: {
-                closeLayer: function() {
-                    this.showlayer = false
-                    this.$emit('closelayer', this.showlayer)
-                }
-            }
-        })
         var vm = new Vue({
             el: '#app',
             data: {
-                test: [1, 2, 3, 4, 5, 6, 7, 8],
-                term: 1,
-                multiple: 1,
-                price: 2,
-                show: false,
-                showMore: false,
-                showMode: false
+                // 投注方式的boolean值
+                showMore: true,
+                showMode: false,
+
+                // 弹层所需的变量
+                showLayer: false,
+                match: [],
+                chosenCompetitions: [],
+
+                val: 1,
+                totalNum: 0,
+                totalMoney: 0,
+                arrBunchOne: [],
+                arrBunchMulti: [],
+                bunchName: '',
+                bonusMin: 0,
+                bonusMax: 0,
+                arrCompetitions: [],
+
+                // 增量
+                increase: 0,
             },
-            mounted: function() {},
+            mounted: function() {
+                try {
+                    this.chosenCompetitions = JSON.parse(localStorage.getItem('chosenCompetitions'))
+                    this.arrCompetitions = JSON.parse(localStorage.getItem('arrCompetitions'))
+
+                    this.getArrBunch()
+                } catch (e) {}
+            },
             methods: {
+                /**
+                 * 清空列表
+                 */
                 clear: function(index, n, target) {
                     target.splice(index, n)
                 },
+
+                /**
+                 * 打开layer-substance
+                 */
+                expend: function(o) {
+                    o.showLayer = false
+                    o.showLayer = true
+                    this.showLayer = o.showLayer
+                    // 填充弹层数据
+                    this.match = o
+                },
+
+                /**
+                 * 关闭layer-substance
+                 */
                 close: function(msg) {
-                    console.log(msg)
-                    this.show = msg
+                    this.showLayer = msg
+                },
+
+                // 渲染串
+                getArrBunch: function() {
+                    switch (this.chosenCompetitions.length) {
+                        case 1:
+                            var obj = {}
+                            obj.txt = '单关'
+                            obj.selected = true
+                            this.arrBunchOne.push(obj)
+                            break;
+                        case 2:
+                            var obj = {}
+                            obj.txt = '2串1'
+                            obj.selected = true
+                            this.arrBunchOne.push(obj)
+                            break;
+                        default:
+                            var length = this.chosenCompetitions.length
+                            if (length >= 3 && length <= 8) {
+                                // n串1 最高8串1
+                                for (var i = this.chosenCompetitions.length; i >= 2; i--) {
+                                    var obj = {}
+                                    obj.txt = i + '串' + 1
+                                    obj.selected = false
+                                    this.arrBunchOne.unshift(obj)
+                                }
+                            }
+
+                            var bunches = [
+                                [{
+                                    txt: '3串3',
+                                    describe: '3串3:猜中2场可中奖',
+                                    way: '2串1',
+                                    pass: '注数=C(n,2)；n场次'
+                                }, {
+                                    txt: '3串4',
+                                    describe: '3串4:猜中2场可中奖',
+                                    way: '2串1,3串1',
+                                    pass: '注数=C(n,2)+C(n,3)'
+                                }],
+                                [{
+                                    txt: '4串4',
+                                    describe: '4串4:猜中3场可中奖',
+                                    way: '3串1'
+                                }, {
+                                    txt: '4串5',
+                                    describe: '4串5:猜中3场可中奖',
+                                    way: '3串1,4串1'
+                                }, {
+                                    txt: '4串6',
+                                    describe: '4串6:猜中2场可中奖',
+                                    way: '2串1'
+                                }, {
+                                    txt: '4串11',
+                                    describe: '4串11:猜中2场可中奖',
+                                    way: '2串1,3串1,4串1'
+                                }],
+                                [{
+                                    txt: '5串5',
+                                    describe: '5串5:猜中4场可中奖',
+                                    way: '4串1'
+                                }, {
+                                    txt: '5串6',
+                                    describe: '5串6:猜中4场可中奖',
+                                    way: '4串1,5串1'
+                                }, {
+                                    txt: '5串10',
+                                    describe: '5串10:猜中2场可中奖',
+                                    way: '2串1'
+                                }, {
+                                    txt: '5串16',
+                                    describe: '5串16:猜中3场可中奖',
+                                    way: '3串1,4串1,5串1'
+                                }, {
+                                    txt: '5串20',
+                                    describe: '5串20:猜中2场可中奖',
+                                    way: '2串1,3串1'
+                                }, {
+                                    txt: '5串26',
+                                    describe: '5串26:猜中2场可中奖',
+                                    way: '2串1,3串1,4串1,5串1'
+                                }],
+                                [{
+                                    txt: '6串6',
+                                    describe: '6串6:猜中5场可中奖',
+                                    way: '5串1'
+                                }, {
+                                    txt: '6串7',
+                                    describe: '6串7:猜中5场可中奖',
+                                    way: '5串1,6串1'
+                                }, {
+                                    txt: '6串15',
+                                    describe: '6串15:猜中2场可中奖',
+                                    way: '2串1'
+                                }, {
+                                    txt: '6串20',
+                                    describe: '6串20:猜中3场可中奖',
+                                    way: '3串1'
+                                }, {
+                                    txt: '6串22',
+                                    describe: '6串22:猜中4场可中奖',
+                                    way: '4串1,5串1,6串1'
+                                }, {
+                                    txt: '6串35',
+                                    describe: '6串35:猜中2场可中奖',
+                                    way: '2串1,3串1'
+                                }, {
+                                    txt: '6串42',
+                                    describe: '6串42:猜中3场可中奖',
+                                    way: '3串1,4串1,5串1,6串1'
+                                }, {
+                                    txt: '6串50',
+                                    describe: '6串50:猜中2场可中奖',
+                                    way: '2串1,3串1,4串1'
+                                }, {
+                                    txt: '6串57',
+                                    describe: '6串57:猜中2场可中奖',
+                                    way: '2串1,3串1,4串1,5串1,6串1'
+                                }],
+                                [{
+                                    txt: '7串7',
+                                    describe: '7串7:猜中6场可中奖',
+                                    way: '6串1'
+                                }, {
+                                    txt: '7串8',
+                                    describe: '7串8:猜中6场可中奖',
+                                    way: '6串1,7串1'
+                                }, {
+                                    txt: '7串21',
+                                    describe: '7串21:猜中5场可中奖',
+                                    way: '5串1'
+                                }, {
+                                    txt: '7串35',
+                                    describe: '7串35:猜中4场可中奖',
+                                    way: '4串1'
+                                }, {
+                                    txt: '7串120',
+                                    describe: '7串120:猜中2场可中奖',
+                                    way: '2串1,3串1,4串1,5串1,6串1,7串1'
+                                }],
+                                [{
+                                    txt: '8串8',
+                                    describe: '8串8:猜中7场可中奖',
+                                    way: '7串1'
+                                }, {
+                                    txt: '8串9',
+                                    describe: '8串9:猜中7场可中奖',
+                                    way: '7串1,8串1'
+                                }, {
+                                    txt: '8串28',
+                                    describe: '8串28:猜中6场可中奖',
+                                    way: '6串1'
+                                }, {
+                                    txt: '8串56',
+                                    describe: '8串56:猜中5场可中奖',
+                                    way: '5串1'
+                                }, {
+                                    txt: '8串70',
+                                    describe: '8串70:猜中4场可中奖',
+                                    way: '4串1'
+                                }, {
+                                    txt: '8串247',
+                                    describe: '8串247:猜中2场可中奖',
+                                    way: '2串1,3串1,4串1,5串1,6串1,7串1,8串1'
+                                }]
+                            ]
+
+                            // 更多玩法
+                            if (length >= 3 && length <= 8) {
+                                for (var i = 0; i < length % 3 + 1; i++) {
+                                    this.arrBunchMulti = this.arrBunchMulti.concat(bunches[i])
+                                }
+                            } else if (length <= 15) {
+                                for (var i = 0; i < bunches.length; i++) {
+                                    this.arrBunchMulti = this.arrBunchMulti.concat(bunches[i])
+                                }
+                            }
+
+                            // 添加点击控制boolean值
+                            this.arrBunchMulti.forEach(function(item) {
+                                Vue.set(item, 'selected', false)
+                            })
+                    }
+                },
+
+                /**
+                 * 点击某个串 --> n串m和n串1，不能并存；n串m不能多选n串1可以多选
+                 */ 
+                selectBench: function(o, flag) {
+                    // n串m
+                    if (flag === 1) {
+                        this.arrBunchOne.forEach(function(item) {
+                            if (item.selected)
+                                item.selected = false
+                        })
+
+                        this.arrBunchMulti.forEach(function(item) {
+                            if(item.txt != o.txt)
+                                item.selected = false
+                        })
+                        o.selected = !o.selected
+                        
+                        // n串m的注数
+                        var that = this
+                        var n = this.chosenCompetitions.length
+                        that.totalNum = 0
+                        var arr = o.way.split(',')
+                        arr.forEach(function(item,index){
+                            var m = parseInt( item.split('串')[0] )
+                            that.totalNum += that.C(n, m)
+                        })
+
+                        
+                    } else {
+                        // n串1
+                        this.arrBunchMulti.forEach(function(item) {
+                            item.selected = false
+                        })
+                        o.selected = !o.selected
+                        
+                        // n串1注数
+                        var that = this
+                        var n = this.chosenCompetitions.length
+                        that.totalNum = 0
+                        this.arrBunchOne.forEach(function(item){
+                            if(item.selected === true){
+                                var m = parseInt( item.txt.split('串')[0] )
+                                that.totalNum += that.C(n, m)
+                            }
+                        })                        
+
+                    }
+                },
+                /**
+                 * 递归求阶乘
+                 */ 
+                factorial: function(n) {
+                    if (n >= 2)
+                        return n * this.factorial(n - 1)
+                    else
+                        return 1
+                },
+
+                /**
+                 * 排列组合公式
+                 */ 
+                C: function(n, m) {
+                    return this.factorial(n) / (this.factorial(n - m) * this.factorial(m))
+                },
+                updateStorage: function(a, b){
+                    localStorage.setItem('chosenCompetitions', a)
+                    localStorage.setItem('arrCompetitions', b)
                 }
+            },
+            computed: {
+                currentTotalNum: function() {
+                    if (this.val === '') {
+                        return 0
+                    } else {
+                        return this.val*this.totalNum
+                    }
+                },
+                currentTotalMoney: function() {
+                    return this.currentTotalNum*2
+                },
             }
         })
     </script>
