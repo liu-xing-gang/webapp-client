@@ -165,7 +165,7 @@
                 </transition>
             </section>
             <footer class="footer">
-                    <div :class="showMode === true ? 'layer-mask layer-mask-chosen active' : 'layer-mask layer-mask-chosen'" @click="showMode = !showMode"></div>
+                <div :class="showMode === true ? 'layer-mask layer-mask-chosen active' : 'layer-mask layer-mask-chosen'" @click="showMode = !showMode"></div>
                 <div class="table bg6 mode">
                     <div :class="showMode === true ? 'table-cell mode-item active' : 'table-cell mode-item'" @click="showMode = !showMode">
                         <span class="font32 s2" v-if="chosenCompetitions.length === 0"><b>投注方式</b><b class="color2">(必填)</b></span>
@@ -176,7 +176,7 @@
                         <span class="font32 s1">收起</span>
                         <i class="circle-arrow"></i>
                     </div>
-                    
+
                     <div class="table-cell mode-item">
                         <span class="font32">投 <input type="number" name="" id="" class="mode-num" :value="val" v-model="val"> 倍</span>
                     </div>
@@ -208,7 +208,7 @@
                     </transition>
                 </div>
                 <div class="table">
-                    <div class="table-cell"><button class="btn-primary btn-white">奖金优化</button></div>
+                    <div class="table-cell"><button class="btn-primary btn-white" @tap="optimize">奖金优化</button></div>
                     <div class="table-cell">
                         <div class="txt-center">
                             <div class="pay-money margb10 fontsize32">
@@ -226,13 +226,7 @@
             </footer>
         </main>
 
-        <layer-substance 
-            :showlayer="showLayer" 
-            :match="match" 
-            @update="updateStorage" 
-            @closelayer="close" 
-            :chosen="chosenCompetitions" 
-            :arr="arrCompetitions"></layer-substance>
+        <layer-substance :showlayer="showLayer" :match="match" @update="updateStorage" @closelayer="close" :chosen="chosenCompetitions" :arr="arrCompetitions"></layer-substance>
     </div>
 
     <script type="text/x-template" id="test">
@@ -326,6 +320,7 @@
         </div>
     </script>
     <script src="../../libs/vue.min.js"></script>
+    <script src="../../libs/layer_mobile/layer.js"></script>
     <script src="../../component/component.js"></script>
     <script src="../../mui/js/mui.min.js"></script>
     <script>
@@ -574,7 +569,7 @@
 
                 /**
                  * 点击某个串 --> n串m和n串1，不能并存；n串m不能多选n串1可以多选
-                 */ 
+                 */
                 selectBench: function(o, flag) {
                     // n串m
                     if (flag === 1) {
@@ -584,45 +579,45 @@
                         })
 
                         this.arrBunchMulti.forEach(function(item) {
-                            if(item.txt != o.txt)
+                            if (item.txt != o.txt)
                                 item.selected = false
                         })
                         o.selected = !o.selected
-                        
+
                         // n串m的注数
                         var that = this
                         var n = this.chosenCompetitions.length
                         that.totalNum = 0
                         var arr = o.way.split(',')
-                        arr.forEach(function(item,index){
-                            var m = parseInt( item.split('串')[0] )
+                        arr.forEach(function(item, index) {
+                            var m = parseInt(item.split('串')[0])
                             that.totalNum += that.C(n, m)
                         })
 
-                        
+
                     } else {
                         // n串1
                         this.arrBunchMulti.forEach(function(item) {
                             item.selected = false
                         })
                         o.selected = !o.selected
-                        
+
                         // n串1注数
                         var that = this
                         var n = this.chosenCompetitions.length
                         that.totalNum = 0
-                        this.arrBunchOne.forEach(function(item){
-                            if(item.selected === true){
-                                var m = parseInt( item.txt.split('串')[0] )
+                        this.arrBunchOne.forEach(function(item) {
+                            if (item.selected === true) {
+                                var m = parseInt(item.txt.split('串')[0])
                                 that.totalNum += that.C(n, m)
                             }
-                        })                        
+                        })
 
                     }
                 },
                 /**
                  * 递归求阶乘
-                 */ 
+                 */
                 factorial: function(n) {
                     if (n >= 2)
                         return n * this.factorial(n - 1)
@@ -632,13 +627,42 @@
 
                 /**
                  * 排列组合公式
-                 */ 
+                 */
                 C: function(n, m) {
                     return this.factorial(n) / (this.factorial(n - m) * this.factorial(m))
                 },
-                updateStorage: function(a, b){
+                updateStorage: function(a, b) {
                     localStorage.setItem('chosenCompetitions', a)
                     localStorage.setItem('arrCompetitions', b)
+                },
+
+                /**
+                 * 奖金优化
+                 */
+                optimize: function () {
+                    var isBet = false
+                    var flag = false
+                    this.arrBunchOne.forEach(function(item){
+                        if(item.selected === true){
+                            isBet = true
+                            flag = true
+                            return flag
+                        }
+                    })
+                    
+                    this.arrBunchMulti.forEach(function(item){
+                        if(item.selected === true){
+                            isBet = true
+                            flag = false
+                            return flag
+                        }
+                    })
+
+                    if(isBet)
+                        flag === true ? window.location.href="bonus-optimize.html" :  mui.alert('奖金优化不支持多串过关，请选择M串1的投注方式')
+                    else
+                        layer.open({content: '请选择投注方式', skin: 'msg', time: 1})
+
                 }
             },
             computed: {
@@ -646,11 +670,11 @@
                     if (this.val === '') {
                         return 0
                     } else {
-                        return this.val*this.totalNum
+                        return this.val * this.totalNum
                     }
                 },
                 currentTotalMoney: function() {
-                    return this.currentTotalNum*2
+                    return this.currentTotalNum * 2
                 },
             }
         })

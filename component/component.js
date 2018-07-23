@@ -80,7 +80,8 @@ Vue.component('layer-substance', {
                 return
             }
 
-            this.chosen.push(o)
+            // this.chosen.push(o)
+            this.chosen.unshift(o)
             unique('competitionNumber', this.chosen)
             
             // 更新缓存

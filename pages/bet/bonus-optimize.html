@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../../mui/css/mui.min.css">
+    <link rel="stylesheet" href="../../app.css" />
+    <link rel="stylesheet" href="bet.css">
+    <script src="../../app.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <header class="title">
+            <a class="mui-action-back mui-icon mui-icon-left-nav" id="back"></a>
+            <span>奖金优化</span>
+        </header>
+        <section class="caption">
+            <div class="font36 txt-center bg6 paddv24 borb h116">
+                <span>计划购买</span>
+                <div class="btn-control w270">
+                    <div class="btn-action btn-del fl w64" @click="CcpClient.Common.getInstance().changeNum(vm, 'term')">
+                        -
+                    </div>
+                    <input type="number" class="btn-action amount w146" :value="term">
+                    <div class="btn-action btn-add fr w64" @click="CcpClient.Common.getInstance().changeNum(vm, 'term', true)">
+                        +
+                    </div>
+                </div>
+                <span>元</span>
+                <span><img src="../../images/icon-doubt-blue.png" alt="" class="icon-doubt-blue"></span>
+            </div>
+            <div class="tabs-container h126">
+                <div class="tabs clearfloat">
+                    <div class="tab-item active" @click="select($event)">平均优化</div>
+                    <div class="tab-item" @click="select($event)">风险最小</div>
+                    <div class="tab-item" @click="select($event)">奖金优化</div>
+                </div>
+            </div>
+        </section>
+        <section id="optimize">
+            <ul class="optimize-detail">
+                <li class="table txt-center o-head">
+                    <div class="table-cell">过关</div>
+                    <div class="table-cell">单注组合</div>
+                    <div class="table-cell">注数分部</div>
+                    <div class="table-cell">预测奖金</div>
+                </li>
+                <li class="table" :style="show === true ? {borderBottom: 'none'} : {borderBottom: '1px solid #e5e5e5'} ">
+                    <div class="table-cell checkbox">
+                        <div class="mui-checkbox ">
+                            <input name="checkbox1" value="Item 3" type="checkbox" checked="" @click="">
+                        </div>
+                        <div>4串1</div>
+                    </div>
+                    <div class="table-cell" @click="show = !show">
+                        <div class="margb10">比利时|胜</div>
+                        <div>庆南FC|胜</div>
+                        <div :class="show === true ? 'box active' : 'box'">
+                            <img src="../../images/arrow-down-2.png" alt="" class="img-responsive">
+                        </div>
+                    </div>
+                    <div class="table-cell">
+                        <div class="btn-control">
+                            <div class="btn-action btn-del fl" @click="CcpClient.Common.getInstance().changeNum(vm, 'term')">
+                                -
+                            </div>
+                            <input type="number" class="btn-action amount" :value="term">
+                            <div class="btn-action btn-add fr" @click="CcpClient.Common.getInstance().changeNum(vm, 'term', true)">
+                                +
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-cell">
+                        <span class="color2">2744.00元</span>
+                    </div>
+                </li>
+            </ul>
+            <transition name="fade">
+                <ul class="optimize-table" v-if="show">
+                    <li class="txt-center font32">
+                        <h1 class="h1">投注方案</h1>
+                    </li>
+                    <li class="table t-head">
+                        <div class="table-cell">场次</div>
+                        <div class="table-cell">主队</div>
+                        <div class="table-cell">客队</div>
+                        <div class="table-cell">投注内容</div>
+                    </li>
+                    <li class="table t-tr">
+                        <div class="table-cell">周六063</div>
+                        <div class="table-cell">比利时</div>
+                        <div class="table-cell">英格兰</div>
+                        <div class="table-cell">胜 1.91</div>
+                    </li>
+                </ul>
+            </transition>
+
+        </section>
+        <footer class="footer">
+            <section class="table bg6 mode">
+                <div class="txt-center table-cell padv16">
+                    <span class="font32">投 <input type="number" name="" id="" class="mode-num" value="1" > 倍</span>
+                </div>
+            </section>
+            <section class="table h100">
+                <div class="txt-center table-cell">
+                    <div class="pay-money margb10 fontsize32">
+                        <i></i>注
+                        <i class="color-yellow">共<b></b>元</i>
+                    </div>
+                    <div class="pay-term fontsize24">
+                        预计奖金: <i></i>~<i></i>元
+                    </div>
+                    <button class="btn-primary btn-confirm btn-absolute-right" @click="window.location.href='../payment/payment.html'">付款</button>
+                </div>
+            </section>
+
+        </footer>
+    </div>
+
+
+    <script src="../../libs/vue.min.js"></script>
+    <script src="../../libs/layer_mobile/layer.js"></script>
+    <script src="../../mui/js/mui.min.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                term: 100,
+                show: false,
+            },
+            methods: {
+                select: function(e) {
+                    document.querySelectorAll('.tabs .tab-item').forEach(function(item) {
+                        item.className = 'tab-item'
+                    })
+                    e.target.className = 'tab-item active'
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
