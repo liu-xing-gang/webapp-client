@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../../mui/css/mui.min.css">
+    <link rel="stylesheet" href="../../libs/swiper.min.css">
+    <link rel="stylesheet" href="../../app.css" />
+    <link rel="stylesheet" href="activities.css">
+    <script src="../../app.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <header class="title">
+            <a class="mui-action-back mui-icon mui-icon-left-nav" id="back"></a>
+            <a href="../../index.html" class="btn-to-index"><span>关闭</span></a>
+            <span>天天购</span>
+        </header>
+        <main class="container">
+            <section class="banner">
+                <img src="../../images/banner-l-1.jpg" alt="" class="img-responsive">
+            </section>
+            <section class="a-list">
+                <div class="a-list-item">
+                    <a href="detail.html">
+                        <h1 class="a-header">双色球专区[周二四开奖] <span class="a-i">83.36%大奖都是追出来的</span></h1>
+                        <ul class="a-main">
+                            <li v-for="i in 4">
+                                <div class="table-cell">
+                                    <div class="t-box">
+                                        <img src="../../images/icon-a1.png" alt="" class="img-responsive">
+                                    </div>
+                                </div>
+                                <div class="table-cell">
+                                    <div class="t-title">单式·12元6期</div>
+                                    <div class="t-sub-title">不中立返<i class="color2">1元</i>直减券</div>
+                                </div>
+                                <div class="table-cell">
+                                    <div class="t-action">马上抢</div>
+                                    <div>
+                                        <div class="t-progress inline-block">
+                                            <div class="t-progress-val" style="width: 23%"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="t-percent">已抢<i>23%</i></div>
+
+                                </div>
+                            </li>
+                        </ul>
+                    </a>
+                </div>
+                <div class="a-list-item">
+                    <a href="detail.html">
+                        <h1 class="a-header">大乐透专区[周一三六开奖] <span class="a-i">奖池超61亿</span></h1>
+                        <ul class="a-main">
+                            <li v-for="i in 4">
+                                <div class="table-cell">
+                                    <div class="t-box">
+                                        <img src="../../images/icon-a2.png" alt="" class="img-responsive">
+                                    </div>
+                                </div>
+                                <div class="table-cell">
+                                    <div class="t-title">单式·12元6期</div>
+                                    <div class="t-sub-title"><span v-if="i === 2" class="btn-highlight">极易中奖</span>不中立返<i class="color2">1元</i>直减券</div>
+                                </div>
+                                <div class="table-cell">
+                                    <div class="t-action">马上抢</div>
+                                    <div>
+                                        <div class="t-progress inline-block">
+                                            <div class="t-progress-val" style="width: 23%"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="t-percent">已抢<i>23%</i></div>
+
+                                </div>
+                            </li>
+                        </ul>
+                    </a>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="../../libs/vue.min.js"></script>
+    <script src="../../libs/swiper.min.js"></script>
+    <script src="../../mui/js/mui.min.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+
+            },
+        })
+    </script>
+
+</body>
+
+</html>

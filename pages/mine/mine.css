@@ -39,3 +39,244 @@
 .user .query-type{position:absolute;z-index:8;width:100%;max-width:750px;padding:.24rem .24rem 0;font-size:.28rem;text-align:center;background-color:#f5f5f5;box-shadow:0 4px 4px 0 hsla(0,6%,58%,.6)}
 .user .btn-type{display:inline-block;margin:0 .24rem .24rem 0;padding:.08rem .16rem;border-radius:.05rem;border:1px solid #808080;line-height:1;-webkit-border-radius:.05rem;-moz-border-radius:.05rem;-ms-border-radius:.05rem;-o-border-radius:.05rem}
 .user .btn-type.active{border:1px solid #d20b2a;color:#d20b2a;background:url(../../images/btn-type-active.png) no-repeat right bottom;background-size:.2rem .2rem}
+
+
+/* 个人信息 */
+.ebox-label-nickname{
+    position: relative;
+}
+
+.ebox-label-nickname::after{
+    content: '';
+    position: absolute;
+    display: block; width: .16rem; height: .16rem;
+}
+
+.avatar-box{
+    width: .8rem;
+    height: .8rem;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    overflow: hidden;
+}
+
+.margr40{
+    margin-right: .4rem;
+}
+
+.ncname{
+    position: relative;
+}
+
+.ncname::after{
+    content: '';
+    position: absolute; top: -.16rem; right: -.2rem;
+    width: .16rem;
+    height: .16rem;
+    border-radius: 50%;
+    background-color: #d91d36;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+.layer-setname{
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    width: 5.8rem;
+    height: 3.68rem;
+    padding: .48rem 0;
+    border-radius: .15rem;
+    -webkit-border-radius: .15rem;
+    -moz-border-radius: .15rem;
+    -ms-border-radius: .15rem;
+    -o-border-radius: .15rem;
+    background-color: #fff;
+    overflow: hidden;
+    line-height: 1;
+    transition: .3s ease;
+    -webkit-transition: .3s ease;
+    -moz-transition: .3s ease;
+    -ms-transition: .3s ease;
+    -o-transition: .3s ease;
+    opacity: 0;
+}
+
+.layer-setname.active{
+    opacity: 1;
+}
+
+.paddv48{
+    padding-bottom: .48rem;
+}
+
+input.input-name{
+    display: block;
+    height: .6rem;
+    margin: 0 auto .2rem;
+    padding: 0;
+    border-radius: .1rem;
+    -webkit-border-radius: .1rem;
+    -moz-border-radius: .1rem;
+    -ms-border-radius: .1rem;
+    -o-border-radius: .1rem;
+    font-size: .28rem;
+    padding: 0 .1rem;
+}
+
+.w84{
+    width: 84%;
+    margin: 0 auto;
+}
+
+.margb32{
+    margin-bottom: .32rem;
+}
+
+.btn-confirm-group{
+    font-size: .3rem;
+    color: #303030;
+}
+
+.btn-confirm-group .btn-cancel{
+    display: inline-block;
+    width: 2.3rem;
+    height: .6rem;
+    margin: 0;
+    padding: 0;
+    border-radius: .1rem;
+    -webkit-border-radius: .1rem;
+    -moz-border-radius: .1rem;
+    -ms-border-radius: .1rem;
+    -o-border-radius: .1rem;
+    font: inherit;
+}
+
+.fr{
+    float: right;
+}
+
+.btn-confirm-group .btn-confirm{
+    display: inline-block;
+    width: 2.3rem;
+    height: .6rem;
+    margin: 0;
+    padding: 0;
+    border-radius: .1rem;
+    -webkit-border-radius: .1rem;
+    -moz-border-radius: .1rem;
+    -ms-border-radius: .1rem;
+    -o-border-radius: .1rem;
+    font: inherit;
+    color: #fff;
+    background-color: #d91d36;
+}
+
+/* 我的账户 */
+.vessel{
+    padding: .7rem .3rem .48rem;
+    line-height: 1;
+    background-color: #fff; 
+}
+
+.vessel span{
+    vertical-align: middle;
+}
+
+.vessel li{
+    font-size: .28rem; color: #666;
+    text-align: center;
+}
+
+.vessel li:last-child{
+    text-align: justify;
+}
+
+.vessel .my-balance{
+    display: block;
+    margin: .4rem 0 .7rem;
+    font-size: .45rem;
+    color: #d91d36;
+}
+
+.vessel .my-balance-available{
+    color: #303030;
+}
+
+.vessel .icon-doubt-blue{
+    width: .34rem; height: .34rem;
+    vertical-align: middle;
+}
+
+.vessel button{
+    display: inline-block;
+    width: 3.1rem;
+    height: .76rem;
+    margin: .42rem 0 0 0;
+    padding: 0;
+    border: 1px solid #d91d36;
+    border-radius: .1rem;
+    font-size: .32rem;
+    text-align: center;
+    color: #d91d36;
+    -webkit-border-radius: .1rem;
+    -moz-border-radius: .1rem;
+    -ms-border-radius: .1rem;
+    -o-border-radius: .1rem;
+}
+
+.vessel button.active{
+    color: #fff;
+    background-color: #d91d36;
+}
+
+.margt32{
+    margin-top: .32rem;
+}
+
+.marginv24{
+    margin: .24rem 0;
+}
+
+/* 账户明细 */
+.margt24{
+    margin-top: .24rem;
+}
+
+.bill span{
+    vertical-align: middle;
+}
+
+.bill .bill-head{
+    padding: .3rem;
+    background-color: #fff;
+} 
+
+.bill .bill-body{
+    line-height: 1;
+    background-color: #fff;
+}
+
+.bill .bill-body .table{
+    padding: .1rem .3rem;
+    border-bottom: 1px solid #e5e5e5;
+} 
+
+.bill .bill-body .table-cell:last-child{
+    text-align: right;
+}
+
+.bill .bill-item{
+    padding: .1rem 0;
+}
+
+

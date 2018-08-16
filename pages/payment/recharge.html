@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../../mui/css/mui.min.css">
+    <link rel="stylesheet" href="../../libs/swiper.min.css">
+    <link rel="stylesheet" href="../../app.css" />
+    <link rel="stylesheet" href="payment.css">
+    <script src="../../app.js"></script>
+</head>
+
+<body>
+    <ul id="app">
+        <header class="title">
+            <a class="mui-action-back mui-icon mui-icon-left-nav" id="back"></a>
+            <span>充值</span>
+            <a href="" class="btn-basic btn-ar"><img src="../../images/icon-doubt.png" alt="" class="img-responsive"></a>
+        </header>
+        <main class="container">
+            <section class="recharge">
+                <ul class="page-head margb24">
+                    <li class="margb30">账户：来自***</li>
+                    <li>余额：0.00元</li>
+                </ul>
+                <div class="page-body">
+                    <h1 class="caption">选择充值金额</h1>
+                    <ul class=" coins clearfloat">
+                        <li v-for="coin in coins">
+                            <div :class="coin.selected === true ? 'btn-coin active' : 'btn-coin'" v-text="coin.val" @click="selectCoin(coin)">50</div>
+                        </li>
+                        <li><input type="number" name="" id="" class="btn-coin-diy" placeholder="自定义金额"></li>
+                    </ul>
+                </div>
+            </section>
+            <section class="payment">
+                <div class="table-view margt20">
+                    <div class="entry">
+                        <div class="entry-link">
+                            <span class="ebox-txt">选择支付方式</span>
+                        </div>
+                    </div>
+                    <div class="entry">
+                        <div class="entry-link">
+                            <div class="inline-block ebox"><img src="../../images/icon-pay-wechat.png" alt=""></div>
+                            <div class="inline-block ebox-txt">微信支付</div>
+                            <div class="mui-checkbox checkbox">
+                                <input name="checkbox1" value="Item 3" type="checkbox" :checked="!selected" @click="selected = !selected">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="entry">
+                        <div class="entry-link">
+                            <div class="inline-block ebox"><img src="../../images/icon-pay-jd.png" alt=""></div>
+                            <div class="inline-block ebox-txt">京东支付</div>
+                            <div class="mui-checkbox checkbox">
+                                <input name="checkbox1" value="Item 3" type="checkbox" :checked="selected" @click="selected = !selected">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="txt-center hint">
+                    <img src="../../images/icon-hint-1.png" alt="">
+                    充值30天后可申请提现，详询客服
+                </div>
+                <button class="btn-pay" id="btn-pay">立即支付</button>
+            </section>
+        </main>
+        </div>
+        <script src="../../libs/vue.min.js"></script>
+        <script src="../../libs/swiper.min.js"></script>
+        <script src="../../mui/js/mui.min.js"></script>
+        <script>
+            new Vue({
+                el: '#app',
+                data: {
+                    coins: [
+                        {val: '50', selected: false},{val: '100', selected: false},{val: '200', selected: false},{val: '300', selected: false},{val: '500', selected: false},
+                    ],
+                    selected: false,
+                },
+                mounted: function() {
+                    
+                },
+                methods: {
+                    selectCoin: function (o) {
+                        this.coins.forEach(function(item){
+                            if(o.val != item.val)
+                            item.selected = false
+                        })
+                        o.selected = !o.selected
+                    }
+                }
+            })
+
+             document.getElementById("btn-pay").addEventListener('tap', function() {
+                var btnArray = [ '确定'];
+                mui.confirm('', '充值成功', btnArray, function(e) {
+                    if (e.index == 1) {
+                        window.location.href="../../index.html"
+                    } else {
+                        window.location.href="../mine/mine.html"
+                    }
+                })
+            });
+        </script>
+
+</body>
+
+</html>

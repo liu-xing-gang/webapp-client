@@ -12,6 +12,11 @@
     <link rel="stylesheet" href="app.css" />
     <link rel="stylesheet" href="pages/index/index.css">
     <script src="app.js"></script>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
@@ -34,6 +39,9 @@
                         <!-- Add Pagination -->
                         <div class="swiper-pagination"></div>
                     </div>
+                    <a href="pages/activity/activities.html" class="anchor">
+                        <div class="anchor-box"><img src="images/icon-activity.png" alt="" class="img-responsive"></div>
+                    </a>
                 </div>
                 <div class="news">
                     <div class="swiper-container">
@@ -86,11 +94,16 @@
                                     <div class="clearfix"></div>
                                 </div>
                                 <div class="m-col12 clearfloat">
-                                    <a class="m-btn active">50倍</a>
+                                    <!-- <a class="m-btn active">50倍</a>
                                     <a class="m-btn">99倍</a>
                                     <a class="m-btn">495倍</a>
-                                    <a class="m-btn">990倍</a>
-                                    <a class="m-btn fr">投注990元狂中1801.80</a>
+                                    <a class="m-btn">990倍</a> -->
+                                    <a v-for="item in arrMulti" v-cloak
+                                        :class="item.isSelected === true ? 'm-btn active': 'm-btn'"
+                                        @click="select(item)">
+                                        {{item.multi}}
+                                    </a>
+                                    <a class="m-result fr">投注990元狂中1801.80</a>
                                 </div>
                             </div>
                             <div class="swiper-slide">
@@ -192,7 +205,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="">
+                        <a href="##">
                             <div class="species-box"><img src="images/species11.png" alt="" class="img-responsive"></div>
                             <h1 class="species-name">竞猜世界杯</h1>
                             <h2 class="species-feature">暂停销售</h2>
@@ -206,7 +219,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="">
+                        <a href="pages/bet/bet-lotto.html">
                             <div class="species-box"><img src="images/species3.png" alt="" class="img-responsive"></div>
                             <h1 class="species-name">大乐透</h1>
                             <h2 class="species-feature">暂停销售</h2>
@@ -234,7 +247,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="">
+                        <a href="pages/bet/11-to-5.html">
                             <div class="species-box"><img src="images/species1.png" alt="" class="img-responsive"></div>
                             <h1 class="species-name">11选5</h1>
                             <h2 class="species-feature">暂停销售</h2>
@@ -370,41 +383,7 @@
                     </li>
                     <li class="clearfix"></li>
                 </ul>
-                <!-- <div class="plate">
-                    <sction class="plate-col4">
-                        <div class="plate-box">
-                            <img src="" alt="" class="img-responsive">
-                        </div>
-                        <h1 class="plate-name-big">竞彩大神</h1>
-                        <h2 class="plate-name">跟着大神赚钱</h2>
-                    </sction>
-                    <section class="plate-col8">
-                        <div class="table">
-                            <div class="table-cell">
-                                <div class="plate-box-small">
-                                    <img src="" alt="" class="img-responsive">
-                                </div>
-                            </div>
-                            <div class="table-cell">
-                                <h2 class="plate-name-big">开奖公告</h2>
-                                <h3 class="plate-name">精彩赛事实时看</h3>
-                            </div>
-                        </div>
-                    </section>
-                    <section class="plate-col8">
-                        <div class="table">
-                            <div class="table-cell">
-                                <div class="plate-box-small">
-                                    <img src="" alt="" class="img-responsive">
-                                </div>
-                            </div>
-                            <div class="table-cell">
-                                <h2 class="plate-name-big">体彩资讯</h2>
-                                <h3 class="plate-name">掌握第一手资讯</h3>
-                            </div>
-                        </div>
-                    </section>
-                </div> -->
+                
             </div>
         </main>
         <nav class="navbar">
@@ -443,10 +422,22 @@
         new Vue({
             el: '#app',
             data: {
-                arrSpecies: []
+                arrSpecies: [],
+                arrMulti: [{multi: '25倍'}, {multi: '50倍'}, {multi: '99倍'}, {multi: '198倍'}]
             },
-            mounted: function() {},
-            methods: {}
+            mounted: function() {
+                this.arrMulti.forEach(function(item){
+                    Vue.set(item, 'isSelected', false)
+                })
+            },
+            methods: {
+                select: function (o) {
+                    this.arrMulti.map(function(item){
+                        item.isSelected = false
+                    })
+                    o.isSelected = !o.isSelected
+                }
+            }
         })
 
         var swiperBanner = new Swiper('.banner .swiper-container', {

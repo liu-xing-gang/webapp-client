@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>开奖</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../../mui/css/mui.min.css">
+    <link href="../../mui/css/mui.picker.min.css" rel="stylesheet" />
+    <link href="../../mui/css/mui.poppicker.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../libs/swiper.min.css">
+    <link rel="stylesheet" href="../../app.css" />
+    <link rel="stylesheet" href="../bet/bet.css">
+    <link rel="stylesheet" href="award.css">
+    <script src="../../app.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <header class="title">
+            <a class="mui-action-back mui-icon mui-icon-left-nav" id="back"></a>
+            <span>查询结果</span>
+        </header>
+        <main class="container">
+            <h1 class="font32 padd30">
+                <span>第2018087期开奖号码 </span>
+                <span class="color1">07-29（周日）</span>
+            </h1>
+            <section class="bet">
+                <ul class="balls clearfloat">
+                    <li><div class="ball active">01</div></li>
+                    <li><div class="ball active">05</div></li>
+                    <li><div class="ball active">10</div></li>
+                    <li><div class="ball active">16</div></li>
+                    <li><div class="ball active">18</div></li>
+                    <li><div class="ball active">31</div></li>
+                    <li><div class="ball ball-blue active">03</div></li>
+                    
+                </ul>
+            </section>
+            <section class="your-bet">
+                <h5 class="fon32 h5">您的号码</h5>
+                <div class="box">
+                    <span class="color2">01</span>
+                    <span>09</span>
+                    <span>15</span>
+                    <span class="color2">16</span>
+                    <span>24</span>
+                    <span>26</span>
+                    <span>32</span>
+                    <span>:</span>
+                    <span>02</span>
+                </div>
+            </section>
+            <section class="award-result">
+                <h1 class="font32 h1">奖金结果</h1>
+                <table class="table" width="100%">
+                    <thead>
+                        <th>奖级</th>
+                        <th>每注奖金</th>
+                        <th>注数</th>
+                        <th>合计</th>
+                    </thead>
+                    <tbody>
+                        <tr v-for="prize in arrPrize">
+                            <td v-text="prize.rank"></td>
+                            <td v-text="prize.money"></td>
+                            <td v-text="prize.term"></td>
+                            <td v-text="prize.total"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="hint font28 color5"><img src="../../images/icon-hint-1.png" alt=""> <span>一二等奖未公布时，分别用A，B表示</span></div>
+            </section>
+        </main>
+    </div>
+    <script src="../../libs/vue.min.js"></script>
+    <script src="../../libs/swiper.min.js"></script>
+    <script src="../../mui/js/mui.min.js"></script>
+    <script src="../../mui/js/mui.picker.min.js"></script>
+    <script src="../../mui/js/mui.poppicker.js"></script>
+    <script>
+        new Vue({
+            el:'#app',
+            data: {
+                arrPrize: [
+                    {rank: '一等奖', money: 10000000, term: 0, total: 0},
+                    {rank: '二等奖', money: 382259, term: 0, total: 0},
+                    {rank: '三等奖', money: 3000, term: 0, total: 0},
+                    {rank: '四等奖', money: 200, term: 0, total: 0},
+                    {rank: '五等奖', money: 10, term: 0, total: 0},
+                    {rank: '六等奖', money: 5, term: 0, total: 0},
+                ]
+            }
+        })
+    </script>
+
+</body>
+
+</ht

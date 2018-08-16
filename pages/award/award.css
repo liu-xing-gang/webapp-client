@@ -59,3 +59,138 @@
 .award-detial  .award-table .table{background-color:#fff}
 .award-detial  .award-table{border-top:1px solid #f2f2f2;border-left:1px solid #f2f2f2;color:#888}
 .award-detial  .award-table .table-cell{width:33.333%;padding:.16rem 0;border-right:1px solid #f2f2f2;border-bottom:1px solid #f2f2f2;font-size:.28rem;text-align:center}
+
+
+/* 开奖推送设置 */
+.award-hint{
+    margin: 0 .3rem;
+    padding: .3rem;
+    border: 1px solid #e5e5e5;
+    border-top: none;
+    background-color: #fff;
+    border-radius: 0 0 .15rem .15rem;
+    -webkit-border-radius: 0 0 .15rem .15rem;
+    -moz-border-radius: 0 0 .15rem .15rem;
+    -ms-border-radius: 0 0 .15rem .15rem;
+    -o-border-radius: 0 0 .15rem .15rem;
+}
+
+.award-hint .a-box{
+    float: left;
+}
+
+.award-hint .a-txt{
+    padding-left: 1.1rem;
+    font-size: .3rem; text-align: justify;
+    line-height: 1.6;
+    color: #8b7663;
+}
+
+.award-hint .a-box{
+    width: .8rem; height: .8rem;
+    overflow: hidden;
+    background: url(../../images/icon-hint1.png) no-repeat center;
+    background-size: contain;
+}
+
+.margt30{
+    margin-top: .3rem;
+}
+
+.mui-switch{
+    position: absolute;
+    right: .3rem;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+.entry{
+    line-height: 1.2;
+}
+
+.ebox-txt{
+    font-size: .32rem;
+    color: #333;
+}
+
+.ebox-subtxt{
+    font-size: .28rem;
+    color: #999;
+}
+
+.entry-link {
+    position: relative;
+    display: block;
+    padding: .1rem .3rem .1rem 0;
+    font-size: .32rem;
+    color: #3c3f45;
+}
+
+.a-headline{
+    padding: .3rem .3rem 0;
+    font-size: .32rem;
+    color: #847d6a;
+}
+
+.ball-blue{
+    border: 1px solid #2d76cb!important;
+    color: #fff!important;
+    background-color: #2d76cb!important;
+}
+
+/* 开奖结果 */
+.padd30{
+    padding: .3rem .4rem 0;
+}
+
+.your-bet{
+    padding: 0 .3rem;
+    font-size: .32rem;
+}
+
+.your-bet .h5{
+    padding-bottom: .18rem;
+    color: #333;
+}
+
+.your-bet .box{
+    padding: .2rem;
+    border: 1px solid #e5e5e5;
+    background-color: #fff;
+}
+
+.your-bet .box span{
+    margin-right: .2rem;
+}
+
+.award-result{
+    padding: 0 .3rem;
+}
+
+.award-result .h1{
+    padding: .2rem 0;
+}
+
+.award-result .table{
+    border-left: 1px solid #e5e5e5;
+    background-color: #fff; 
+}
+
+.award-result .table th, .award-result .table td{
+    padding: .2rem 0;
+    border-bottom: 1px solid #e5e5e5;
+    border-right: 1px solid #e5e5e5;
+    text-align: center;
+
+}
+
+.award-result .table th{
+    width: 25%;
+    
+}
+
+.award-result .table thead{
+    border-top: 1px solid #e5e5e5;
+    border-left: 1px solid #e5e5e5;
+}

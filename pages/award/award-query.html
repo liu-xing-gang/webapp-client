@@ -8,8 +8,11 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="stylesheet" href="../../mui/css/mui.min.css">
+    <link href="../../mui/css/mui.picker.min.css" rel="stylesheet" />
+    <link href="../../mui/css/mui.poppicker.css" rel="stylesheet" />
     <link rel="stylesheet" href="../../libs/swiper.min.css">
     <link rel="stylesheet" href="../../app.css" />
+    <link rel="stylesheet" href="../bet/bet.css">
     <link rel="stylesheet" href="award.css">
     <script src="../../app.js"></script>
 </head>
@@ -19,20 +22,104 @@
         <header class="title">
             <a class="mui-action-back mui-icon mui-icon-left-nav" id="back"></a>
             <span>中奖查询</span>
-            <a href="#topPopover" class="btn-basic btn-ar">
+            <a href="#topPopover" class="btn-basic btn-ar" id='showUserPicker'>
                     <img src="../../images/icon-line-chart.png" alt="" class="img-responsive">
                     <span class="btn-basic-txt">期次</span>
                 </a>
-            </header>
+        </header>
         <main class="container">
-            
+            <h1 class="a-headline">
+                <span id="userResult">第2018087期</span>
+                <span class="pull-right">至少选择6个红球，1个蓝球</span>
+            </h1>
+            <section class="bet">
+                <ul class="balls clearfloat">
+                    <li v-for="i in 33">
+                        <div class="ball" v-text="'0'+i" v-if="i < 10"></div>
+                        <div class="ball" v-text="i" v-else></div>
+                    </li>
+                </ul>
+                <ul class="balls balls-blue clearfloat">
+                    <li v-for="i in 16">
+                        <div class="ball" v-text="'0'+i" v-if="i < 10"></div>
+                        <div class="ball" v-text="i" v-else></div>
+                    </li>
+                </ul>
+            </section>
+            <footer class="foot-action">
+                <div class="txt-center">
+                    <button class="btn-clearall fl">清空</button>
+                    <div class="absolute-center">
+                        <!---->
+                        <!---->
+                    </div> <button class="btn-confirm-bet fr" onclick="window.location.href='award-query-result.html'">确定</button>
+                    <div class="clearfix"></div>
+                </div>
+            </footer>
         </main>
 
     </div>
     <script src="../../libs/vue.min.js"></script>
     <script src="../../libs/swiper.min.js"></script>
     <script src="../../mui/js/mui.min.js"></script>
+    <script src="../../mui/js/mui.picker.min.js"></script>
+    <script src="../../mui/js/mui.poppicker.js"></script>
     <script>
+        (function($, doc) {
+            $.init();
+            $.ready(function() {
+                /**
+                 * 获取对象属性的值
+                 * 主要用于过滤三级联动中，可能出现的最低级的数据不存在的情况，实际开发中需要注意这一点；
+                 * @param {Object} obj 对象
+                 * @param {String} param 属性名
+                 */
+                var _getParam = function(obj, param) {
+                    return obj[param] || '';
+                };
+                //普通示例
+                var userPicker = new $.PopPicker();
+                userPicker.setData([{
+                    value: 'ywj',
+                    text: '第2018088期'
+                }, {
+                    value: 'aaa',
+                    text: '第2018087期'
+                }, {
+                    value: 'lj',
+                    text: '第2018086期'
+                }, {
+                    value: 'ymt',
+                    text: '第2018085期'
+                }, {
+                    value: 'shq',
+                    text: '第2018084期'
+                }, {
+                    value: 'zhbh',
+                    text: '第2018083期'
+                }, {
+                    value: 'zhy',
+                    text: '第2018082期'
+                }, {
+                    value: 'gyf',
+                    text: '第2018081期'
+                }, {
+                    value: 'zhz',
+                    text: '第2018080期'
+                }]);
+                var showUserPickerButton = doc.getElementById('showUserPicker');
+                var userResult = doc.getElementById('userResult');
+                showUserPickerButton.addEventListener('tap', function(event) {
+                    userPicker.show(function(items) {
+                        userResult.innerText = items[0]['text']
+                        //返回 false 可以阻止选择框的关闭
+                        //return false;
+                    });
+                }, false);
+
+            });
+        })(mui, document);
+
         new Vue({
             el: '#app',
             data: {
@@ -41,14 +128,6 @@
             mounted: function() {},
             methods: {}
         })
-
-        var swiperNews = new Swiper('.news .swiper-container', {
-            allowTouchMove: false,
-            direction: 'vertical',
-            autoplay: true,
-            loop: true,
-            speed: 1000,
-        });
     </script>
 
 </body>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../../mui/css/mui.min.css">
+    <link rel="stylesheet" href="../../libs/swiper.min.css">
+    <link rel="stylesheet" href="../../app.css" />
+    <link rel="stylesheet" href="mine.css">
+    <script src="../../app.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <header class="title">
+            <a class="mui-action-back mui-icon mui-icon-left-nav" id="back"></a>
+            <span>账户明细</span>
+        </header>
+        <main class="container">
+            <div class="table">
+                <section class="bill">
+                    <div class="bill-head font32">
+                        <div><span>账户金额：</span><span class="color2"><i>1.00</i>元</span></div>
+                        <div class="margt24"><span>冻结金额：</span><span><i>0.00元</i></span></div>
+                    </div>
+                    <ul class="bill-body margt24">
+                        <li class="table">
+                            <div class="table-cell">
+                                <div class="bill-item font36">充值</div>
+                                <div class="bill-item font24">2018-07-24 12:39</div>
+                            </div>
+                            <div class="table-cell">
+                                <span class="color2 font32">+1.00元</span>
+                            </div>
+                        </li>
+                        <li class="table">
+                            <div class="table-cell">
+                                <div class="bill-item font36">投注(第三方支付)</div>
+                                <div class="bill-item font24">2018-07-24 12:39</div>
+                            </div>
+                            <div class="table-cell">
+                                <span class="color12 font32">-2.00元</span>
+                            </div>
+                        </li>
+                        <li class="table">
+                                <div class="table-cell">
+                                    <div class="bill-item font36">奖金收入</div>
+                                    <div class="bill-item font24">2018-07-24 12:39</div>
+                                </div>
+                                <div class="table-cell">
+                                    <span class="color2 font32">+1.00元</span>
+                                </div>
+                            </li>
+                    </ul>
+                </section>
+            </div>
+        </main>
+    </div>
+    <script src="../../libs/vue.min.js"></script>
+    <script src="../../libs/swiper.min.js"></script>
+    <script src="../../mui/js/mui.min.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                seconds: 120,
+                timer: null,
+                countdown: false,
+            },
+            methods: {
+                getCode: function(e) {
+                    this.timer = setInterval(() => {
+                        if (this.seconds <= 0) {
+                            clearInterval(this.timer)
+                            this.countdown = false
+                        }
+                        this.countdown = true
+                        this.seconds--
+                    }, 1000)
+                }
+            },
+            mounted: function() {
+
+            },
+
+        })
+
+        document.getElementById("btn-pay").addEventListener('tap', function() {
+            var btnArray = ['确定'];
+            mui.confirm('', '充值成功', btnArray, function(e) {
+                if (e.index == 1) {
+                    window.location.href = "../../index.html"
+                } else {
+                    window.location.href = "../mine/mine.html"
+                }
+            })
+        });
+    </script>
+
+</body>
+
+</html>

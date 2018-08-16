@@ -32,7 +32,7 @@
 .index .m-col36{width:36%}
 .index .m-col28{width:28%}
 .index .m-col12{margin:.25rem 0 .3rem}
-.index .m-btn{float:left;display:block;margin:0 .04rem;padding:.15rem .06rem;font-size:.24rem;line-height:1;color:#303030;border-radius:.05rem;-webkit-border-radius:.05rem;-moz-border-radius:.05rem;-ms-border-radius:.05rem;-o-border-radius:.05rem;border:1px solid #d3d3d3;transition:.3s ease-in-out;-webkit-transition:.3s ease-in-out;-moz-transition:.3s ease-in-out;-ms-transition:.3s ease-in-out;-o-transition:.3s ease-in-out}
+.index .m-btn, .index .m-result{float:left;display:block;margin:0 .04rem;padding:.15rem .06rem;font-size:.24rem;line-height:1;color:#303030;border-radius:.05rem;-webkit-border-radius:.05rem;-moz-border-radius:.05rem;-ms-border-radius:.05rem;-o-border-radius:.05rem;border:1px solid #d3d3d3;transition:.3s ease-in-out;-webkit-transition:.3s ease-in-out;-moz-transition:.3s ease-in-out;-ms-transition:.3s ease-in-out;-o-transition:.3s ease-in-out}
 .index .m-btn.active{color:#f55353;border:1px solid #f55353}
 .index .m-btn.fr{margin:0}
 .index .m-box{position:absolute;top:0;right:0;bottom:0;left:0;width:.66rem;height:.44rem;margin:auto;overflow:hidden;background:linear-gradient(0deg,red,black)}
@@ -68,3 +68,30 @@
 .index .shortcut .table .table-cell:first-child{width:20%}
 .index .shortcut .table .table-cell:last-child{padding-left:.26rem}
 .index .shortcut .shortcut-txt{overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;line-height:1}
+
+
+.anchor{
+    position: absolute;
+    top: .8rem;
+    right: 0;
+    display: block;
+    padding: .1rem .3rem;
+    background: rgba(0,0,0,.2);
+    z-index: 8;
+    border-radius: .4rem 0 0 .4rem;
+    -webkit-border-radius: .4rem 0 0 .4rem;
+    -moz-border-radius: .4rem 0 0 .4rem;
+    -ms-border-radius: .4rem 0 0 .4rem;
+    -o-border-radius: .4rem 0 0 .4rem;
+}
+
+.anchor-box{
+    width: .48rem; height: .48rem;
+    overflow: hidden;
+}
+
+.m-result{
+    border: 1px solid #f55353!important;
+    background-color: #f55353;
+    color: #fff!important;
+}

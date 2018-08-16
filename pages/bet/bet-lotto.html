@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../../mui/css/mui.min.css">
+    <link rel="stylesheet" href="../../app.css" />
+    <link rel="stylesheet" href="bet.css">
+    <script src="../../app.js"></script>
+    <style>
+        .bet .balls-blue::before{
+            background: none;
+        }
+
+        .bet .balls-blue{
+            padding-bottom: 0;
+        }
+
+        .bet .balls-blue{
+            padding-bottom: .08rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <header class="title">
+            <a class="mui-action-back mui-icon mui-icon-left-nav" id="back"></a>
+            <div @click="show = !show" :class="show == true ? 'btn-drop-down txt-center active' : 'btn-drop-down txt-center'">
+                <div class="txt" v-if="type === 0"><div class="i">玩法</div><span>大乐透普通</span></div>
+                <div class="txt" v-else><div class="i">玩法</div><span>大乐透胆拖</span></div>
+            </div>
+            <a href="#topPopover" class="btn-basic btn-ar">
+                <img src="../../images/icon-line-chart.png" alt="" class="img-responsive">
+                <span class="btn-basic-txt">助手</span>
+            </a>
+        </header>
+        <transition name="fade">
+            <div class="choices" v-if="show">
+                <a :class="type === 0 ? 'btn-choice active' : 'btn-choice' " @click="type = 0; show = false">普通投注</a>
+                <a :class="type === 0 ? 'btn-choice' : 'btn-choice active' " @click="type = 1; show = false">胆拖投注</a>
+            </div>
+        </transition>
+
+        <main class="container bet" v-if="type === 0">
+            <section class="layer-recent" id="layer-recent">
+                <h1 class="bet-row"><span>奖池滚存: <i>907,892,115元</i></span> 投182倍可掏空奖池</h1>
+                <div class="table">
+                    <div class="table-cell">期号</div>
+                    <div class="table-cell">红球</div>
+                    <div clas2rejs="table-cell">蓝球</div>
+                </div>
+                <div class="table" v-for="past in arrPastTerm" v-if="arrPastTerm.length > 0">
+                    <div class="table-cell" v-text="past.term"></div>
+                    <div class="table-cell" v-text="past.redball"></div>
+                    <div class="table-cell" v-text="past.blueball"></div>
+                </div>
+            </section>
+            <section id="layer-random" class="layer-random" 
+                @touchstart="touchStart($event)" 
+                @touchmove="touchMove($event)"
+                @touchend="touchEnd($event)" 
+                :style="slideTrans">
+                <div class="paddh30">
+                    <a class="btn-random fl" @click="machineSelect"> 摇一摇机选</a>
+                    <span class="font28 fr">至少选择5个红球,2个蓝球</span>
+                    <div class="clearfix"></div>
+                </div>
+                <ul class="balls clearfloat">
+                    <li v-for="redBall in arrRedBalls">
+                        <div :class="redBall.selected == true ? 'ball active' : 'ball'" v-text="redBall.num" v-if="redBall.num" @click="select(redBall, 0, $event)"></div>
+                    </li>
+                </ul>
+                <ul class="balls balls-blue clearfloat">
+                    <li v-for="blueBall in arrBlueBalls">
+                        <div :class="blueBall.selected == true ? 'ball active' : 'ball'" v-text="blueBall.num" v-if="blueBall.num" @click="select(blueBall, 1, $event)"></div>
+                    </li>
+                </ul>
+            </section>
+            <footer class="foot-action">
+                <div class="txt-center">
+                    <a href="#bottomPopover" class="btn-action-machine fl" v-if="isEmpty">机选</a>
+                    <button class="btn-clearall fl" v-else @click="clear(arrRedBalls, arrBlueBalls)">清空</button>
+                    <div class="absolute-center">
+                        <span v-if="!isEmpty">共<i v-text="totalNum"></i>注</span>
+                        <span class="color-yellow" v-if="!isEmpty"><i v-text="totalMoney"></i>元</span>        
+                    </div>
+                    
+                    <button class="btn-confirm-bet fr" onclick="window.location='bet-confirm.html'">确定</button>
+                    <div class="clearfix"></div>
+                </div>
+            </footer>
+        </main>
+        
+        <main class="container bet" v-if="type === 1">
+            <section class="layer-recent" id="layer-recent">
+                <h1 class="bet-row"><span>奖池滚存: <i>907,892,115元</i></span> 投182倍可掏空奖池</h1>
+                <div class="table">
+                    <div class="table-cell">期号</div>
+                    <div class="table-cell">红球</div>
+                    <div class="table-cell">蓝球</div>
+                </div>
+                <div class="table" v-for="past in arrPastTerm" v-if="arrPastTerm.length > 0">
+                    <div class="table-cell" v-text="past.term"></div>
+                    <div class="table-cell" v-text="past.redball"></div>
+                    <div class="table-cell" v-text="past.blueball"></div>
+                </div>
+            </section>
+            <!-- <section id="layer-random" class="layer-random" 
+                    @touchstart="touchStart($event)" 
+                    @touchmove="touchMove($event)" 
+                    @touchend="touchEnd($event)" 
+                    :style="slideTrans"> -->
+            <section id="layer-random" class="layer-random">
+                
+                    <div class="paddh30 margb30">
+                        <a href="" class="color1">什么是胆拖?</a>
+                    </div>
+                    <div class="paddh30 font28">胆码-前区,最多选4个,最少选1个</div>
+                    <ul class="balls clearfloat">
+                        <li v-for="redBall in arrRedBallsCode1">
+                            <div :class="redBall.selected == true ? 'ball active' : 'ball'" 
+                                v-text="redBall.num" 
+                                v-if="redBall.num"
+                                @click="twoColorBallLottery.select(redBall, 0, $event)"></div>
+                        </li>
+                    </ul>
+                    <div class="paddh30 font28">托码-前区</div>
+                    <ul class="balls clearfloat">
+                        <li v-for="redBall in arrRedBallsCode2">
+                            <div :class="redBall.selected == true ? 'ball active' : 'ball'" 
+                                v-text="redBall.num" v-if="redBall.num"
+                                @click="twoColorBallLottery.select(redBall, 1, $event)"></div>
+                        </li>
+                    </ul>
+                    <div class="paddh30 font28">胆码-后区,最多选1个</div>
+                    <ul class="balls balls-blue clearfloat">
+                        <li v-for="blueBall in arrBlueBallsCode">
+                            <div :class="blueBall.selected == true ? 'ball active' : 'ball'" 
+                                v-text="blueBall.num" v-if="blueBall.num" 
+                                @click="twoColorBallLottery.select(blueBall, 2, $event)"></div>
+                        </li>
+                    </ul>
+                    <div class="paddh30 font28">拖码-后区,至少选择2个</div>
+                    <ul class="balls balls-blue clearfloat">
+                        <li v-for="blueBall in arrBlueBallsCode">
+                            <div :class="blueBall.selected == true ? 'ball active' : 'ball'" 
+                                v-text="blueBall.num" v-if="blueBall.num" 
+                                @click="twoColorBallLottery.select(blueBall, 2, $event)"></div>
+                        </li>
+                    </ul>
+                
+            </section>
+            <footer class="foot-action">
+                <div class="txt-center">
+                    <a href="#bottomPopover" class="btn-action-machine fl" v-if="isValidated === false">机选</a>
+                    <button class="btn-clearall fl" v-else @click="clear(arrRedBalls, arrBlueBalls)">清空</button>
+                    <div class="absolute-center">
+                        <span v-if="isValidated">共<i v-text="totalNumCode"></i>注</span>
+                        <span class="color-yellow" v-if="isValidated"><i v-text="totalMoneyCode"></i>元</span>
+                    </div>
+
+                    <button class="btn-confirm-bet fr" 
+                        @click="twoColorBallLottery.append(warning, isValidated)">确定</button>
+                    <div class="clearfix"></div>
+                </div>
+            </footer>
+        </main>
+
+    </div>
+    <div id="topPopover" class="mui-popover">
+        <div class="mui-popover-arrow"></div>
+        <div class="mui-scroll-wrapper">
+            <div class="mui-scroll">
+                <ul class="mui-table-view">
+                    <li class="mui-table-view-cell"><a href="#">近期开奖</a></li>
+                    <li class="mui-table-view-cell"><a href="#">隐藏遗漏</a></li>
+                    <li class="mui-table-view-cell"><a href="#">走势图</a></li>
+                    <li class="mui-table-view-cell"><a href="#">多期机选</a></li>
+                    <li class="mui-table-view-cell"><a href="#">玩法说明</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    <div id="bottomPopover" class="mui-popover mui-popover-bottom">
+        <ul class="mui-table-view">
+            <li class="mui-table-view-cell"><a href="#">1注</a></li>
+            <li class="mui-table-view-cell"><a href="#">5注</a></li>
+            <li class="mui-table-view-cell"><a href="#">10注</a></li>
+        </ul>
+    </div>
+    <script src="../../libs/vue.min.js"></script>
+    <script src="../../libs/layer_mobile/layer.js"></script>
+    <script src="../../mui/js/mui.min.js"></script>
+    <script>
+        var Ball = function() {
+            this.redBalls = []
+            this.blueBalls = []
+        }
+        Ball.prototype = {
+            append: function(redBalls, blueBalls) {
+                // slice 方法实现数组的深拷贝
+                var _redBalls = redBalls.slice(0)
+                var _blueBalls = blueBalls.slice(0)
+                var red = new Array()
+                var blue = new Array()
+                var j = 35
+
+                // 生成5红
+                for (var i = 0; i < 5; i++) {
+                    var index = Math.round(Math.random() * j)
+                    var temp = _redBalls.splice(index - 1, 1)
+                    red.push(temp[0])
+                    j--
+                }
+
+                // 生成2蓝
+                var m = 12
+                for(var n = 0; n < 2; n ++){
+                    var index = Math.round(Math.random() * m)
+                    var temp = _blueBalls.splice(index - 1, 1)
+                    blue.push(temp[0])
+                    m --
+                }
+
+                return {
+                    r: red,
+                    b: blue
+                }
+            }
+        }
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                show: false,
+                startY: 0,
+                endY: 0,
+                slideTrans: '',
+                slideDistance: 0,
+                totalNum: 0,
+                totalMoney: 0,
+                totalNumCode: 0,
+                totalMoneyCode: 0,
+                isEmpty: true,
+                isValidated: false,
+                type: 0, // 0为普通投注， 1为拖码投注，待优化为1个js类,
+                warning: '',
+                arrPastTerm: [{
+                        term: '061期',
+                        redball: '09 10 11 12 18 23',
+                        blueball: '07'
+                    }, {
+                        term: '062期',
+                        redball: '02 18 19 24 25 33',
+                        blueball: '11'
+                    }, {
+                        term: '063期',
+                        redball: '05 06 10 16 20 25',
+                        blueball: '12'
+                    }, {
+                        term: '064期',
+                        redball: '02 05 10 11 17 21',
+                        blueball: '05'
+                    }, {
+                        term: '065期',
+                        redball: '01 04 06 14 28 33',
+                        blueball: '01'
+                    },
+                    {
+                        term: '066期',
+                        redball: '09 16 17 19 22 26',
+                        blueball: '10'
+                    }, {
+                        term: '067期',
+                        redball: '01 04 09 12 15 18',
+                        blueball: '05'
+                    }, {
+                        term: '068期',
+                        redball: '08 10 17 20 27 30',
+                        blueball: '01'
+                    }, {
+                        term: '069期',
+                        redball: '06 13 17 19 23 31',
+                        blueball: '12'
+                    }, {
+                        term: '070期',
+                        redball: '04 09 15 16 19 27',
+                        blueball: '10'
+                    },
+                ],
+                arrRedBalls: [{
+                    num: '01',
+                    selected: false
+                }, {
+                    num: '02',
+                    selected: false
+                }, {
+                    num: '03',
+                    selected: false
+                }, {
+                    num: '04',
+                    selected: false
+                }, {
+                    num: '05',
+                    selected: false
+                }, {
+                    num: '06',
+                    selected: false
+                }, {
+                    num: '07',
+                    selected: false
+                }, {
+                    num: '08',
+                    selected: false
+                }, {
+                    num: '09',
+                    selected: false
+                }, {
+                    num: '10',
+                    selected: false
+                }, {
+                    num: '11',
+                    selected: false
+                }, {
+                    num: '12',
+                    selected: false
+                }, {
+                    num: '13',
+                    selected: false
+                }, {
+                    num: '14',
+                    selected: false
+                }, {
+                    num: '15',
+                    selected: false
+                }, {
+                    num: '16',
+                    selected: false
+                }, {
+                    num: '17',
+                    selected: false
+                }, {
+                    num: '18',
+                    selected: false
+                }, {
+                    num: '19',
+                    selected: false
+                }, {
+                    num: '20',
+                    selected: false
+                }, {
+                    num: '21',
+                    selected: false
+                }, {
+                    num: '22',
+                    selected: false
+                }, {
+                    num: '23',
+                    selected: false
+                }, {
+                    num: '24',
+                    selected: false
+                }, {
+                    num: '25',
+                    selected: false
+                }, {
+                    num: '26',
+                    selected: false
+                }, {
+                    num: '27',
+                    selected: false
+                }, {
+                    num: '28',
+                    selected: false
+                }, {
+                    num: '29',
+                    selected: false
+                }, {
+                    num: '30',
+                    selected: false
+                }, {
+                    num: '31',
+                    selected: false
+                }, {
+                    num: '32',
+                    selected: false
+                }, {
+                    num: '33',
+                    selected: false
+                }, {
+                    num: '34',
+                    selected: false
+                }, {
+                    num: '35',
+                    selected: false
+                }],
+                arrBlueBalls: [{
+                    num: '01',
+                    selected: false
+                }, {
+                    num: '02',
+                    selected: false
+                }, {
+                    num: '03',
+                    selected: false
+                }, {
+                    num: '04',
+                    selected: false
+                }, {
+                    num: '05',
+                    selected: false
+                }, {
+                    num: '06',
+                    selected: false
+                }, {
+                    num: '07',
+                    selected: false
+                }, {
+                    num: '08',
+                    selected: false
+                }, {
+                    num: '09',
+                    selected: false
+                }, {
+                    num: '10',
+                    selected: false
+                }, {
+                    num: '11',
+                    selected: false
+                }, {
+                    num: '12',
+                    selected: false
+                }, ],
+                arrRedBallsCode1:[{num:'01',selected:false},{num:'02',selected:false},{num:'03',selected:false},{num:'04',selected:false},{num:'05',selected:false},{num:'06',selected:false},{num:'07',selected:false},{num:'08',selected:false},{num:'09',selected:false},{num:'10',selected:false},{num:'11',selected:false},{num:'12',selected:false},{num:'13',selected:false},{num:'14',selected:false},{num:'15',selected:false},{num:'16',selected:false},{num:'17',selected:false},{num:'18',selected:false},{num:'19',selected:false},{num:'20',selected:false},{num:'21',selected:false},{num:'22',selected:false},{num:'23',selected:false},{num:'24',selected:false},{num:'25',selected:false},{num:'26',selected:false},{num:'27',selected:false},{num:'28',selected:false},{num:'29',selected:false},{num:'30',selected:false},{num:'31',selected:false},{num:'32',selected:false},{num:'33',selected:false}],
+                arrRedBallsCode2: [{num:'01',selected:false},{num:'02',selected:false},{num:'03',selected:false},{num:'04',selected:false},{num:'05',selected:false},{num:'06',selected:false},{num:'07',selected:false},{num:'08',selected:false},{num:'09',selected:false},{num:'10',selected:false},{num:'11',selected:false},{num:'12',selected:false},{num:'13',selected:false},{num:'14',selected:false},{num:'15',selected:false},{num:'16',selected:false},{num:'17',selected:false},{num:'18',selected:false},{num:'19',selected:false},{num:'20',selected:false},{num:'21',selected:false},{num:'22',selected:false},{num:'23',selected:false},{num:'24',selected:false},{num:'25',selected:false},{num:'26',selected:false},{num:'27',selected:false},{num:'28',selected:false},{num:'29',selected:false},{num:'30',selected:false},{num:'31',selected:false},{num:'32',selected:false},{num:'33',selected:false}],
+                arrBlueBallsCode:[{num:'01',selected:false},{num:'02',selected:false},{num:'03',selected:false},{num:'04',selected:false},{num:'05',selected:false},{num:'06',selected:false},{num:'07',selected:false},{num:'08',selected:false},{num:'09',selected:false},{num:'10',selected:false},{num:'11',selected:false},{num:'12',selected:false},{num:'13',selected:false},{num:'14',selected:false},{num:'15',selected:false},{num:'16',selected:false},],
+            },
+            mounted: function() {},
+            methods: {
+                touchStart: function(e) {
+                    if (e.touches.length == 1) {
+                        // 记录开始位置
+                        this.startY = e.touches[0].clientY;
+                    }
+                },
+                touchMove: function(e) {
+                    var d = e.changedTouches[0].clientY - this.startY
+                    if (d >= 0) {
+                        this.slideDistance = d
+                    } else {
+                        if (this.slideDistance > 0) {
+                            var t = document.getElementById('layer-recent').offsetHeight
+                            this.slideDistance = t + d
+                        }
+
+                    }
+                    this.slideTrans = "transform:translateY(" + this.slideDistance + "px);"
+                },
+                touchEnd: function(e) {
+                    var endY = e.changedTouches[0].clientY;
+                    this.disY = endY - this.startY;
+
+                    if ((this.disY >= 0 && this.disY <= 50)) {
+                        //如果距离小于删除按钮一半,强行回到起点
+                        this.slideTrans = "transform:translateY(0px); transition: ." + this.disY + "s linear;"
+
+                    } else if (this.disY > 50) {
+                        //大于一半 滑动到最大值
+                        this.slideDistance = document.getElementById('layer-recent').offsetHeight
+                        this.slideTrans = "transform:translateY(" + this.slideDistance + "px); transition: ." + this.slideDistance + "s linear; "
+                       
+                    } else {
+                        var t = document.getElementById('layer-recent').offsetHeight
+                        this.slideDistance = 0
+                        this.slideTrans = "transform:translateY(" + this.slideDistance + "px); transition: ." + t + "s linear; "
+                        
+                    }
+                    
+                },
+                /**
+                 * 递归求下注数
+                 */
+                recurs: function(n) {
+                    if (n > 7)
+                        return parseInt(n / (n - 6) * this.recurs(n - 1))
+                    else if (n == 7)
+                        return 7
+                    else if (n == 6)
+                        return 1
+                    else
+                        return 0
+                },
+                /**
+                 * 计算注数和钱数
+                 */
+                calculate: function(tempRedNum, tempBlueNum) {
+                    if (tempRedNum >= 6 && tempBlueNum >= 1) {
+                        this.totalNum = this.recurs(tempRedNum) * tempBlueNum
+                        this.totalMoney = this.totalNum * 2
+                    } else {
+                        this.totalNum = 0
+                        this.totalMoney = 0
+                    }
+                },
+                /***
+                 * 点选
+                 */
+                select: function(o, type, e) {
+                    e.target.style.transitionDelay = 'unset'
+                    e.target.style.WebkitTransitionDelay = 'unset'
+
+                    // 获取已选中红球或蓝球的个数
+                    function getNum(arr) {
+                        var n = new Number()
+                        arr.forEach(function(el) {
+                            if (el.selected == true)
+                                n++
+                        })
+                        if (n != undefined)
+                            return n
+                    }
+                    o.selected = !o.selected
+                    var tempRedNum = getNum(this.arrRedBalls)
+                    var tempBlueNum = getNum(this.arrBlueBalls)
+                    this.calculate(tempRedNum, tempBlueNum)
+
+                    // 是否选中一个红球或蓝球
+                    this.isEmpty = this.isSelectOne()
+                },
+
+                /**
+                 * 机选
+                 */
+                machineSelect: function() {
+                    var target = new Ball().append(this.arrRedBalls, this.arrBlueBalls)
+                    console.log('target:', target)
+                    // 红球渲染
+                    this.arrRedBalls.forEach(function(item, index) {
+                        item.selected = false
+                        for (var i = 0; i < target.r.length; i++)
+                            if (target.r[i].num == item.num) {
+                                item.selected = true
+                            }
+                    })
+
+                    // 蓝球渲染    
+                    this.arrBlueBalls.forEach(function(item, index) {
+                        item.selected = false
+                        for (var i = 0; i < target.b.length; i++)
+                            if (target.b[i].num == item.num) {
+                                item.selected = true
+                            }
+                    })
+
+                    this.calculate(6, 1)
+
+                    // 动画
+                    var balls = document.querySelectorAll('.ball')
+                    for (var i = 0; i < balls.length; i++) {
+                        balls[i].style.transitionDelay = +i / 100 + 's'
+                        balls[i].style.WebkitTransitionDelay = +i / 100 + 's'
+                    }
+
+                    // 是否选中一个红球或蓝球
+                    this.isEmpty = this.isSelectOne()
+                },
+
+                /**
+                 * 判断是否选中1个红球或1个蓝球，以切换底部相应菜单
+                 */
+                isSelectOne: function() {
+                    var that = this
+                    that.arrRedBalls.forEach(function(item, index) {
+                        if (item.selected === true)
+                            that.isEmpty = false
+                    })
+                    that.arrBlueBalls.forEach(function(item, index) {
+                        if (item.selected === true)
+                            that.isEmpty = false
+                    })
+                    if (that.isEmpty)
+                        return true
+                    else
+                        return false
+
+                },
+
+                /**
+                 * 清空
+                 */
+                clear: function() {
+                    try {
+                        for (var i = 0; i < arguments.length; i++) {
+                            arguments[i].forEach(function(item) {
+                                item.selected = false
+                            })
+                        }
+                        this.isEmpty = this.isSelectOne
+                    } catch (e) {
+                        consol.log(e.message)
+                    }
+                }
+
+            }
+        })
+
+        // 收起弹层
+        document.getElementById('app').ontouchmove = function() {
+            vm.$data.show = false 
+        }
+
+
+        // =====================================================
+        // 彩票类
+        // =====================================================
+        CcpClient.extend= function(subClass, superClass) {
+            function F() {}
+            F.prototype = superClass.prototype
+            subClass.prototype = new F()
+            subClass.protottype.constructor = subClass
+        }
+
+        CcpClient.Lottery = function (){
+            this.type = '彩票'
+        }
+        CcpClient.Lottery.prototype = {
+            set: function () {},
+            get: function () {}
+        }
+        
+        // 双色球子类
+        var TwoColorBallLottery = function (type, term, num) {
+            this.type = type
+            this.term = term
+            this.num = num
+        }
+        TwoColorBallLottery.prototype = {
+            // recurs: function () {
+            //     if (n > 7)
+            //         return parseInt(n / (n - 6) * this.recurs(n - 1))
+            //     else if (n == 7)
+            //         return 7
+            //     else if (n == 6)
+            //         return 1
+            //     else
+            //         return 0
+            // },
+            select: function (o, type, e) {
+                e.target.style.transitionDelay = 'unset'
+                e.target.style.WebkitTransitionDelay = 'unset'
+                // 获取已选中红球或蓝球的个数
+                function getNum(arr) {
+                    var n = new Number()
+                    arr.forEach(function (el) {
+                        if (el.selected == true)
+                            n++
+                    })
+                    if (n != undefined)
+                        return n
+                }
+
+                o.selected = !o.selected
+
+                var tempRedNumCode1 = getNum(vm.$data.arrRedBallsCode1)
+                var tempRedNumCode2 = getNum(vm.$data.arrRedBallsCode2)
+                var tempBlueNumCode = getNum(vm.$data.arrBlueBallsCode)
+                
+                
+                // 满足选中任意一个求，改变底部菜单
+                if((tempRedNumCode1 !=0 || tempRedNumCode2 !=0 || tempBlueNumCode !=0)) {
+                    vm.$data.isValidated = true
+                } else {
+                    vm.$data.isValidated = false
+                }
+                
+                // 比较已选中的胆码与拖码的数字，去重
+                function unique(arr){
+                    arr.forEach(function(item){
+                        if(item.num === o.num)
+                            item.selected = false
+                    })
+                }
+
+                function recurs(n, n1, n2) {
+                    //     2 3 4 5 6 7     
+                    //     3 6 10 15 21    an = (1/2)n(n+1)
+                    //     4 10 20 35 56   an = n*(n+1)*(n+2)/6
+                    //     5 15 35 70 126  an = (1/24)n(n-1)(n-2)(n-3)
+                    //     6 21 56 126 252
+                    // }
+                    if(n1 === 5 && n >=2){
+                        return n*n2                        
+                    }
+                    else if((n1 === 4 ) && (n >= 3)) {
+                        // console.log((1/2)*(n-1)*n)
+                        return (1/2)*(n-1)*n*n2
+                    }
+                    else if((n1 === 3 ) && (n >= 4)) {
+                        // console.log((n-2)*(n-1)*n/6)
+                        return (n-2)*(n-1)*n/6*n2
+                    }
+                    else if((n1 === 2) && (n >= 5)) {
+                        // console.log( Math.round( (1/24)*n*(n-1)*(n-2)*(n-3)) )
+                        return Math.round( (1/24)*n*(n-1)*(n-2)*(n-3))*n2
+                    }
+                    else if((n1 === 1) && (n >= 6)) {
+                        // console.log(  + Math.round( (1/24)*n*(n-1)*(n-2)*(n-3)*(n-4)/5)*n2  )
+                        return Math.round( (1/24)*n*(n-1)*(n-2)*(n-3)*(n-4)/5)*n2 
+                    }
+                           
+                }
+
+                if(type === 0) {
+                    unique(vm.$data.arrRedBallsCode2)
+                    tempRedNumCode1 = getNum(vm.$data.arrRedBallsCode1)
+                    tempRedNumCode2 = getNum(vm.$data.arrRedBallsCode2)
+                    tempBlueNumCode = getNum(vm.$data.arrBlueBallsCode)
+                } else if(type === 1) {
+                    unique(vm.$data.arrRedBallsCode1)
+                    tempRedNumCode1 = getNum(vm.$data.arrRedBallsCode1)
+                    tempRedNumCode2 = getNum(vm.$data.arrRedBallsCode2)
+                    tempBlueNumCode = getNum(vm.$data.arrBlueBallsCode)
+                }
+                    
+
+                    
+                
+                // 提示信息
+                // 验证胆码，拖码，和蓝球个数
+                if(tempRedNumCode1 > 5 && type === 0){
+                    layer.open({
+                        content: '最多只能选5个红球胆码'
+                        ,skin: 'msg'
+                        ,time: 1 //2秒后自动关闭
+                    });
+                    o.selected = false
+                } 
+                else if(tempRedNumCode1 < 1 || tempRedNumCode2 < 2 || tempBlueNumCode < 1){
+                    vm.$data.warning = '请至少选择1注'
+                } 
+                else if((tempRedNumCode1+tempRedNumCode2)<7){
+                    vm.$data.warning = '请至少选择1注'
+                }
+                else {
+                    vm.$data.warning = ''
+                    vm.$data.totalNumCode = parseInt(Math.round(recurs(tempRedNumCode2, tempRedNumCode1, tempBlueNumCode)))
+                    vm.$data.totalMoneyCode = vm.$data.totalNumCode *2
+                }
+                
+                // this.calculate(tempRedNum, tempBlueNum)
+
+                // 是否选中一个红球或蓝球
+                // this.isEmpty = this.isSelectOne()
+            },
+            validate: function (){},
+            // calculate: function (tempRedNum, tempBlueNum) {
+            //     if (tempRedNum >= 6 && tempBlueNum >= 1) {
+            //         this.totalNum = this.recurs(tempRedNum) * tempBlueNum
+            //         this.totalMoney = this.totalNum * 2
+            //     } else {
+            //         this.totalNum = 0
+            //         this.totalMoney = 0
+            //     }
+            // },
+            append: function (str, flag) {
+                if (flag === true) {
+                    if (str != '') {
+                        // fail
+                        layer.open({
+                            content: str
+                            , skin: 'msg'
+                            , time: 1 //2秒后自动关闭
+                        });
+                        return false
+                    } else {
+                        // pass
+                        window.location.href = 'bet-confirm.html'
+                    }
+                } else {
+                    // 未选择任何球
+                    layer.open({
+                        content: '请至少选择1注'
+                        , skin: 'msg'
+                        , time: 1 //2秒后自动关闭
+                    });
+                    return false
+                }
+                
+            }
+        }
+
+        var twoColorBallLottery= new TwoColorBallLottery()
+    </script>
+
+</body>
+
+</html>

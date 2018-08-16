@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../../mui/css/mui.min.css">
+    <link rel="stylesheet" href="../../libs/swiper.min.css">
+    <link rel="stylesheet" href="../../app.css" />
+    <link rel="stylesheet" href="mine.css">
+    <script src="../../app.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <header class="title">
+            <a class="mui-action-back mui-icon mui-icon-left-nav" id="back"></a>
+            <span>个人信息</span>
+        </header>
+        <main class="container">
+            <div class="table-view">
+                <div class="entry arrow-r3">
+                    <div class="entry-link flex">
+                        <div class="ebox-txt">头像</div>
+                        <div class="avatar-box margr40">
+                            <img src="../../images/avatar-demo1.png" alt="" class="img-responsive">
+                        </div>
+                    </div>
+                </div>
+                <div class="entry arrow-r3">
+                    <div class="entry-link" @click="show = !show">
+                        <span class="ebox-txt ncname">昵称</span>
+                        <span class="fr margr40" v-text="nickName">待补全</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <section :class="show ===true ? 'layer-mask active' : 'layer-mask'"  @click="show = !show"></section>
+
+            <form action="">
+                <section :class="show === true ? 'layer-setname active' : 'layer-setname'">
+                    <h1 class="txt-center font32 paddv48">给自己起个喜欢的昵称</h1>
+                    <div class="w84">
+                        <input type="text" v-model="nickName" class="input-name" placeholder="请勿以手机号/真实姓名为昵称">
+                        <p class="font28 margb32">昵称起好后不能再修改哦~</p>
+                        <div class="btn-confirm-group">
+                            <button class="btn-cancel" type="button" @click="show = !show">取消</button>
+                            <button class="btn-confirm fr" type="button" @click="show = !show">确认</button>
+                        </div>
+                    </div>
+                </section>
+            </form>
+ 
+    </div>
+    <script src="../../libs/vue.min.js"></script>
+    <script src="../../libs/swiper.min.js"></script>
+    <script src="../../mui/js/mui.min.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                show: false,
+                nickName: '待补全',
+            },
+            methods: {
+            },
+            mounted: function() {
+            },
+        })
+    </script>
+
+</body>
+
+</html>

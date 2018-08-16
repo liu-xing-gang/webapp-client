@@ -1,0 +1,326 @@
+@charset "utf-8";
+.activities{
+    margin: 0 .2rem;
+}
+
+.activities li{
+    margin-top: .2rem;
+    padding: .2rem;
+    background: #fff;
+}
+
+.activities .activity-box{
+    margin-bottom: .16rem;
+}
+
+.btn-to-index{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 1rem;
+    margin: auto;
+    color: #fff!important;
+}
+/* 追号列表 */
+
+.a-list{
+    line-height: 1.4;
+}
+
+.a-list .a-list-item{
+    margin-bottom: .2rem;
+    border-bottom: 1px dashed #e5e5e5;
+    background-color: #fff;
+}
+
+.a-list .a-header{
+    padding: .2rem .3rem;
+    border-bottom: 1px solid #e5e5e5;
+    font-size: .32rem;
+    color: #333;
+}
+
+.a-list .a-i{
+    font-size: .28rem;
+    color: #666;
+}
+
+.a-list .t-box{
+    width: .9rem; height: .9rem;
+    overflow: hidden;
+}
+
+.a-list .a-main li{
+    display: table; width: 6.9rem;
+    margin: 0 .3rem;
+    padding: .2rem 0;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.a-list .a-main li:last-child{
+    border: none;
+}
+
+.table-cell{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.a-list .t-title{
+    margin-bottom: .06rem;
+    font-size: .32rem;
+    color: #303030;
+} 
+
+.a-list .t-action{
+    width: 1.1rem;
+    padding: .04rem;
+    font-size: .24rem;
+    text-align: center;
+    background-color: #f60049;
+    color: #fff;
+    border-radius: .15rem;
+    -webkit-border-radius: .15rem;
+    -moz-border-radius: .15rem;
+    -ms-border-radius: .15rem;
+    -o-border-radius: .15rem;
+    display: inline-block;
+    position: relative;
+}
+
+.a-list .t-progress{
+    position: relative;
+    width: 1.1rem;
+    height: .12rem;
+    background-color: #d9d9d9;
+    border-radius: .06rem;
+    -webkit-border-radius: .06rem;
+    -moz-border-radius: .06rem;
+    -ms-border-radius: .06rem;
+    -o-border-radius: .06rem;
+    overflow: hidden;
+}
+
+.a-list .t-progress .t-progress-val{
+    position: absolute;
+    height: 100%;
+    background-color: #f98548;
+    transition: background .3s ease;
+    -webkit-transition: background .3s ease;
+    -moz-transition: background .3s ease;
+    -ms-transition: background .3s ease;
+    -o-transition: background .3s ease;
+}
+
+.a-list .t-sub-title, .a-list .t-percent{
+    font-size: .28rem;
+    color: #999;
+}
+.table-cell:last-child{
+    text-align: right;
+}
+
+.btn-highlight{
+    padding: .04rem;
+    color: #fff;
+    background-color: #f28639;
+}
+
+/* 追号页 */
+.tip{
+    width: 5.1rem; margin: .9rem auto .56rem; padding-left: .9rem;
+    font-size: .44rem; line-height: 1;
+    color: #fff;
+    background: url(../../images/icon-detail-checked.png) no-repeat left center;
+    background-size: contain;
+}
+
+.bg-1{
+    background: url(../../images/bg-1.jpg) no-repeat;
+    background-size: cover;
+}
+
+.main-form{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 6.9rem;
+    height: 4.24rem;
+    margin: auto;
+    padding: .48rem;
+    background-color: #fff;
+    border-radius: .1rem;
+    -webkit-border-radius: .1rem;
+    -moz-border-radius: .1rem;
+    -ms-border-radius: .1rem;
+    -o-border-radius: .1rem;
+}
+
+.main-form .table-cell{
+    text-align: justify;
+}
+
+.main-form .mf-box{
+    width: 1rem;
+    height: 1rem;
+    margin-right: .24rem;
+    overflow: hidden;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+.main-form .mf-name{
+    margin-bottom: .2rem;
+    font-size: .32rem;
+    color: #333;
+}
+
+.main-form .mf-subname{
+    font-size: .28rem;
+    color: #999;
+}
+
+.chase-protocol{
+    position: absolute; left: auto; right: auto;
+    bottom: .46rem;
+    width: 100%; max-width: 750px;
+}
+
+.chase-protocol img{
+    width: .28rem; height: .28rem;
+    vertical-align: middle;
+}
+
+.random-number{
+    display: table;
+    width: 100%; margin-top: .36rem;
+}
+
+.random-number li{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.random-number li:last-child{
+    border-left: 1px solid #ddd;
+}
+
+.random-number .r-number{
+    width: .64rem;
+    height: .64rem;
+    margin: 0 auto;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    color: #d91d36;
+    border: 1px solid #d91d36;
+    text-align: center;
+    line-height: .64rem;
+}
+
+.random-number .r-number-blue{
+    border: 1px solid #71a5cc;
+    color: #71a5cc;
+}
+
+.btn-group-act{
+    margin-top: .4rem;
+}
+
+.btn-group-act button{
+    color: #d91d36;
+    border:1px solid#d91d36;
+}
+
+.btn-group-act button.active{
+    background-color: #d91d36;
+    color: #fff;
+}
+
+.btn-another{
+    width: 1.8rem;
+}
+
+.btn-pay{
+    width: 3.8rem;
+}
+
+.bt-view-rules{
+    position: relative;
+    right: .3rem;
+    float: right;
+    display: block;
+    width: .8rem; height: .48rem;
+    font-size: .28rem; text-align: center; line-height: .48rem;
+    background-color: #fcd85e;
+    color: #683f04;
+}
+
+.bt-view-rules::after{
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -.32rem;
+    width: 100%;
+    height: .32rem;
+    border-radius: 0 0 .32rem .32rem;
+    -webkit-border-radius: 0 0 .32rem .32rem;
+    -moz-border-radius: 0 0 .32rem .32rem;
+    -ms-border-radius: 0 0 .32rem .32rem;
+    -o-border-radius: 0 0 .32rem .32rem;
+    background: #fcd85e url(../../images/icon-trangle-d1.png) no-repeat center;
+    background-size: .4rem .4rem;
+}
+
+.rules{
+    position: absolute;
+    left: auto;
+    right: auto;
+    width: 100%;
+    max-width: 750px;
+    z-index: 4;
+    transition: .3s ease;
+    -webkit-transition: .3s ease;
+    -moz-transition: .3s ease;
+    -ms-transition: .3s ease;
+    -o-transition: .3s ease;
+}
+
+.rule-cont{
+    background-color: #fcd85e;
+    color: #333;
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transition:height .3s ease, opacity .3s ease, visibility .3s ease;
+    -webkit-transition:height .3s ease, opacity .3s ease, visibility .3s ease;
+    -moz-transition:height .3s ease, opacity .3s ease, visibility .3s ease;
+    -ms-transition:height .3s ease, opacity .3s ease, visibility .3s ease;
+    -o-transition:height .3s ease, opacity .3s ease, visibility .3s ease;
+}
+
+.active .bt-view-rules::after{
+    background: #fcd85e url(../../images/icon-trangle-d2.png) no-repeat center;
+    background-size: .4rem .4rem;
+}
+
+.active .rule-cont{
+    padding: .36rem .64rem;
+    height: auto;
+    opacity: 1;
+    visibility: visible;
+}
+
+.rules .rule-cont p{
+    margin-top: .4rem;
+    line-height: 1.4;
+    color: inherit;
+}

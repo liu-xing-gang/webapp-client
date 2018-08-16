@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../../mui/css/mui.min.css">
+    <link rel="stylesheet" href="../../libs/swiper.min.css">
+    <link rel="stylesheet" href="../../app.css" />
+    <link rel="stylesheet" href="activities.css">
+    <script src="../../app.js"></script>
+    <style>
+        html, body, #app, .container{
+            width: 100%;
+            max-width: 750px;
+            height: 100%;
+            margin: 0 auto;
+        }
+
+        body{
+            background: linear-gradient(90deg, #eb6100, red);
+            background: -webkit-linear-gradient(90deg, #eb6100, red)
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <header class="title">
+            <a class="mui-action-back mui-icon mui-icon-left-nav" id="back"></a>
+            <a href="../../index.html" class="btn-to-index"><span>关闭</span></a>
+            <span>天天购</span>
+        </header>
+        <main class="container">
+            <section :class="showRules === true ? 'rules active' : 'rules'">
+                <div class="rule-cont">
+                    <h1 class="txt-center font32">活动规则</h1>
+                    <p>1.请直接从本页面进行追号下单，不在本页面下单的订单不可获得红包；</p>
+                    <p>
+                        2.追号套餐限定份数，先到先得。同一用户可以购买任意套餐；
+                    </p>
+                    <p>
+                        3.追号结束后如不中奖，则在最后一期开奖的3个工作日内，返还指定金额的红包；
+                    </p>
+                    <p>
+                        4.红包不可提现，有效期及适用范围以红包具体详情为准；
+                    </p>
+                    <p>
+                        5.追号期间，中途取消追号视为放弃参与活动；
+                    </p>
+                    <p>
+                        6.不中奖是指，追号期间所有期次均不中奖。追号过程中任意期次中任意奖，均无法获得红包；
+                    </p>
+                    <p>
+                        7.本活动最终解释权归“天天爱彩票所有”。
+                    </p>
+                </div>
+                <div class="bt-view-rules" @click="showRules = !showRules">规则</div>
+
+            </section>
+           <section class="tip">恭喜你抢到购买资格</section>
+           <section class="txt-center font32 color0">追号更易中 不中返红包</section>
+           <section class="main-form">
+                <div class="table">
+                    <div class="table-cell">
+                        <div class="mf-box">
+                            <img src="../../images/p1.png" alt="" class="img-responsive">
+                        </div>
+                    </div>
+                    <div class="table-cell">
+                        <h1 class="mf-name">6期</h1>
+                        <h2 class="mf-subname">
+                            <span>中奖率<i>31%</i></span>
+                            <span>不中立返<i>1元</i>直减券</span>
+                        </h2>
+                    </div>
+                </div>
+                <ul class="random-number clearfloat">
+                    <li>
+                        <div class="r-number">03</div>
+                    </li>
+                    <li>
+                        <div class="r-number">10</div>
+                    </li>
+                    <li>
+                        <div class="r-number">18</div>
+                    </li>
+                    <li>
+                        <div class="r-number">25</div>
+                    </li>
+                    <li>
+                        <div class="r-number">26</div>
+                    </li>
+                    <li>
+                        <div class="r-number">29</div>
+                    </li>
+                    <li>
+                        <div class="r-number r-number-blue">14</div>
+                    </li>
+                </ul>
+                <div class="btn-group-act">
+                    <button class="btn-another" @click="getAnother">换一组</button>
+                    <button class="btn-pay active">马上付款 抓住大奖</button>
+                </div>
+           </section>
+           <section class="chase-protocol txt-center">
+               <a href="" class="font24 color0"><img src="../../images/icon-checked-1.png" alt=""> 我已阅读并同意 <<投注规则>></a>
+           </section>
+        </main>
+    </div>
+    <script src="../../libs/vue.min.js"></script>
+    <script src="../../libs/swiper.min.js"></script>
+    <script src="../../mui/js/mui.min.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                showRules: false,
+                arrAni: [],
+            },
+            methods: {
+                getAnother: function () {
+                    var arr = new Array()
+                    for(var i = 1; i <= 7; i ++){
+                        arr.push(Math.random().toFixed(1)*100*360)
+                    }
+                    var els = document.querySelectorAll('.r-number')
+                    els.forEach(function(item, index){
+                        item.style.transition=.5*Math.random().toFixed(1)*10+'s ease'
+                        item.style.WebkitTransition=.5*Math.random().toFixed(1)*10+'.5s ease'
+
+                        item.style.transform='rotate('+arr[index]+'deg)'
+                        item.style.WebkitTransform='rotate('+arr[index]+'deg)'
+                        
+                        setTimeout(function(){
+                            item.innerText = Math.random().toFixed(1)*10
+                        }, 200)
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

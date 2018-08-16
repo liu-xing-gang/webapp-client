@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../../mui/css/mui.min.css">
+    <link rel="stylesheet" href="../../libs/swiper.min.css">
+    <link rel="stylesheet" href="../../app.css" />
+    <link rel="stylesheet" href="mine.css">
+    <script src="../../app.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <header class="title">
+            <a class="mui-action-back mui-icon mui-icon-left-nav" id="back"></a>
+            <span>我的账户</span>
+        </header>
+        <main class="container">
+            <section class="account">
+                <ul class="vessel">
+                    <li>账户余额 (元)</li>
+                    <li><span class="my-balance">1.00</span></li>
+                    <li>
+                        <span>可用余额 (元)：</span>
+                        <span class="my-balance-available">1.00</span>
+                        <img src="../../images/icon-doubt-blue.png" alt="" class="icon-doubt-blue"></li>
+                    <li>
+                        <button class="active" onclick="window.location.href='../payment/recharge.html'">充值</button>
+                        <button class="fr" onclick="window.location.href='../payment/cash.html'">提现</button>
+                    </li>
+                </ul>
+            </section>
+            <section class="table-view margt32">
+                <div class="entry arrow-r3">
+                    <a href="auth-info.html" class="entry-link">
+                        <div class="inline-block ebox"><img src="../../images/icon-user1.png" alt=""></div>
+                        <div class="inline-block ebox-txt">身份认证</div>
+                    </a>
+                </div>
+                <div class="entry arrow-r3">
+                    <a href="../payment/cash.html" class="entry-link">
+                        <div class="inline-block ebox"><img src="../../images/icon-bank-card.png" alt=""></div>
+                        <div class="inline-block ebox-txt">提现银行卡信息</div>
+                    </a>
+                </div>
+                <div class="entry arrow-r3">
+                    <a href="account-detail.html" class="entry-link">
+                        <div class="inline-block ebox"><img src="../../images/iocn-account-detail.png" alt=""></div>
+                        <div class="inline-block ebox-txt">账户明细</div>
+                    </a>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="../../libs/vue.min.js"></script>
+    <script src="../../libs/swiper.min.js"></script>
+    <script src="../../mui/js/mui.min.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                seconds: 120,
+                timer: null,
+                countdown: false,
+            },
+            methods: {
+                getCode: function(e) {
+                    this.timer = setInterval(() => {
+                        if (this.seconds <= 0) {
+                            clearInterval(this.timer)
+                            this.countdown = false
+                        }
+                        this.countdown = true
+                        this.seconds--
+                    }, 1000)
+                }
+            },
+            mounted: function() {
+
+            },
+
+        })
+
+        document.getElementById("btn-pay").addEventListener('tap', function() {
+            var btnArray = ['确定'];
+            mui.confirm('', '充值成功', btnArray, function(e) {
+                if (e.index == 1) {
+                    window.location.href = "../../index.html"
+                } else {
+                    window.location.href = "../mine/mine.html"
+                }
+            })
+        });
+    </script>
+
+</body>
+
+</html>

@@ -280,9 +280,83 @@ CcpClient.Drawing.prototype = {
         }
         ctx.stroke();
     }
-
-
 }
+
+/**
+* 倒计时
+*/
+CcpClient.CountDown = function () {
+   this.init.apply(this, arguments)
+}
+CcpClient.CountDown.prototype = {
+   init: function (seconds) {
+       this.timer = null
+       this.seconds = seconds
+
+       this.display(this.formatSeconds(this.seconds))
+       this.start()
+
+   },
+   start: function () {
+       var that = this
+       this.timer = setInterval(function () {
+           if (that.seconds <= 0) {
+               clearInterval(that.timer)
+               this.display(that.formatSeconds(0))
+               return
+           }
+           that.seconds--
+
+               that.display(that.formatSeconds(that.seconds))
+       }, 1000)
+   },
+   formatSeconds: function (value) {
+       var secondTime = parseInt(value); // 秒
+       var minuteTime = 0; // 分
+       var hourTime = 0; // 小时
+       if (secondTime > 60) { //如果秒数大于60，将秒数转换成整数
+           //获取分钟，除以60取整数，得到整数分钟
+           minuteTime = parseInt(secondTime / 60);
+           //获取秒数，秒数取佘，得到整数秒数
+           secondTime = parseInt(secondTime % 60);
+           //如果分钟大于60，将分钟转换成小时
+           if (minuteTime > 60) {
+               //获取小时，获取分钟除以60，得到整数小时
+               hourTime = parseInt(minuteTime / 60);
+               //获取小时后取佘的分，获取分钟除以60取佘的分
+               minuteTime = parseInt(minuteTime % 60);
+           }
+
+           // 最大是60
+           if (minuteTime === 60) {
+               hourTime = 1
+               minuteTime = 0
+           }
+       }
+       var result = "" + parseInt(secondTime) + "秒";
+
+       if (minuteTime > 0) {
+           result = "" + parseInt(minuteTime) + "分" + result;
+       }
+       if (hourTime > 0) {
+           result = "" + parseInt(hourTime) + "小时" + result;
+       }
+       var obj = {}
+       obj.h = parseInt(hourTime)
+       obj.m = parseInt(minuteTime)
+       obj.s = parseInt(secondTime)
+       return obj;
+   },
+   display: function (obj) {
+       var arrSpan = document.querySelectorAll('.countdown')
+       arrSpan[0].innerText = obj.h < 10 ? '0' + obj.h : '' + obj.h
+       arrSpan[1].innerText = obj.m < 10 ? '0' + obj.m : '' + obj.m
+       arrSpan[2].innerText = obj.s < 10 ? '0' + obj.s : '' + obj.s
+   }
+}
+
+   
+
 
 
 // 调用
